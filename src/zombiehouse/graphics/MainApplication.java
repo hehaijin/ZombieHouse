@@ -64,8 +64,8 @@ public class MainApplication extends Application
   private static final double TILE_WIDTH_AND_HEIGHT = 400;
   private static final double WALL_COLLISION_OFFSET = 0.25;
   
-  private static final int WINDOW_WIDTH = 800;
-  private static final int WINDOW_HEIGHT = 600;
+  private static final int WINDOW_WIDTH = 1260;
+  private static final int WINDOW_HEIGHT = 900;
   
   private static final int ZOMBIE_ACTIVATION_DISTANCE = 14;
   
@@ -483,8 +483,6 @@ public class MainApplication extends Application
             Player.yPosition += desiredZDisplacement * (percentOfSecond * Player.playerSpeed);
         }
         
-        //System.out.println("X:" + Player.xPosition + " Y:" + Player.yPosition);
-        
         // Calculate camera displacement
         cameraXDisplacement = Player.xPosition * TILE_WIDTH_AND_HEIGHT;
         cameraZDisplacement = Player.yPosition * TILE_WIDTH_AND_HEIGHT;
@@ -503,10 +501,9 @@ public class MainApplication extends Application
         // Rotate the camera
         camera.setRotate(cameraYRotation);
         
-        //System.out.println("Y:" + cameraYRotation);
-        
         // Used for movement and swivel smoothing
         InputContainer.remainingCameraPan -= PLAYER_TURN_SMOOTHING * InputContainer.remainingCameraPan;
+        
       }
       
       /**
@@ -555,8 +552,7 @@ public class MainApplication extends Application
       public void handle(long time) 
       {
 	if (frame == 0) lastFrame = time;
-        frame++;
-        System.out.println(frame);
+  	frame++;
 	double percentOfSecond = ((double)time - (double)lastFrame) / 2000000000;
   	movePlayerIfRequested(percentOfSecond);
   	
@@ -670,5 +666,5 @@ public class MainApplication extends Application
    * Main kept for legacy applications.
    * @param args Unused command-line arguments
    */
-  public static void main (String[] args) { launch(args);}
+  public static void main (String[] args) { launch(args); }
 }
