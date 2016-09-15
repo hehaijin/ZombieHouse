@@ -502,7 +502,7 @@ public class Zombie
       diffX = ((destTile.xCor*2) + 0.5) - this.positionX;
       diffY = ((destTile.yCor*2) + 0.5) - this.positionY;
       dist = Math.sqrt(((diffX) * (diffX)) + ((diffY) * (diffY)));
-      System.out.println("diffX = " + diffX + " diffY = " + diffY + " dist = " + dist);
+      //System.out.println("diffX = " + diffX + " diffY = " + diffY + " dist = " + dist);
       if (destTile.xCor > this.positionX) 
       {
         if (destTile.yCor > this.positionY) 

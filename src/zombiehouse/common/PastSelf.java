@@ -8,16 +8,29 @@ import java.util.List;
  */
 public class PastSelf
 {
-  private List<Integer> xPos;
-  private List<Integer> yPos;
-  private List<Integer> cameraPos;
+  private List<Double> xPos;
+  private List<Double> yPos;
+  private List<Double> cameraPos;
   
-  public PastSelf(List<Integer> xPos, List<Integer> yPos, List<Integer> cameraPos)
+  public PastSelf(List<Double> xPos, List<Double> yPos, List<Double> cameraPos)
   {
     this.xPos = xPos;
     this.yPos = yPos;
     this.cameraPos = cameraPos;
   }
   
+  public double getXPos(Integer frame)
+  {
+    return xPos.get(frame);
+  }
   
+  public double getYPos(Integer frame)
+  {
+    return yPos.get(frame);
+  }
+  
+  public double getCameraPos(Integer frame)
+  {
+    return cameraPos.get(frame);
+  }
 }
