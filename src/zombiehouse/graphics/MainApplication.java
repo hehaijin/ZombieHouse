@@ -60,8 +60,8 @@ public class MainApplication extends Application
   private static final double TILE_WIDTH_AND_HEIGHT = 400;
   private static final double WALL_COLLISION_OFFSET = 0.25;
   
-  private static final int WINDOW_WIDTH = 1260;
-  private static final int WINDOW_HEIGHT = 900;
+  private static final int WINDOW_WIDTH = 800;
+  private static final int WINDOW_HEIGHT = 600;
   
   private static final int ZOMBIE_ACTIVATION_DISTANCE = 14;
   
@@ -511,6 +511,7 @@ public class MainApplication extends Application
       xPos.add(Player.xPosition);
       yPos.add(Player.yPosition);
       cameraPos.add(cameraYRotation);
+      System.out.println("X:" + Player.xPosition + " Y:" + Player.yPosition + " Camera:" + cameraYRotation);
       
       // Used for movement and swivel smoothing
       InputContainer.remainingCameraPan -= PLAYER_TURN_SMOOTHING * InputContainer.remainingCameraPan;
@@ -586,9 +587,9 @@ public class MainApplication extends Application
             if (totalDistance < 0.3)
             {
               System.out.println("Restarting due to death!!");
+              pastSelf = new PastSelf(xPos, yPos, cameraPos, frame);
               level.restartLevel();
               rebuildLevel();
-              pastSelf = new PastSelf(xPos, yPos, cameraPos);
             }
             
             double desiredPositionX = zombie.positionX - (distanceX / totalDistance * LevelVar.zombieSpeed * percentOfSecond);
@@ -648,7 +649,6 @@ public class MainApplication extends Application
       // Rebuild level if requested. Done here to occur on graphics thread to avoid concurrent modification exceptions.
       if (shouldRebuildLevel)
       {
-        
         for (int i = 0; i < sceneRoot.getChildren().size(); i++)
         {
           if (sceneRoot.getChildren().get(i) instanceof Box || sceneRoot.getChildren().get(i) instanceof Zombie3D)
