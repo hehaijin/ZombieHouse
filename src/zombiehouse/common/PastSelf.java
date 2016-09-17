@@ -13,38 +13,40 @@ import java.util.List;
  */
 public class PastSelf
 {
-  private List<Double> xPos;
-  private List<Double> yPos;
-  private List<Double> cameraPos;
+  private List<Double> xPosition;
+  private List<Double> yPosition;
+  private List<Double> cameraPosition;
   private int deathFrame;
   public Sphere s;
+  public Zombie3D zombie3D;
 
-  
   public PastSelf(List<Double> xPos, List<Double> yPos, List<Double> cameraPos, int deathFrame)
   {
     PhongMaterial white = new PhongMaterial();
-    this.xPos = xPos;
-    this.yPos = yPos;
-    this.cameraPos = cameraPos;
+    this.xPosition = xPos;
+    this.yPosition = yPos;
+    this.cameraPosition = cameraPos;
     this.deathFrame = deathFrame;
     this.s = new Sphere(50);
     white.setDiffuseColor(Color.WHITE);
     s.setMaterial(white);
+    //zombie3D = new Zombie3D();
+    s.setTranslateY(-235);
   }
   
   public double getXPos(Integer frame)
   {
-    return xPos.get(frame);
+    return xPosition.get(frame);
   }
   
   public double getYPos(Integer frame)
   {
-    return yPos.get(frame);
+    return yPosition.get(frame);
   }
   
   public double getCameraPos(Integer frame)
   {
-    return cameraPos.get(frame);
+    return cameraPosition.get(frame);
   }
 
   public int getDeathFrame() { return deathFrame; }

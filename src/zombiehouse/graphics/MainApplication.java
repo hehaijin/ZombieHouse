@@ -49,6 +49,8 @@ public class MainApplication extends Application
   private double cameraZDisplacement = 0;
   
   private double cameraYRotation = 0;
+
+  private boolean forTest = true;
   
   private static final double TARGET_FRAMES_PER_SECOND = 60;
   
@@ -61,8 +63,8 @@ public class MainApplication extends Application
   private static final double TILE_WIDTH_AND_HEIGHT = 400;
   private static final double WALL_COLLISION_OFFSET = 0.25;
   
-  private static final int WINDOW_WIDTH = 1260;
-  private static final int WINDOW_HEIGHT = 900;
+  private static final int WINDOW_WIDTH = 800;
+  private static final int WINDOW_HEIGHT = 600;
   
   private static final int ZOMBIE_ACTIVATION_DISTANCE = 14;
   
@@ -140,6 +142,7 @@ public class MainApplication extends Application
     pl.setTranslateY(cameraYDisplacement);
     
     sceneRoot.getChildren().add(pl);
+
     
     // Create the camera, set it to view far enough for any reasonably-sized map
     camera = new PerspectiveCamera(true);
@@ -564,28 +567,25 @@ public class MainApplication extends Application
       
       double playerDirectionVectorX = Math.toDegrees(Math.cos(cameraYRotation));
       double playerDirectionVectorY = Math.toDegrees(Math.sin(cameraYRotation));
-      if(ps != null)
-      {
-        Sphere test = ps.s;
-        if ((frame - ps.getDeathFrame()) < ps.getDeathFrame() - 1)
-        {
-          test.setTranslateX(ps.getXPos(frame - ps.getDeathFrame()));
-          test.setTranslateZ(ps.getYPos(frame - ps.getDeathFrame()));
-        }
-      }
-     /* for (PastSelf ps : pastSelfCollection) {
-        Zombie3D test = ps.zombie3D;
-        if((frame - ps.getDeathFrame()) < ps.getDeathFrame() )
-        {
-          System.out.print("death frame" + ps.getDeathFrame());
-          test.setTranslateX(ps.getXPos(frame - ps.getDeathFrame()));
-          test.setTranslateZ(ps.getYPos(frame - ps.getDeathFrame()));
-        }
-      }*/
       
       // Animate zombies every four frames to reduce computational load
       if (frame % 4 == 0)
       {
+        for (PastSelf ps : pastSelfCollection) {
+          Sphere test = ps.s;
+          if(forTest) {
+            test.setLayoutX(Player.xPosition);
+            test.setLayoutY(Player.yPosition);
+            forTest = false;
+          }
+          if((frame - ps.getDeathFrame()) < ps.getDeathFrame() )
+          {
+            System.out.println("player=" +Player.xPosition + " ," + Player.yPosition);
+            System.out.println("ball=" + test.getLayoutX() + " ,"+ test.getLayoutY());
+            test.setLayoutX(ps.getXPos(frame - ps.getDeathFrame()));
+            test.setLayoutY(ps.getYPos(frame - ps.getDeathFrame()));
+          }
+        }
         for (Zombie zombie : LevelVar.zombieCollection)
         {
           Zombie3D zombie3D = zombie.zombie3D;
@@ -607,8 +607,7 @@ public class MainApplication extends Application
             if (totalDistance < 0.3)
             {
               System.out.println("Restarting due to death!!");
-              //pastSelfCollection.add(new PastSelf(xPos, yPos, cameraPos, frame));
-              //ps = new PastSelf(xPos, yPos, cameraPos, frame);
+              pastSelfCollection.add(new PastSelf(xPos, yPos, cameraPos, frame));
               //xPos.clear();
               //yPos.clear();
               //cameraPos.clear();
