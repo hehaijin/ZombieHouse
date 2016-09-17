@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
+import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import zombiehouse.audio.AudioFiles;
@@ -79,11 +80,12 @@ public class MainApplication extends Application
   private PointLight pl;
   private PerspectiveCamera camera;
   private Group sceneRoot;
-  
-  PastSelf pastSelf;
+
   private ArrayList<Double> xPos = new ArrayList<>();
   private ArrayList<Double> yPos = new ArrayList<>();
   private ArrayList<Double> cameraPos = new ArrayList<>();
+  private ArrayList<PastSelf> pastSelfCollection = new ArrayList<>();
+  private PastSelf ps;
   
   /**
    * Create a robot to reset the mouse to the middle of the screen.
@@ -125,7 +127,7 @@ public class MainApplication extends Application
     
     // Hide the cursor
     scene.setCursor(Cursor.NONE);
-    
+
     // Spawn the first level
     LevelVar.zombie3D = true;
     level = new Level();
@@ -554,6 +556,7 @@ public class MainApplication extends Application
     @Override
     public void handle(long time)
     {
+      System.out.println(frame);
       if (frame == 0) lastFrame = time;
       frame++;
       double percentOfSecond = ((double) time - (double) lastFrame) / 2000000000;
@@ -561,6 +564,24 @@ public class MainApplication extends Application
       
       double playerDirectionVectorX = Math.toDegrees(Math.cos(cameraYRotation));
       double playerDirectionVectorY = Math.toDegrees(Math.sin(cameraYRotation));
+      if(ps != null)
+      {
+        Sphere test = ps.s;
+        if ((frame - ps.getDeathFrame()) < ps.getDeathFrame() - 1)
+        {
+          test.setTranslateX(ps.getXPos(frame - ps.getDeathFrame()));
+          test.setTranslateZ(ps.getYPos(frame - ps.getDeathFrame()));
+        }
+      }
+     /* for (PastSelf ps : pastSelfCollection) {
+        Zombie3D test = ps.zombie3D;
+        if((frame - ps.getDeathFrame()) < ps.getDeathFrame() )
+        {
+          System.out.print("death frame" + ps.getDeathFrame());
+          test.setTranslateX(ps.getXPos(frame - ps.getDeathFrame()));
+          test.setTranslateZ(ps.getYPos(frame - ps.getDeathFrame()));
+        }
+      }*/
       
       // Animate zombies every four frames to reduce computational load
       if (frame % 4 == 0)
@@ -586,9 +607,13 @@ public class MainApplication extends Application
             if (totalDistance < 0.3)
             {
               System.out.println("Restarting due to death!!");
+              //pastSelfCollection.add(new PastSelf(xPos, yPos, cameraPos, frame));
+              //ps = new PastSelf(xPos, yPos, cameraPos, frame);
+              //xPos.clear();
+              //yPos.clear();
+              //cameraPos.clear();
               level.restartLevel();
               rebuildLevel();
-              pastSelf = new PastSelf(xPos, yPos, cameraPos);
             }
             
             double desiredPositionX = zombie.positionX - (distanceX / totalDistance * LevelVar.zombieSpeed * percentOfSecond);
