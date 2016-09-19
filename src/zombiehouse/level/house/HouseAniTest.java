@@ -170,7 +170,7 @@ public class HouseAniTest extends Application
         else { gfx.setFill(Color.VIOLET); }
         gfx.fillOval(z.positionX * sqrPix - sqrPix / 2, z.positionY * sqrPix - sqrPix / 2, sqrPix * 1, sqrPix * 1);
       }
-      
+
       movePlayerIfRequested();
       if(LevelVar.WITH_SIGHT) { l.checkSight(); }
     }

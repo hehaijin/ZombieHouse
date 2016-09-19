@@ -4,6 +4,8 @@ package zombiehouse.level.zombie;
 import zombiehouse.level.house.*;
 import zombiehouse.common.*;
 
+import static zombiehouse.common.LevelVar.house;
+
 /**
  * MasterZombie class contains the behavior for a
  * MasterZombie
@@ -31,11 +33,11 @@ public class MasterZombie extends Zombie
   @Override
   public void makeDecision()
   {
-    if(super.scentDetection(super.getZombieSmell(), LevelVar.house))
+    if(super.scentDetection(super.getZombieSmell(), house))
     {
       this.setCollided(false);
       super.setSmell(true);
-      super.calcPath(LevelVar.house);
+      super.calcPath(house);
       for(Zombie z : LevelVar.zombieCollection) z.setSmell(true);
     }
     else

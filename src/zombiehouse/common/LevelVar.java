@@ -29,6 +29,8 @@ public class LevelVar
    */
   public static ArrayList<Zombie> zombieCollection;
 
+  public static ArrayList<Zombie> pastSelfCollection;
+
   /**
    * Is the single instance of Random used by all of level generation
    * (It's seed is saved in level as it is not as public a variable)

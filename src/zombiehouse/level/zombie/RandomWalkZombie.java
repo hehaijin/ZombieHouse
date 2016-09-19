@@ -2,7 +2,8 @@ package zombiehouse.level.zombie;
 
 
 import zombiehouse.level.house.*;
-import zombiehouse.common.*;
+
+import static zombiehouse.common.LevelVar.house;
 
 /**
  * RandomWalkZombie class contains the behavior for a
@@ -31,10 +32,10 @@ public class RandomWalkZombie extends Zombie
 	@Override
 	public void makeDecision()
 	{
-      if(super.scentDetection(super.getZombieSmell(), LevelVar.house) || this.getSmell())
+      if(super.scentDetection(super.getZombieSmell(), house) || this.getSmell())
 	  {
 		super.setSmell(true);
-		super.calcPath(LevelVar.house);
+		super.calcPath(house);
 	  }
 	  else
 	  {
