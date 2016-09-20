@@ -15,21 +15,21 @@ public class ZTimer
   public Timer zUpdateTimer = new Timer();
   
   class ZUpdate extends TimerTask
-  {
-	@Override
-	public void run() 
 	{
-	  try
-	  {
-	    if (LevelVar.zombieCollection != null)
-	    for(Zombie z: LevelVar.zombieCollection)
-	    {
-	        if (z != null)
-                z.makeDecision();
-	    }
-	  } catch (Exception e) 
-	  { 
-	  }
+		@Override
+		public void run()
+		{
+			try
+			{
+				if (LevelVar.zombieCollection != null)
+					for (Zombie z : LevelVar.zombieCollection)
+					{
+						if (z != null)
+							z.makeDecision();
+					}
+			} catch (Exception e)
+			{
+			}
+		}
 	}
-  }
 }

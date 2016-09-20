@@ -93,7 +93,7 @@ public class MainApplication extends Application
   private ArrayList<Double> cameraPos = new ArrayList<>();
   boolean spawnPastSelf = false;
 
-  int deathFrame = 0;
+  private int deathFrame = 0;
   
   /**
    * Create a robot to reset the mouse to the middle of the screen.
@@ -199,6 +199,9 @@ public class MainApplication extends Application
       } else if (keycode == KeyCode.D)
       {
         InputContainer.right = true;
+      } else if(keycode == KeyCode.SPACE)
+      {
+        InputContainer.hit = true;
       } else if (keycode == KeyCode.F1)
       {
         stage.setFullScreen(true);
@@ -233,6 +236,9 @@ public class MainApplication extends Application
       } else if (keycode == KeyCode.D)
       {
         InputContainer.right = false;
+      } else if (keycode == KeyCode.SPACE)
+      {
+        InputContainer.hit = false;
       } else if (keycode == KeyCode.SHIFT)
       {
         InputContainer.run = false;
@@ -653,6 +659,16 @@ public class MainApplication extends Application
                 spawnPastSelf = true;
                 level.restartLevel();
                 rebuildLevel();
+              }
+            }
+            
+            if(totalDistance < 1 && frame % 5 == 0 && InputContainer.hit == true)
+            {
+              zombie.setLife(zombie.getLife() - 1);
+              System.out.println("Life: " + zombie.getLife());
+              if(zombie.getLife() == 1)
+              {
+                sceneRoot.getChildren().remove(zombie.zombie3D);
               }
             }
             

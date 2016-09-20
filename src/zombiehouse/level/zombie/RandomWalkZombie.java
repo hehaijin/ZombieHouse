@@ -22,7 +22,7 @@ public class RandomWalkZombie extends Zombie
 	 */
 	public RandomWalkZombie(double heading, double positionX, double positionY, Tile curTile, int id)
 	{
-	  super(heading, positionX, positionY, curTile, id);
+	  super(heading, positionX, positionY, curTile, id, 5);
 	}
 
 	/**

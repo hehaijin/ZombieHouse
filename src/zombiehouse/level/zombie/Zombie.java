@@ -35,7 +35,7 @@ public class Zombie
   /**
    * the number of Tiles away that a Zombie can smell
    */
-  private int zombie_Smell = 15;
+  private int zombie_Smell = 10;
   /**
    * whether or not a Zombie has scent of the Player
    */
@@ -93,6 +93,8 @@ public class Zombie
    * The Zombie3D that represents this zombie in a 3D graphical world
    */
   public Zombie3D zombie3D;
+  
+  private int life;
 
   /**
    * Constructs a Zombie object with the specified heading, X coordinate position,
@@ -100,13 +102,22 @@ public class Zombie
    * X and Y coordinates
    */
   public Zombie(double heading, double positionX, double positionY,
-      Tile curTile, int id) {
+      Tile curTile, int id, int life) {
     this.heading = heading;
     this.positionX = positionX;
     this.positionY = positionY;
     this.curTile = curTile;
     this.zombieID = id;
+    this.life = life;
     if(LevelVar.zombie3D) { zombie3D = new Zombie3D(); }
+  }
+  
+  public int getLife() {
+    return life;
+  }
+  
+  public void setLife(int lifeLeft) {
+    life = lifeLeft;
   }
 
   /**
