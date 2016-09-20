@@ -5,7 +5,6 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.*;
-import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,7 +14,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
-import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
@@ -24,8 +22,8 @@ import zombiehouse.audio.AudioFiles;
 import zombiehouse.audio.DirectionalPlayer;
 import zombiehouse.common.InputContainer;
 import zombiehouse.common.LevelVar;
-import zombiehouse.common.PastSelf;
 import zombiehouse.common.Player;
+import zombiehouse.level.PastSelf;
 import zombiehouse.level.house.Exit;
 import zombiehouse.level.house.Level;
 import zombiehouse.level.house.Tile;
@@ -385,9 +383,9 @@ public class MainApplication extends Application
       sceneRoot.getChildren().add(zombie.zombie3D);
     }
 
-    for (Zombie zombie : LevelVar.pastSelfCollection)
+    for (PastSelf ps : LevelVar.pastSelfCollection)
     {
-      sceneRoot.getChildren().add(zombie.zombie3D);
+      sceneRoot.getChildren().add(ps.pastSelf3D);
     }
 
     // Create a zombie update timer
@@ -600,14 +598,19 @@ public class MainApplication extends Application
       // Animate zombies every four frames to reduce computational load
       if (frame % 4 == 0)
       {
-        for (Zombie ps : LevelVar.pastSelfCollection)
+        for (PastSelf ps : LevelVar.pastSelfCollection)
         {
-          Zombie3D zombie3D = ps.zombie3D;
-          ps.positionX = xPos.get(frame - deathFrame);
-          ps.positionY = yPos.get(frame - deathFrame);
-          zombie3D.setTranslateX(xPos.get(frame - deathFrame) * TILE_WIDTH_AND_HEIGHT);
-          zombie3D.setTranslateZ(yPos.get(frame - deathFrame) * TILE_WIDTH_AND_HEIGHT);
-          zombie3D.setRotate(cameraPos.get(frame - deathFrame) - 180);
+          PastSelf3D ps3D = ps.pastSelf3D;
+          if(frame - deathFrame < deathFrame)
+          {
+            ps.positionX = xPos.get(frame - deathFrame);
+            ps.positionY = yPos.get(frame - deathFrame);
+            ps3D.setTranslateX(xPos.get(frame - deathFrame) * TILE_WIDTH_AND_HEIGHT);
+            ps3D.setTranslateZ(yPos.get(frame - deathFrame) * TILE_WIDTH_AND_HEIGHT);
+            ps3D.setRotate(cameraPos.get(frame - deathFrame) - 180);
+          } else {
+
+          }
           //System.out.println("player=" + Player.xPosition + ", " + Player.yPosition);
           //System.out.println("zombie=" + zombie3D.getTranslateX() + ", " + zombie3D.getTranslateZ());
           //System.out.println("zombie=" + ps.positionX + ", " + ps.positionY);
@@ -691,7 +694,7 @@ public class MainApplication extends Application
 
         if(test) {
           System.out.println("Adding past self");
-          LevelVar.pastSelfCollection.add(new PastSelfZombie(xPos, yPos));
+          LevelVar.pastSelfCollection.add(new PastSelf(100, 10, 10));
           test = false;
         }
         System.out.println("zombie count:" + LevelVar.zombieCollection.size());

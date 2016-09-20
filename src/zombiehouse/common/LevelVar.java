@@ -1,5 +1,6 @@
 package zombiehouse.common;
 
+import zombiehouse.level.PastSelf;
 import zombiehouse.level.house.Tile;
 import java.util.ArrayList;
 import java.util.Random;
@@ -29,7 +30,7 @@ public class LevelVar
    */
   public static ArrayList<Zombie> zombieCollection;
 
-  public static ArrayList<Zombie> pastSelfCollection;
+  public static ArrayList<PastSelf> pastSelfCollection;
 
   /**
    * Is the single instance of Random used by all of level generation
