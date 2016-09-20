@@ -639,7 +639,7 @@ public class MainApplication extends Application
             // Player collided with zombie, restart level
             if (totalDistance < 0.5 && frame % 5 == 0)
             {
-              if(Player.life > 0) {
+              if(Player.life > 1) {
                 Player.life--;
                 Image img = new Image(getClass().getResourceAsStream("/res/life" + Player.life + ".png"));
                 lifeView.setImage(img);
@@ -710,9 +710,6 @@ public class MainApplication extends Application
           LevelVar.pastSelfCollection.add(new PastSelf(0, 0, 0, deathFrame));
           spawnPastSelf = false;
         }
-        System.out.println("zombie count:" + LevelVar.zombieCollection.size());
-        System.out.println("pastSelf count:" + LevelVar.pastSelfCollection.size());
-
         lastFrame = time;
       }
       
