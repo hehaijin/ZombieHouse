@@ -5,12 +5,9 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Sphere;
 import zombiehouse.graphics.Zombie3D;
 
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Anton on 9/15/2016.
- */
+
 public class PastSelf
 {
   private List<Double> xPosition;
@@ -20,17 +17,17 @@ public class PastSelf
   public Sphere s;
   public Zombie3D zombie3D;
 
-  public PastSelf(List<Double> xPos, List<Double> yPos, List<Double> cameraPos, int deathFrame)
+  public PastSelf(List<Double> xPos, List<Double> yPos, int deathFrame)
   {
     PhongMaterial white = new PhongMaterial();
     this.xPosition = xPos;
     this.yPosition = yPos;
-    this.cameraPosition = cameraPos;
+    //this.cameraPosition = cameraPos;
     this.deathFrame = deathFrame;
     this.s = new Sphere(50);
     white.setDiffuseColor(Color.WHITE);
     s.setMaterial(white);
-    //zombie3D = new Zombie3D();
+    zombie3D = new Zombie3D();
     s.setTranslateY(-235);
   }
   

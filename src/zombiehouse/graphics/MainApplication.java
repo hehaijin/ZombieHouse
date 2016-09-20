@@ -2,17 +2,23 @@ package zombiehouse.graphics;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.*;
+import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Scale;
+import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import zombiehouse.audio.AudioFiles;
 import zombiehouse.audio.DirectionalPlayer;
@@ -20,15 +26,14 @@ import zombiehouse.common.InputContainer;
 import zombiehouse.common.LevelVar;
 import zombiehouse.common.PastSelf;
 import zombiehouse.common.Player;
-import javafx.scene.layout.StackPane;
 import zombiehouse.level.house.Exit;
 import zombiehouse.level.house.Level;
 import zombiehouse.level.house.Tile;
 import zombiehouse.level.house.Wall;
-import zombiehouse.level.zombie.ZTimer;
-import zombiehouse.level.zombie.Zombie;
+import zombiehouse.level.zombie.*;
 
 import java.awt.*;
+
 import java.util.ArrayList;
 
 
@@ -51,8 +56,6 @@ public class MainApplication extends Application
   private double cameraZDisplacement = 0;
   
   private double cameraYRotation = 0;
-
-  private boolean forTest = true;
   
   private static final double TARGET_FRAMES_PER_SECOND = 60;
   
@@ -84,14 +87,13 @@ public class MainApplication extends Application
   private PointLight pl;
   private PerspectiveCamera camera;
   private Group sceneRoot;
- // StackPane pane = new StackPane();
-  BorderPane pane=new BorderPane();
 
   private ArrayList<Double> xPos = new ArrayList<>();
   private ArrayList<Double> yPos = new ArrayList<>();
   private ArrayList<Double> cameraPos = new ArrayList<>();
-  private ArrayList<PastSelf> pastSelfCollection = new ArrayList<>();
-  private PastSelf ps;
+  boolean test = false;
+
+  int deathFrame = 0;
   
   /**
    * Create a robot to reset the mouse to the middle of the screen.
@@ -125,18 +127,32 @@ public class MainApplication extends Application
   {
     stage.setOnCloseRequest(event -> System.exit(0));
     this.stage = stage;
+    //creates a stackpane as container for 2D and 3D scenes.
+    //xcene is now the scene for primary stage.
+    StackPane pane=new StackPane();
 
-    pane.setMinSize(800, 600);
-    Scene xscene=new Scene(pane,800,600,true,SceneAntialiasing.BALANCED );
-   // SubScene scene = new SubScene(sceneRoot, WINDOW_WIDTH, WINDOW_HEIGHT, true, SceneAntialiasing.BALANCED);
+    Scene xscene=new Scene(pane,800,600,true,SceneAntialiasing.BALANCED);
     
     // Create group to hold 3D objects
     sceneRoot = new Group();
     SubScene scene = new SubScene(sceneRoot, WINDOW_WIDTH, WINDOW_HEIGHT, true, SceneAntialiasing.BALANCED);
-    scene.setFill(Color.WHITE);
+    scene.setFill(Color.BLACK);
     pane.getChildren().add(scene);
+    Image life5=new Image(getClass().getResourceAsStream("/res/life5.png"));
+    Label stamina=new Label("stamina",new ImageView(life5));
+
+
+    pane.getChildren().add(stamina);
+    StackPane.setAlignment(stamina, Pos.TOP_LEFT);
+    stamina.getTransforms().add(new Translate(20,20));
+    stamina.getTransforms().add(new Scale(0.1,0.1));
+    scene.heightProperty().bind(pane.heightProperty());
+    scene.widthProperty().bind(pane.widthProperty());
+
+
     // Hide the cursor
-    scene.setCursor(Cursor.NONE);
+    xscene.setCursor(Cursor.NONE);
+
 
     // Spawn the first level
     LevelVar.zombie3D = true;
@@ -161,13 +177,13 @@ public class MainApplication extends Application
     // Rotate camera on the y-axis for swivel in response to mouse
     camera.setVerticalFieldOfView(true);
     camera.setTranslateZ(cameraZDisplacement);
-    camera.setTranslateY(cameraYDisplacement);aaddaaaa
+    camera.setTranslateY(cameraYDisplacement);
     camera.setRotationAxis(Rotate.Y_AXIS);
     camera.setDepthTest(DepthTest.ENABLE);
     scene.setCamera(camera);
     
     // Set up key listeners for WASD (movement), F1/F2 (full screen toggle), Shift (run), Escape (exit), F3 (cheat)
-    scene.setOnKeyPressed(event ->
+    xscene.setOnKeyPressed(event ->
     {
       KeyCode keycode = event.getCode();
       if (keycode == KeyCode.W)
@@ -201,7 +217,7 @@ public class MainApplication extends Application
       }
     });
     
-    scene.setOnKeyReleased(event ->
+    xscene.setOnKeyReleased(event ->
     {
       KeyCode keycode = event.getCode();
       if (keycode == KeyCode.W)
@@ -223,7 +239,7 @@ public class MainApplication extends Application
     });
     
     // Add mouse listener
-    scene.addEventHandler(MouseEvent.MOUSE_MOVED, event ->
+    xscene.addEventHandler(MouseEvent.MOUSE_MOVED, event ->
     {
       double rotateAmountY = event.getScreenX() - InputContainer.lastMouseX;
       rotateAmountY *= PLAYER_TURN_SPEED;
@@ -368,7 +384,12 @@ public class MainApplication extends Application
     {
       sceneRoot.getChildren().add(zombie.zombie3D);
     }
-    
+
+    for (Zombie zombie : LevelVar.pastSelfCollection)
+    {
+      sceneRoot.getChildren().add(zombie.zombie3D);
+    }
+
     // Create a zombie update timer
     ZTimer zMoves = new ZTimer();
     zMoves.zUpdateTimer.schedule(zMoves.myUpdate, Zombie.getDecisionRate(), Zombie.getDecisionRate());
@@ -567,7 +588,7 @@ public class MainApplication extends Application
     @Override
     public void handle(long time)
     {
-      System.out.println(frame);
+      //System.out.println(frame);
       if (frame == 0) lastFrame = time;
       frame++;
       double percentOfSecond = ((double) time - (double) lastFrame) / 2000000000;
@@ -579,21 +600,19 @@ public class MainApplication extends Application
       // Animate zombies every four frames to reduce computational load
       if (frame % 4 == 0)
       {
-        for (PastSelf ps : pastSelfCollection) {
-          Sphere test = ps.s;
-          if(forTest) {
-            test.setLayoutX(Player.xPosition);
-            test.setLayoutY(Player.yPosition);
-            forTest = false;
-          }
-          if((frame - ps.getDeathFrame()) < ps.getDeathFrame() )
-          {
-            System.out.println("player=" +Player.xPosition + " ," + Player.yPosition);
-            System.out.println("ball=" + test.getLayoutX() + " ,"+ test.getLayoutY());
-            test.setLayoutX(ps.getXPos(frame - ps.getDeathFrame()));
-            test.setLayoutY(ps.getYPos(frame - ps.getDeathFrame()));
-          }
+        for (Zombie ps : LevelVar.pastSelfCollection)
+        {
+          Zombie3D zombie3D = ps.zombie3D;
+          ps.positionX = xPos.get(frame - deathFrame);
+          ps.positionY = yPos.get(frame - deathFrame);
+          zombie3D.setTranslateX(xPos.get(frame - deathFrame) * TILE_WIDTH_AND_HEIGHT);
+          zombie3D.setTranslateZ(yPos.get(frame - deathFrame) * TILE_WIDTH_AND_HEIGHT);
+          zombie3D.setRotate(cameraPos.get(frame - deathFrame) - 180);
+          //System.out.println("player=" + Player.xPosition + ", " + Player.yPosition);
+          //System.out.println("zombie=" + zombie3D.getTranslateX() + ", " + zombie3D.getTranslateZ());
+          //System.out.println("zombie=" + ps.positionX + ", " + ps.positionY);
         }
+
         for (Zombie zombie : LevelVar.zombieCollection)
         {
           Zombie3D zombie3D = zombie.zombie3D;
@@ -614,11 +633,9 @@ public class MainApplication extends Application
             // Player collided with zombie, restart level
             if (totalDistance < 0.3)
             {
-              System.out.println("Restarting due to death!!");
-              pastSelfCollection.add(new PastSelf(xPos, yPos, cameraPos, frame));
-              //xPos.clear();
-              //yPos.clear();
-              //cameraPos.clear();
+              System.out.println("Restarting due to death!! ");
+              deathFrame = frame;
+              test = true;
               level.restartLevel();
               rebuildLevel();
             }
@@ -665,22 +682,27 @@ public class MainApplication extends Application
               zombie3D.setRotate(angle);
             }
             
-            
             if (Math.random() > 0.98)
             {
               DirectionalPlayer.playSound(AudioFiles.randomZombieSound(), angleBetweenVectors(playerDirectionVectorX, playerDirectionVectorY, zombieVectorX, zombieVectorY), distance);
             }
-            
           }
         }
-        
+
+        if(test) {
+          System.out.println("Adding past self");
+          LevelVar.pastSelfCollection.add(new PastSelfZombie(xPos, yPos));
+          test = false;
+        }
+        System.out.println("zombie count:" + LevelVar.zombieCollection.size());
+        System.out.println("pastSelf count:" + LevelVar.pastSelfCollection.size());
+
         lastFrame = time;
       }
       
       // Rebuild level if requested. Done here to occur on graphics thread to avoid concurrent modification exceptions.
       if (shouldRebuildLevel)
       {
-        
         for (int i = 0; i < sceneRoot.getChildren().size(); i++)
         {
           if (sceneRoot.getChildren().get(i) instanceof Box || sceneRoot.getChildren().get(i) instanceof Zombie3D)
