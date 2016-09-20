@@ -95,6 +95,8 @@ public class Zombie
   public Zombie3D zombie3D;
   
   private int life;
+  
+  private int deathFrame;
 
   /**
    * Constructs a Zombie object with the specified heading, X coordinate position,
@@ -102,13 +104,14 @@ public class Zombie
    * X and Y coordinates
    */
   public Zombie(double heading, double positionX, double positionY,
-      Tile curTile, int id, int life) {
+      Tile curTile, int id, int life, int deathFrame) {
     this.heading = heading;
     this.positionX = positionX;
     this.positionY = positionY;
     this.curTile = curTile;
     this.zombieID = id;
     this.life = life;
+    this.deathFrame = deathFrame;
     if(LevelVar.zombie3D) { zombie3D = new Zombie3D(); }
   }
   
@@ -118,6 +121,14 @@ public class Zombie
   
   public void setLife(int lifeLeft) {
     life = lifeLeft;
+  }
+  
+  public int getDeathFrame() {
+    return deathFrame;
+  }
+  
+  public void setDeathFrame(int frameOfDeath) {
+    deathFrame = frameOfDeath;
   }
 
   /**
@@ -495,7 +506,6 @@ public class Zombie
   /**
    * Used to tell the Zombie where to go once using the A* path obtained 
    * from calcPath()
-   * @param time Used to set initial heading for first call
    */
   public void makeHeading()
   {

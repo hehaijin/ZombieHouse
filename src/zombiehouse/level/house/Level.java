@@ -95,8 +95,8 @@ public class Level
   {
     nextZombie = 0;
     LevelVar.house = new Tile[houseWidth][houseHeight];
-    LevelVar.zombieCollection = new ArrayList<Zombie>();
-    LevelVar.pastSelfCollection = new ArrayList<PastSelf>();
+    LevelVar.zombieCollection = new ArrayList<>();
+    LevelVar.pastSelfCollection = new ArrayList<>();
     LevelVar.rand.setSeed(rSeed);
     pG = new ProGen();
     if(LevelVar.LEVEL_DEBUG_TEXT) { printHouse(); }

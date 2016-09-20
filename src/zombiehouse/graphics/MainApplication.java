@@ -620,9 +620,6 @@ public class MainApplication extends Application
           } else {
             sceneRoot.getChildren().remove(ps.pastSelf3D);
           }
-          //System.out.println("player=" + Player.xPosition + ", " + Player.yPosition);
-          //System.out.println("zombie=" + zombie3D.getTranslateX() + ", " + zombie3D.getTranslateZ());
-          //System.out.println("zombie=" + ps.positionX + ", " + ps.positionY);
         }
 
         for (Zombie zombie : LevelVar.zombieCollection)
@@ -668,7 +665,9 @@ public class MainApplication extends Application
               System.out.println("Life: " + zombie.getLife());
               if(zombie.getLife() == 1)
               {
+                zombie.setDeathFrame(frame);
                 sceneRoot.getChildren().remove(zombie.zombie3D);
+                System.out.println(zombie.getDeathFrame());
               }
             }
             
