@@ -601,13 +601,13 @@ public class MainApplication extends Application
         for (PastSelf ps : LevelVar.pastSelfCollection)
         {
           PastSelf3D ps3D = ps.pastSelf3D;
-          if(frame - deathFrame < deathFrame)
+          if(frame - ps.deathFrame < ps.deathFrame)
           {
-            ps.positionX = xPos.get(frame - deathFrame);
-            ps.positionY = yPos.get(frame - deathFrame);
-            ps3D.setTranslateX(xPos.get(frame - deathFrame) * TILE_WIDTH_AND_HEIGHT);
-            ps3D.setTranslateZ(yPos.get(frame - deathFrame) * TILE_WIDTH_AND_HEIGHT);
-            ps3D.setRotate(cameraPos.get(frame - deathFrame) - 180);
+            ps.positionX = xPos.get(frame - ps.deathFrame);
+            ps.positionY = yPos.get(frame - ps.deathFrame);
+            ps3D.setTranslateX(xPos.get(frame - ps.deathFrame) * TILE_WIDTH_AND_HEIGHT);
+            ps3D.setTranslateZ(yPos.get(frame - ps.deathFrame) * TILE_WIDTH_AND_HEIGHT);
+            ps3D.setRotate(cameraPos.get(frame - ps.deathFrame) - 180);
           } else {
 
           }
@@ -694,7 +694,7 @@ public class MainApplication extends Application
 
         if(test) {
           System.out.println("Adding past self");
-          LevelVar.pastSelfCollection.add(new PastSelf(100, 10, 10));
+          LevelVar.pastSelfCollection.add(new PastSelf(0, 0, 0, deathFrame));
           test = false;
         }
         System.out.println("zombie count:" + LevelVar.zombieCollection.size());

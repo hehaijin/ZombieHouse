@@ -36,15 +36,18 @@ public class PastSelf
    */
   public PastSelf3D pastSelf3D;
 
+  public Integer deathFrame;
+
   /**
    * Constructs a Zombie object with the specified heading, X coordinate position,
    * Y coordinate position, and the Tile it is in, preferably as given by its
    * X and Y coordinates
    */
-  public PastSelf(double heading, double positionX, double positionY) {
+  public PastSelf(double heading, double positionX, double positionY, Integer deathFrame) {
     this.heading = heading;
     this.positionX = positionX;
     this.positionY = positionY;
+    this.deathFrame = deathFrame;
     pastSelf3D = new PastSelf3D();
   }
 }
