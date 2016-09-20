@@ -85,11 +85,13 @@ public class MainApplication extends Application
   private PointLight pl;
   private PerspectiveCamera camera;
   private Group sceneRoot;
+  private Image life5;
+  private ImageView lifeView;
 
   private ArrayList<Double> xPos = new ArrayList<>();
   private ArrayList<Double> yPos = new ArrayList<>();
   private ArrayList<Double> cameraPos = new ArrayList<>();
-  boolean test = false;
+  boolean spawnPastSelf = false;
 
   int deathFrame = 0;
   
@@ -136,14 +138,15 @@ public class MainApplication extends Application
     SubScene scene = new SubScene(sceneRoot, WINDOW_WIDTH, WINDOW_HEIGHT, true, SceneAntialiasing.BALANCED);
     scene.setFill(Color.BLACK);
     pane.getChildren().add(scene);
-    Image life5=new Image(getClass().getResourceAsStream("/res/life5.png"));
-    Label stamina=new Label("stamina",new ImageView(life5));
+    life5 = new Image(getClass().getResourceAsStream("/res/life5.png"));
+    lifeView = new ImageView(life5);
+    Label life = new Label("",lifeView);
 
 
-    pane.getChildren().add(stamina);
-    StackPane.setAlignment(stamina, Pos.TOP_LEFT);
-    stamina.getTransforms().add(new Translate(20,20));
-    stamina.getTransforms().add(new Scale(0.1,0.1));
+    pane.getChildren().add(life);
+    StackPane.setAlignment(life, Pos.TOP_LEFT);
+    life.getTransforms().add(new Translate(20,20));
+    life.getTransforms().add(new Scale(0.1,0.1));
     scene.heightProperty().bind(pane.heightProperty());
     scene.widthProperty().bind(pane.widthProperty());
 
@@ -609,7 +612,7 @@ public class MainApplication extends Application
             ps3D.setTranslateZ(yPos.get(frame - ps.deathFrame) * TILE_WIDTH_AND_HEIGHT);
             ps3D.setRotate(cameraPos.get(frame - ps.deathFrame) - 180);
           } else {
-
+            sceneRoot.getChildren().remove(ps.pastSelf3D);
           }
           //System.out.println("player=" + Player.xPosition + ", " + Player.yPosition);
           //System.out.println("zombie=" + zombie3D.getTranslateX() + ", " + zombie3D.getTranslateZ());
@@ -634,13 +637,23 @@ public class MainApplication extends Application
             double totalDistance = Math.abs(distanceX) + Math.abs(distanceY);
             
             // Player collided with zombie, restart level
-            if (totalDistance < 0.3)
+            if (totalDistance < 0.5 && frame % 5 == 0)
             {
-              System.out.println("Restarting due to death!! ");
-              deathFrame = frame;
-              test = true;
-              level.restartLevel();
-              rebuildLevel();
+              if(Player.life > 0) {
+                Player.life--;
+                Image img = new Image(getClass().getResourceAsStream("/res/life" + Player.life + ".png"));
+                lifeView.setImage(img);
+              }
+                else
+              {
+                System.out.println("Restarting due to death!! ");
+                Player.life = 5;
+                lifeView.setImage(life5);
+                deathFrame = frame;
+                spawnPastSelf = true;
+                level.restartLevel();
+                rebuildLevel();
+              }
             }
             
             double desiredPositionX = zombie.positionX - (distanceX / totalDistance * LevelVar.zombieSpeed * percentOfSecond);
@@ -692,10 +705,10 @@ public class MainApplication extends Application
           }
         }
 
-        if(test) {
+        if(spawnPastSelf) {
           System.out.println("Adding past self");
           LevelVar.pastSelfCollection.add(new PastSelf(0, 0, 0, deathFrame));
-          test = false;
+          spawnPastSelf = false;
         }
         System.out.println("zombie count:" + LevelVar.zombieCollection.size());
         System.out.println("pastSelf count:" + LevelVar.pastSelfCollection.size());
