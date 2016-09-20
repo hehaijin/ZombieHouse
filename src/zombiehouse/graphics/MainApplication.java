@@ -2,16 +2,23 @@ package zombiehouse.graphics;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.*;
+import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Scale;
+import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import zombiehouse.audio.AudioFiles;
 import zombiehouse.audio.DirectionalPlayer;
@@ -26,6 +33,7 @@ import zombiehouse.level.house.Wall;
 import zombiehouse.level.zombie.*;
 
 import java.awt.*;
+
 import java.util.ArrayList;
 
 
@@ -119,14 +127,32 @@ public class MainApplication extends Application
   {
     stage.setOnCloseRequest(event -> System.exit(0));
     this.stage = stage;
+    //creates a stackpane as container for 2D and 3D scenes.
+    //xcene is now the scene for primary stage.
+    StackPane pane=new StackPane();
+
+    Scene xscene=new Scene(pane,800,600,true,SceneAntialiasing.BALANCED);
     
     // Create group to hold 3D objects
     sceneRoot = new Group();
-    Scene scene = new Scene(sceneRoot, WINDOW_WIDTH, WINDOW_HEIGHT, true, SceneAntialiasing.BALANCED);
+    SubScene scene = new SubScene(sceneRoot, WINDOW_WIDTH, WINDOW_HEIGHT, true, SceneAntialiasing.BALANCED);
     scene.setFill(Color.BLACK);
-    
+    pane.getChildren().add(scene);
+    Image life5=new Image(getClass().getResourceAsStream("/res/life5.png"));
+    Label stamina=new Label("stamina",new ImageView(life5));
+
+
+    pane.getChildren().add(stamina);
+    StackPane.setAlignment(stamina, Pos.TOP_LEFT);
+    stamina.getTransforms().add(new Translate(20,20));
+    stamina.getTransforms().add(new Scale(0.1,0.1));
+    scene.heightProperty().bind(pane.heightProperty());
+    scene.widthProperty().bind(pane.widthProperty());
+
+
     // Hide the cursor
-    scene.setCursor(Cursor.NONE);
+    xscene.setCursor(Cursor.NONE);
+
 
     // Spawn the first level
     LevelVar.zombie3D = true;
@@ -157,7 +183,7 @@ public class MainApplication extends Application
     scene.setCamera(camera);
     
     // Set up key listeners for WASD (movement), F1/F2 (full screen toggle), Shift (run), Escape (exit), F3 (cheat)
-    scene.setOnKeyPressed(event ->
+    xscene.setOnKeyPressed(event ->
     {
       KeyCode keycode = event.getCode();
       if (keycode == KeyCode.W)
@@ -191,7 +217,7 @@ public class MainApplication extends Application
       }
     });
     
-    scene.setOnKeyReleased(event ->
+    xscene.setOnKeyReleased(event ->
     {
       KeyCode keycode = event.getCode();
       if (keycode == KeyCode.W)
@@ -213,7 +239,7 @@ public class MainApplication extends Application
     });
     
     // Add mouse listener
-    scene.addEventHandler(MouseEvent.MOUSE_MOVED, event ->
+    xscene.addEventHandler(MouseEvent.MOUSE_MOVED, event ->
     {
       double rotateAmountY = event.getScreenX() - InputContainer.lastMouseX;
       rotateAmountY *= PLAYER_TURN_SPEED;
@@ -237,7 +263,7 @@ public class MainApplication extends Application
     });
     
     stage.setTitle("Zombie House: Level " + (LevelVar.levelNum + 1));
-    stage.setScene(scene);
+    stage.setScene(xscene);
     stage.show();
     
     // Load textures from files to use for floor, walls, and ceiling
