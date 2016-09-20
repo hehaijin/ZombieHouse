@@ -7,6 +7,7 @@ import javafx.scene.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
@@ -19,6 +20,7 @@ import zombiehouse.common.InputContainer;
 import zombiehouse.common.LevelVar;
 import zombiehouse.common.PastSelf;
 import zombiehouse.common.Player;
+import javafx.scene.layout.StackPane;
 import zombiehouse.level.house.Exit;
 import zombiehouse.level.house.Level;
 import zombiehouse.level.house.Tile;
@@ -82,6 +84,8 @@ public class MainApplication extends Application
   private PointLight pl;
   private PerspectiveCamera camera;
   private Group sceneRoot;
+ // StackPane pane = new StackPane();
+  BorderPane pane=new BorderPane();
 
   private ArrayList<Double> xPos = new ArrayList<>();
   private ArrayList<Double> yPos = new ArrayList<>();
@@ -121,12 +125,16 @@ public class MainApplication extends Application
   {
     stage.setOnCloseRequest(event -> System.exit(0));
     this.stage = stage;
+
+    pane.setMinSize(800, 600);
+    Scene xscene=new Scene(pane,800,600,true,SceneAntialiasing.BALANCED );
+   // SubScene scene = new SubScene(sceneRoot, WINDOW_WIDTH, WINDOW_HEIGHT, true, SceneAntialiasing.BALANCED);
     
     // Create group to hold 3D objects
     sceneRoot = new Group();
-    Scene scene = new Scene(sceneRoot, WINDOW_WIDTH, WINDOW_HEIGHT, true, SceneAntialiasing.BALANCED);
-    scene.setFill(Color.BLACK);
-    
+    SubScene scene = new SubScene(sceneRoot, WINDOW_WIDTH, WINDOW_HEIGHT, true, SceneAntialiasing.BALANCED);
+    scene.setFill(Color.WHITE);
+    pane.getChildren().add(scene);
     // Hide the cursor
     scene.setCursor(Cursor.NONE);
 
@@ -153,7 +161,7 @@ public class MainApplication extends Application
     // Rotate camera on the y-axis for swivel in response to mouse
     camera.setVerticalFieldOfView(true);
     camera.setTranslateZ(cameraZDisplacement);
-    camera.setTranslateY(cameraYDisplacement);
+    camera.setTranslateY(cameraYDisplacement);aaddaaaa
     camera.setRotationAxis(Rotate.Y_AXIS);
     camera.setDepthTest(DepthTest.ENABLE);
     scene.setCamera(camera);
@@ -239,7 +247,7 @@ public class MainApplication extends Application
     });
     
     stage.setTitle("Zombie House: Level " + (LevelVar.levelNum + 1));
-    stage.setScene(scene);
+    stage.setScene(xscene);
     stage.show();
     
     // Load textures from files to use for floor, walls, and ceiling
