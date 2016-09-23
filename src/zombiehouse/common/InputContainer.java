@@ -21,4 +21,6 @@ public class InputContainer
   
   // THe remaining distance to pan the camera
   public static double remainingCameraPan = 0.0;
+  
+  public static boolean hit = false;
 }

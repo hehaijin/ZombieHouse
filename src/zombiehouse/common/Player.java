@@ -14,6 +14,7 @@ public class Player
   public static double staminaRegen = 0.20;
   public static double maxStamina = 50.0;
   public static double playerSpeed = 2.0;
+  public static int life = 5;
   
   public static int playerSightRange = 7;
 }

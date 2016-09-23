@@ -5,7 +5,6 @@ import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.*;
-import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,7 +14,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
-import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
@@ -24,8 +22,8 @@ import zombiehouse.audio.AudioFiles;
 import zombiehouse.audio.DirectionalPlayer;
 import zombiehouse.common.InputContainer;
 import zombiehouse.common.LevelVar;
-import zombiehouse.common.PastSelf;
 import zombiehouse.common.Player;
+import zombiehouse.level.PastSelf;
 import zombiehouse.level.house.Exit;
 import zombiehouse.level.house.Level;
 import zombiehouse.level.house.Tile;
@@ -87,13 +85,15 @@ public class MainApplication extends Application
   private PointLight pl;
   private PerspectiveCamera camera;
   private Group sceneRoot;
+  private Image life5;
+  private ImageView lifeView;
 
   private ArrayList<Double> xPos = new ArrayList<>();
   private ArrayList<Double> yPos = new ArrayList<>();
   private ArrayList<Double> cameraPos = new ArrayList<>();
-  boolean test = false;
+  boolean spawnPastSelf = false;
 
-  int deathFrame = 0;
+  private int deathFrame = 0;
   
   /**
    * Create a robot to reset the mouse to the middle of the screen.
@@ -138,14 +138,15 @@ public class MainApplication extends Application
     SubScene scene = new SubScene(sceneRoot, WINDOW_WIDTH, WINDOW_HEIGHT, true, SceneAntialiasing.BALANCED);
     scene.setFill(Color.BLACK);
     pane.getChildren().add(scene);
-    Image life5=new Image(getClass().getResourceAsStream("/res/life5.png"));
-    Label stamina=new Label("stamina",new ImageView(life5));
+    life5 = new Image(getClass().getResourceAsStream("/res/life5.png"));
+    lifeView = new ImageView(life5);
+    Label life = new Label("",lifeView);
 
 
-    pane.getChildren().add(stamina);
-    StackPane.setAlignment(stamina, Pos.TOP_LEFT);
-    stamina.getTransforms().add(new Translate(20,20));
-    stamina.getTransforms().add(new Scale(0.1,0.1));
+    pane.getChildren().add(life);
+    StackPane.setAlignment(life, Pos.TOP_LEFT);
+    life.getTransforms().add(new Translate(20,20));
+    life.getTransforms().add(new Scale(0.1,0.1));
     scene.heightProperty().bind(pane.heightProperty());
     scene.widthProperty().bind(pane.widthProperty());
 
@@ -198,6 +199,9 @@ public class MainApplication extends Application
       } else if (keycode == KeyCode.D)
       {
         InputContainer.right = true;
+      } else if(keycode == KeyCode.SPACE)
+      {
+        InputContainer.hit = true;
       } else if (keycode == KeyCode.F1)
       {
         stage.setFullScreen(true);
@@ -232,6 +236,9 @@ public class MainApplication extends Application
       } else if (keycode == KeyCode.D)
       {
         InputContainer.right = false;
+      } else if (keycode == KeyCode.SPACE)
+      {
+        InputContainer.hit = false;
       } else if (keycode == KeyCode.SHIFT)
       {
         InputContainer.run = false;
@@ -385,9 +392,9 @@ public class MainApplication extends Application
       sceneRoot.getChildren().add(zombie.zombie3D);
     }
 
-    for (Zombie zombie : LevelVar.pastSelfCollection)
+    for (PastSelf ps : LevelVar.pastSelfCollection)
     {
-      sceneRoot.getChildren().add(zombie.zombie3D);
+      sceneRoot.getChildren().add(ps.pastSelf3D);
     }
 
     // Create a zombie update timer
@@ -600,17 +607,19 @@ public class MainApplication extends Application
       // Animate zombies every four frames to reduce computational load
       if (frame % 4 == 0)
       {
-        for (Zombie ps : LevelVar.pastSelfCollection)
+        for (PastSelf ps : LevelVar.pastSelfCollection)
         {
-          Zombie3D zombie3D = ps.zombie3D;
-          ps.positionX = xPos.get(frame - deathFrame);
-          ps.positionY = yPos.get(frame - deathFrame);
-          zombie3D.setTranslateX(xPos.get(frame - deathFrame) * TILE_WIDTH_AND_HEIGHT);
-          zombie3D.setTranslateZ(yPos.get(frame - deathFrame) * TILE_WIDTH_AND_HEIGHT);
-          zombie3D.setRotate(cameraPos.get(frame - deathFrame) - 180);
-          //System.out.println("player=" + Player.xPosition + ", " + Player.yPosition);
-          //System.out.println("zombie=" + zombie3D.getTranslateX() + ", " + zombie3D.getTranslateZ());
-          //System.out.println("zombie=" + ps.positionX + ", " + ps.positionY);
+          PastSelf3D ps3D = ps.pastSelf3D;
+          if(frame - ps.deathFrame < ps.deathFrame)
+          {
+            ps.positionX = xPos.get(frame - ps.deathFrame);
+            ps.positionY = yPos.get(frame - ps.deathFrame);
+            ps3D.setTranslateX(xPos.get(frame - ps.deathFrame) * TILE_WIDTH_AND_HEIGHT);
+            ps3D.setTranslateZ(yPos.get(frame - ps.deathFrame) * TILE_WIDTH_AND_HEIGHT);
+            ps3D.setRotate(cameraPos.get(frame - ps.deathFrame) - 180);
+          } else {
+            sceneRoot.getChildren().remove(ps.pastSelf3D);
+          }
         }
 
         for (Zombie zombie : LevelVar.zombieCollection)
@@ -631,13 +640,35 @@ public class MainApplication extends Application
             double totalDistance = Math.abs(distanceX) + Math.abs(distanceY);
             
             // Player collided with zombie, restart level
-            if (totalDistance < 0.3)
+            if (totalDistance < 0.5 && frame % 5 == 0)
             {
-              System.out.println("Restarting due to death!! ");
-              deathFrame = frame;
-              test = true;
-              level.restartLevel();
-              rebuildLevel();
+              if(Player.life > 1) {
+                Player.life--;
+                Image img = new Image(getClass().getResourceAsStream("/res/life" + Player.life + ".png"));
+                lifeView.setImage(img);
+              }
+                else
+              {
+                System.out.println("Restarting due to death!! ");
+                Player.life = 5;
+                lifeView.setImage(life5);
+                deathFrame = frame;
+                spawnPastSelf = true;
+                level.restartLevel();
+                rebuildLevel();
+              }
+            }
+            
+            if(totalDistance < 1 && frame % 5 == 0 && InputContainer.hit == true)
+            {
+              zombie.setLife(zombie.getLife() - 1);
+              System.out.println("Life: " + zombie.getLife());
+              if(zombie.getLife() == 1)
+              {
+                zombie.setDeathFrame(frame);
+                sceneRoot.getChildren().remove(zombie.zombie3D);
+                System.out.println(zombie.getDeathFrame());
+              }
             }
             
             double desiredPositionX = zombie.positionX - (distanceX / totalDistance * LevelVar.zombieSpeed * percentOfSecond);
@@ -689,14 +720,11 @@ public class MainApplication extends Application
           }
         }
 
-        if(test) {
+        if(spawnPastSelf) {
           System.out.println("Adding past self");
-          LevelVar.pastSelfCollection.add(new PastSelfZombie(xPos, yPos));
-          test = false;
+          LevelVar.pastSelfCollection.add(new PastSelf(0, 0, 0, deathFrame));
+          spawnPastSelf = false;
         }
-        System.out.println("zombie count:" + LevelVar.zombieCollection.size());
-        System.out.println("pastSelf count:" + LevelVar.pastSelfCollection.size());
-
         lastFrame = time;
       }
       

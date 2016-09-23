@@ -19,7 +19,7 @@ import javafx.scene.transform.Rotate;
 public class Zombie3D extends Group
 {
 
-  private static final int MAXIMUM_FRAME = 8;
+  private static final int MAXIMUM_FRAME = 1;
   private static final int LARGEST_FRAME = 30;
   private int currentFrame = 0;
   private int frameDirection = 1;
@@ -34,7 +34,7 @@ public class Zombie3D extends Group
   {
     // Give each zombie 8 random, continuous frames to work with, so they aren't all alike
     int randomStart = random.nextInt(LARGEST_FRAME - 8);
-    for (int i = randomStart; i <= randomStart + 8; i++)
+    for (int i = randomStart; i <= randomStart + 1; i++)
     {
       try 
       {
