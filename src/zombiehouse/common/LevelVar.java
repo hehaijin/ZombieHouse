@@ -30,6 +30,8 @@ public class LevelVar
    */
   public static ArrayList<Zombie> zombieCollection;
 
+  public static ArrayList<Zombie> deadZombieCollection;
+
   public static ArrayList<PastSelf> pastSelfCollection;
 
   /**

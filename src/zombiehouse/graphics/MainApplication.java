@@ -382,7 +382,20 @@ public class MainApplication extends Application
         }
       }
     }
-    
+
+    if(LevelVar.deadZombieCollection.size() > 0) {
+      for (Zombie zombie : LevelVar.deadZombieCollection)
+      {
+        for (int i = 0; i < LevelVar.zombieCollection.size(); i++) {
+          if(zombie.zombieID == LevelVar.zombieCollection.get(i).zombieID) {
+            LevelVar.zombieCollection.remove(i);
+            System.out.println("removed");
+          }
+        }
+        sceneRoot.getChildren().add(zombie.zombie3D);
+      }
+    }
+
     // Add all of the 3D zombie objects
     for (Zombie zombie : LevelVar.zombieCollection)
     {
@@ -593,6 +606,8 @@ public class MainApplication extends Application
     @Override
     public void handle(long time)
     {
+      int positionToRemove = 0;
+      int position = 0;
       //System.out.println(frame);
       if (frame == 0) lastFrame = time;
       frame++;
@@ -605,18 +620,38 @@ public class MainApplication extends Application
       // Animate zombies every four frames to reduce computational load
       if (frame % 4 == 0)
       {
-        for (PastSelf ps : LevelVar.pastSelfCollection)
+        if(LevelVar.pastSelfCollection.size() > 0)
         {
-          PastSelf3D ps3D = ps.pastSelf3D;
-          if(frame - ps.deathFrame < ps.deathFrame)
+          for (PastSelf ps : LevelVar.pastSelfCollection)
           {
-            ps.positionX = xPos.get(frame - ps.deathFrame);
-            ps.positionY = yPos.get(frame - ps.deathFrame);
-            ps3D.setTranslateX(xPos.get(frame - ps.deathFrame) * TILE_WIDTH_AND_HEIGHT);
-            ps3D.setTranslateZ(yPos.get(frame - ps.deathFrame) * TILE_WIDTH_AND_HEIGHT);
-            ps3D.setRotate(cameraPos.get(frame - ps.deathFrame) - 180);
-          } else {
-            sceneRoot.getChildren().remove(ps.pastSelf3D);
+            PastSelf3D ps3D = ps.pastSelf3D;
+            if(frame - ps.deathFrame < ps.deathFrame)
+            {
+              ps.positionX = xPos.get(frame - ps.deathFrame);
+              ps.positionY = yPos.get(frame - ps.deathFrame);
+              ps3D.setTranslateX(xPos.get(frame - ps.deathFrame) * TILE_WIDTH_AND_HEIGHT);
+              ps3D.setTranslateZ(yPos.get(frame - ps.deathFrame) * TILE_WIDTH_AND_HEIGHT);
+              ps3D.setRotate(cameraPos.get(frame - ps.deathFrame) - 180);
+            } else {
+              sceneRoot.getChildren().remove(ps3D);
+            }
+          }
+
+          int i = LevelVar.pastSelfCollection.get(0).deathFrame;
+          for (Zombie zombie : LevelVar.deadZombieCollection)
+          {
+            Zombie3D z = zombie.zombie3D;
+            System.out.println(frame - zombie.getDeathFrame() + " : " + zombie.getDeathFrame());
+            if (frame - i < zombie.getDeathFrame())
+            {
+              zombie.setPositionX(zombie.getXPos().get((frame - i)/4));
+              zombie.setPositionY(zombie.getYPos().get((frame - i)/4));
+              z.setTranslateX(zombie.getXPos().get((frame - i)/4) * TILE_WIDTH_AND_HEIGHT);
+              z.setTranslateZ(zombie.getYPos().get((frame - i)/4) * TILE_WIDTH_AND_HEIGHT);
+            } else
+            {
+              sceneRoot.getChildren().remove(z);
+            }
           }
         }
 
@@ -664,8 +699,9 @@ public class MainApplication extends Application
               if(zombie.getLife() == 1)
               {
                 zombie.setDeathFrame(frame);
-                sceneRoot.getChildren().remove(zombie.zombie3D);
-                System.out.println(zombie.getDeathFrame());
+                LevelVar.deadZombieCollection.add(zombie);
+                positionToRemove = position;
+                sceneRoot.getChildren().remove(zombie3D);
               }
             }
             
@@ -689,25 +725,6 @@ public class MainApplication extends Application
             
             zombie.addXPos(zombie.positionX);
             zombie.addYPos(zombie.positionY);
-            
-            if(shouldRebuildLevel)
-            {
-              interacted = true;
-            }
-  
-            if(zombie.getDeathFrame() > 1 && interacted)
-            {
-              System.out.println("Testing");
-              if(frame - zombie.getDeathFrame() < zombie.getDeathFrame())
-              {
-                System.out.println("test2");
-                zombie.setPositionX(zombie.getXPos().get(frame - zombie.getDeathFrame()));
-                zombie.setPositionY(zombie.getYPos().get(frame - zombie.getDeathFrame()));
-                System.out.println("Z_X: " + zombie.positionX + " Z_Y: " + zombie.positionY);
-              } else {
-                sceneRoot.getChildren().remove(zombie.zombie3D);
-              }
-            }
             
             // Accomodate all four quadrants of the unit circle, rotate to face the user
             if (distanceX < 0)
@@ -737,6 +754,11 @@ public class MainApplication extends Application
               DirectionalPlayer.playSound(AudioFiles.randomZombieSound(), angleBetweenVectors(playerDirectionVectorX, playerDirectionVectorY, zombieVectorX, zombieVectorY), distance);
             }
           }
+          position++;
+        }
+
+        if(positionToRemove > 0) {
+          LevelVar.zombieCollection.remove(positionToRemove);
         }
 
         if(spawnPastSelf) {
