@@ -77,8 +77,8 @@ public class Level
     houseWidth = mazeTilesXPerZone * 2 * 4 + 1;
     houseHeight = mazeTilesXPerZone * 2 * 4 + 1;
     LevelVar.house = new Tile[houseWidth][houseHeight];
-    LevelVar.zombieCollection = new ArrayList<Zombie>();
-    LevelVar.pastSelfCollection = new ArrayList<PastSelf>();
+    LevelVar.zombieCollection = new ArrayList<>();
+    LevelVar.pastSelfCollection = new ArrayList<>();
     playerLevelUp();
     rSeed = LevelVar.rand.nextLong();
     LevelVar.rand = new Random(rSeed);

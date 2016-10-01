@@ -97,6 +97,9 @@ public class Zombie
   private int life;
   
   private int deathFrame;
+  
+  private ArrayList<Double> xPos = new ArrayList<>();
+  private ArrayList<Double> yPos = new ArrayList<>();
 
   /**
    * Constructs a Zombie object with the specified heading, X coordinate position,
@@ -130,7 +133,27 @@ public class Zombie
   public void setDeathFrame(int frameOfDeath) {
     deathFrame = frameOfDeath;
   }
-
+  
+  public void addXPos(double xPosition)
+  {
+    xPos.add(xPosition);
+  }
+  
+  public void addYPos(double yPosition)
+  {
+    yPos.add(yPosition);
+  }
+  
+  public ArrayList<Double> getXPos()
+  {
+    return xPos;
+  }
+  
+  public ArrayList<Double> getYPos()
+  {
+    return yPos;
+  }
+  
   /**
    * @return the Zombie class' zombie_Smell
    */
@@ -261,8 +284,11 @@ public class Zombie
         moveX = (Math.cos(Math.toRadians(this.heading)) * (this.zombie_Speed + LevelVar.levelNum*0.125)) * step;
         moveY = (Math.sin(Math.toRadians(this.heading)) * (this.zombie_Speed + LevelVar.levelNum*0.125)) * step;
       }
-      moveX = (Math.cos(Math.toRadians(this.heading)) * this.zombie_Speed) * step;
-      moveY = (Math.sin(Math.toRadians(this.heading)) * this.zombie_Speed) * step;
+      else
+      {
+        moveX = (Math.cos(Math.toRadians(this.heading)) * this.zombie_Speed) * step;
+        moveY = (Math.sin(Math.toRadians(this.heading)) * this.zombie_Speed) * step;
+      }
       if(this.positionX > 0 && this.positionX <= LevelVar.house[0].length && this.positionY > 0 && this.positionY <= LevelVar.house.length)
       {
     	this.positionX += moveX;

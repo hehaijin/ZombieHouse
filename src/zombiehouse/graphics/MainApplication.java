@@ -94,6 +94,7 @@ public class MainApplication extends Application
   boolean spawnPastSelf = false;
 
   private int deathFrame = 0;
+  private boolean interacted = false;
   
   /**
    * Create a robot to reset the mouse to the middle of the screen.
@@ -109,8 +110,6 @@ public class MainApplication extends Application
       e.printStackTrace();
     }
   }
-  
-
   
   // Stores requests to rebuild the level graphically, so that rebuilding is done in a thread-safe manner
   boolean shouldRebuildLevel = false;
@@ -149,8 +148,7 @@ public class MainApplication extends Application
     life.getTransforms().add(new Scale(0.1,0.1));
     scene.heightProperty().bind(pane.heightProperty());
     scene.widthProperty().bind(pane.widthProperty());
-
-
+    
     // Hide the cursor
     xscene.setCursor(Cursor.NONE);
 
@@ -167,7 +165,6 @@ public class MainApplication extends Application
     pl.setTranslateY(cameraYDisplacement);
     
     sceneRoot.getChildren().add(pl);
-
     
     // Create the camera, set it to view far enough for any reasonably-sized map
     camera = new PerspectiveCamera(true);
@@ -391,6 +388,8 @@ public class MainApplication extends Application
     {
       sceneRoot.getChildren().add(zombie.zombie3D);
     }
+    
+    System.out.println("Number of zombies:" + LevelVar.zombieCollection.size());
 
     for (PastSelf ps : LevelVar.pastSelfCollection)
     {
@@ -555,7 +554,6 @@ public class MainApplication extends Application
       
       // Used for movement and swivel smoothing
       InputContainer.remainingCameraPan -= PLAYER_TURN_SMOOTHING * InputContainer.remainingCameraPan;
-      
     }
 
     /**
@@ -659,7 +657,7 @@ public class MainApplication extends Application
               }
             }
             
-            if(totalDistance < 1 && frame % 5 == 0 && InputContainer.hit == true)
+            if(totalDistance < 1 && frame % 5 == 0 && InputContainer.hit)
             {
               zombie.setLife(zombie.getLife() - 1);
               System.out.println("Life: " + zombie.getLife());
@@ -673,7 +671,6 @@ public class MainApplication extends Application
             
             double desiredPositionX = zombie.positionX - (distanceX / totalDistance * LevelVar.zombieSpeed * percentOfSecond);
             double desiredPositionY = zombie.positionY - (distanceY / totalDistance * LevelVar.zombieSpeed * percentOfSecond);
-            
             
             // Check for wall collisions
             if (!(LevelVar.house[round(desiredPositionX + WALL_COLLISION_OFFSET)][round(zombie.positionY)] instanceof Wall) &&
@@ -689,6 +686,28 @@ public class MainApplication extends Application
             
             double zombieVectorX = zombie.positionX - Player.xPosition;
             double zombieVectorY = zombie.positionY - Player.yPosition;
+            
+            zombie.addXPos(zombie.positionX);
+            zombie.addYPos(zombie.positionY);
+            
+            if(shouldRebuildLevel)
+            {
+              interacted = true;
+            }
+  
+            if(zombie.getDeathFrame() > 1 && interacted)
+            {
+              System.out.println("Testing");
+              if(frame - zombie.getDeathFrame() < zombie.getDeathFrame())
+              {
+                System.out.println("test2");
+                zombie.setPositionX(zombie.getXPos().get(frame - zombie.getDeathFrame()));
+                zombie.setPositionY(zombie.getYPos().get(frame - zombie.getDeathFrame()));
+                System.out.println("Z_X: " + zombie.positionX + " Z_Y: " + zombie.positionY);
+              } else {
+                sceneRoot.getChildren().remove(zombie.zombie3D);
+              }
+            }
             
             // Accomodate all four quadrants of the unit circle, rotate to face the user
             if (distanceX < 0)
