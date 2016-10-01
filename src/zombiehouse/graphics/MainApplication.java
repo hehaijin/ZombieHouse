@@ -28,6 +28,7 @@ import zombiehouse.level.house.Exit;
 import zombiehouse.level.house.Level;
 import zombiehouse.level.house.Tile;
 import zombiehouse.level.house.Wall;
+import zombiehouse.level.house.BookCase;
 import zombiehouse.level.zombie.*;
 
 import java.awt.*;
@@ -76,6 +77,7 @@ public class MainApplication extends Application
   private static final PhongMaterial floorMaterial3 = new PhongMaterial();
   private static final PhongMaterial floorMaterial4 = new PhongMaterial();
   private static final PhongMaterial ceilingMaterial = new PhongMaterial();
+  private static final PhongMaterial bookcaseMaterial=new PhongMaterial();
   private static final PhongMaterial wallMaterial = new PhongMaterial();
   private static final PhongMaterial exitMaterial = new PhongMaterial();
   
@@ -95,7 +97,9 @@ public class MainApplication extends Application
 
   private int deathFrame = 0;
   private boolean interacted = false;
-  
+
+
+
   /**
    * Create a robot to reset the mouse to the middle of the screen.
    */
@@ -290,6 +294,11 @@ public class MainApplication extends Application
     floorMaterial4.setSpecularColor(Color.WHITE.darker());
     floorMaterial4.setSpecularPower(128);
     floorMaterial4.setDiffuseMap(new Image(getClass().getResource("/res/floor4.png").toExternalForm()));
+
+    bookcaseMaterial.setDiffuseColor(new Color(0.45, 0.45, 0.45, 1.0));
+    bookcaseMaterial.setSpecularColor(Color.BLACK);
+    bookcaseMaterial.setSpecularPower(256);
+    bookcaseMaterial.setDiffuseMap(new Image(getClass().getResource("/res/bookcase3.png").toExternalForm()));
     
     
     ceilingMaterial.setDiffuseColor(Color.WHITE);
@@ -360,7 +369,7 @@ public class MainApplication extends Application
         sceneRoot.getChildren().add(ceiling);
         
         // If wall, place a ground-to-ceiling wall box
-        if (house[x][z] instanceof Wall)
+        if (house[x][z] instanceof Wall && !(house[x][z] instanceof BookCase))
         {
           Box wall = new Box(TILE_WIDTH_AND_HEIGHT, WALL_HEIGHT, TILE_WIDTH_AND_HEIGHT);
           wall.setMaterial(wallMaterial);
@@ -369,6 +378,18 @@ public class MainApplication extends Application
           wall.setTranslateZ(z * TILE_WIDTH_AND_HEIGHT);
           sceneRoot.getChildren().add(wall);
         }
+
+        if (house[x][z] instanceof BookCase)
+        {
+          Box bookcase = new Box(TILE_WIDTH_AND_HEIGHT, WALL_HEIGHT, TILE_WIDTH_AND_HEIGHT);
+          bookcase.setMaterial(bookcaseMaterial);
+          bookcase.setTranslateY(-WALL_HEIGHT / 2);
+          bookcase.setTranslateX(x * TILE_WIDTH_AND_HEIGHT);
+          bookcase.setTranslateZ(z * TILE_WIDTH_AND_HEIGHT);
+          sceneRoot.getChildren().add(bookcase);
+        }
+
+
         
         // If exit, place a ground-to-ceiling exit box
         else if (house[x][z] instanceof Exit)
