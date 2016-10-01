@@ -41,6 +41,7 @@ import zombiehouse.level.zombie.*;
  */
 public class ProGen
 {
+
   private static final int SCALER = 4;
   private static final int NUM_ZONES = 4;
   
@@ -252,7 +253,7 @@ public class ProGen
     }
     
   }
-  
+  //where different types of tiles are assigned.
   private Tile[][] mazeTileToTile()
   {
     for(int i = 0; i < scaledX; i++)
@@ -265,7 +266,10 @@ public class ProGen
           {
             if(x == 0 && y == 0 && LevelVar.rand.nextDouble() < LevelVar.pillarSpawnChance)
             {
-              fullSizeHouse[i * SCALER + x][j * SCALER + y] = new Wall(i * SCALER + x, j * SCALER + y, scaledHouse[i][j].zone);
+              if(Math.random()<LevelVar.bookcasechance)
+                fullSizeHouse[i * SCALER + x][j * SCALER + y] = new BookCase(i * SCALER + x, j * SCALER + y, scaledHouse[i][j].zone);
+              else
+                fullSizeHouse[i * SCALER + x][j * SCALER + y] = new Wall(i * SCALER + x, j * SCALER + y, scaledHouse[i][j].zone);
             }
             else if(x == 0 && scaledHouse[i][j].westWall)
             {
@@ -275,6 +279,9 @@ public class ProGen
               }
               else
               {
+                if(Math.random()<LevelVar.bookcasechance)
+                  fullSizeHouse[i * SCALER + x][j * SCALER + y] = new BookCase(i * SCALER + x, j * SCALER + y, scaledHouse[i][j].zone);
+                else
                 fullSizeHouse[i * SCALER + x][j * SCALER + y] = new Wall(i * SCALER + x, j * SCALER + y, scaledHouse[i][j].zone );
               }
               
@@ -287,6 +294,9 @@ public class ProGen
               }
               else
               {
+                if(Math.random()<LevelVar.bookcasechance)
+                  fullSizeHouse[i * SCALER + x][j * SCALER + y] = new BookCase(i * SCALER + x, j * SCALER + y, scaledHouse[i][j].zone);
+                else
                 fullSizeHouse[i * SCALER + x][j * SCALER + y] = new Wall(i * SCALER + x, j * SCALER + y, scaledHouse[i][j].zone );
               }
             }
@@ -303,13 +313,17 @@ public class ProGen
     {
       if(i < fullX / 2) { tempZone = 1; }
       else { tempZone = 3; }
-      fullSizeHouse[fullX][i] = new Wall(fullX, i, tempZone);
+     fullSizeHouse[fullX][i] = new Wall(fullX, i, tempZone);
+      // fullSizeHouse[fullX][i] = new BookCase(fullX, i, tempZone);
+
     }
     for(int i = 0; i < fullY + 1; i++)
     {
       if(i < fullY / 2) { tempZone = 2; }
       else { tempZone = 3; }
-      fullSizeHouse[i][fullY] = new Wall(i, fullY, tempZone);
+     fullSizeHouse[i][fullY] = new Wall(i, fullY, tempZone);
+      // fullSizeHouse[i][fullY] = new BookCase(i, fullY, tempZone);
+
     }
     
     return fullSizeHouse;

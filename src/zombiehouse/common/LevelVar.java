@@ -98,4 +98,6 @@ public class LevelVar
   public static boolean zombie3D;
   
   public static boolean HOUSE_PRESENTATION = false;
+
+  public static double bookcasechance=0.15;
 }

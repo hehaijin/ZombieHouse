@@ -6,7 +6,7 @@ import zombiehouse.common.LevelVar;
 /**
  * Created by Haijin on 9/27/2016.
  */
-public class BookCase extends Tile
+public class BookCase extends Wall
 {
 
   /**
