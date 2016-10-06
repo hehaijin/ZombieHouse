@@ -78,8 +78,9 @@ public class Level
     houseHeight = mazeTilesXPerZone * 2 * 4 + 1;
     LevelVar.house = new Tile[houseWidth][houseHeight];
     LevelVar.zombieCollection = new ArrayList<>();
-    LevelVar.deadZombieCollection = new ArrayList<>();
+    LevelVar.interactedWithZombieCollection = new ArrayList<>();
     LevelVar.pastSelfCollection = new ArrayList<>();
+    LevelVar.pastZombieCollection = new ArrayList<>();
     playerLevelUp();
     rSeed = LevelVar.rand.nextLong();
     LevelVar.rand = new Random(rSeed);
@@ -96,6 +97,18 @@ public class Level
   {
     nextZombie = 0;
     LevelVar.house = new Tile[houseWidth][houseHeight];
+    if(LevelVar.pastZombieCollection.size() > 0) {
+      for(Zombie z : LevelVar.pastZombieCollection) {
+        for(Zombie z2: LevelVar.zombieCollection) {
+          if(z.zombieID == z2.zombieID) {
+            z.getXPos().addAll(z2.getXPos());
+            z.getYPos().addAll(z2.getYPos());
+          }
+        }
+      }
+    } else {
+      LevelVar.pastZombieCollection = LevelVar.zombieCollection;
+    }
     LevelVar.zombieCollection = new ArrayList<>();
     LevelVar.rand.setSeed(rSeed);
     pG = new ProGen();

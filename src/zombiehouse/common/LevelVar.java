@@ -30,7 +30,9 @@ public class LevelVar
    */
   public static ArrayList<Zombie> zombieCollection;
 
-  public static ArrayList<Zombie> deadZombieCollection;
+  public static ArrayList<Zombie> pastZombieCollection;
+
+  public static ArrayList<Zombie> interactedWithZombieCollection;
 
   public static ArrayList<PastSelf> pastSelfCollection;
 
@@ -51,7 +53,7 @@ public class LevelVar
    * Note: at final level (levelNum = 4) there will be a 2% chance to spawn
    *       which is the 2x the chance of the first level (and makes for a challenging density)
    */
-  public static double spawnModifier = 0.0025;
+  public static double spawnModifier = 0.25;
   
   /**
    * This is the (percent) chance to spawn a pillar at each 'opening'

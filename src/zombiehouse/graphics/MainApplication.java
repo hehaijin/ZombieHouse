@@ -93,6 +93,7 @@ public class MainApplication extends Application
   private ArrayList<Double> xPos = new ArrayList<>();
   private ArrayList<Double> yPos = new ArrayList<>();
   private ArrayList<Double> cameraPos = new ArrayList<>();
+  private ArrayList<Zombie> toAddToDeadCollection = new ArrayList<>();
   boolean spawnPastSelf = false;
 
   private int deathFrame = 0;
@@ -404,8 +405,10 @@ public class MainApplication extends Application
       }
     }
 
-    if(LevelVar.deadZombieCollection.size() > 0) {
-      for (Zombie zombie : LevelVar.deadZombieCollection)
+    toAddToDeadCollection.clear();
+
+    if(LevelVar.interactedWithZombieCollection.size() > 0) {
+      for (Zombie zombie : LevelVar.interactedWithZombieCollection)
       {
         for (int i = 0; i < LevelVar.zombieCollection.size(); i++) {
           if(zombie.zombieID == LevelVar.zombieCollection.get(i).zombieID) {
@@ -628,7 +631,9 @@ public class MainApplication extends Application
     public void handle(long time)
     {
       int positionToRemove = 0;
+      ArrayList<Integer> positionsToRemove = new ArrayList<>();
       int position = 0;
+      int pastSelfCSize = LevelVar.pastSelfCollection.size();
       //System.out.println(frame);
       if (frame == 0) lastFrame = time;
       frame++;
@@ -641,7 +646,8 @@ public class MainApplication extends Application
       // Animate zombies every four frames to reduce computational load
       if (frame % 4 == 0)
       {
-        if(LevelVar.pastSelfCollection.size() > 0)
+
+        if(pastSelfCSize > 0)
         {
           for (PastSelf ps : LevelVar.pastSelfCollection)
           {
@@ -658,12 +664,12 @@ public class MainApplication extends Application
             }
           }
 
-          int i = LevelVar.pastSelfCollection.get(0).deathFrame;
-          for (Zombie zombie : LevelVar.deadZombieCollection)
+          int i = LevelVar.pastSelfCollection.get(pastSelfCSize - 1).deathFrame;
+          for (Zombie zombie : LevelVar.interactedWithZombieCollection)
           {
             Zombie3D z = zombie.zombie3D;
-            System.out.println(frame - zombie.getDeathFrame() + " : " + zombie.getDeathFrame());
-            if (frame - i < zombie.getDeathFrame())
+            System.out.println(frame - i + " : " + zombie.getDeathFrame()/4 + " : " + zombie.getXPos().size()+ " : " + zombie.getYPos().size() + " : " + zombie.zombieID);
+            if (frame - i < zombie.getDeathFrame() - 4)
             {
               zombie.setPositionX(zombie.getXPos().get((frame - i)/4));
               zombie.setPositionY(zombie.getYPos().get((frame - i)/4));
@@ -671,7 +677,14 @@ public class MainApplication extends Application
               z.setTranslateZ(zombie.getYPos().get((frame - i)/4) * TILE_WIDTH_AND_HEIGHT);
             } else
             {
-              sceneRoot.getChildren().remove(z);
+              if(zombie.getLife() > 0)
+              {
+                //double xPos = zombie.getXPos().get(zombie.getXPos().size() - 1);
+                //double yPos = zombie.getYPos().get(zombie.getYPos().size() - 1);
+                //LevelVar.zombieCollection.add(new LineWalkZombie(0, xPos, yPos, zombie.curTile, zombie.zombieID));
+              } else {
+                sceneRoot.getChildren().remove(z);
+              }
             }
           }
         }
@@ -687,6 +700,8 @@ public class MainApplication extends Application
                   Math.abs(zombie.positionY - Player.yPosition) * Math.abs(zombie.positionY - Player.yPosition));
           if (distance < ZOMBIE_ACTIVATION_DISTANCE)
           {
+            zombie.interactedWithPS = true;
+            zombie.canSmellFrame = frame;
             // Animate 3D zombie and move it to its parent zombie location
             zombie3D.nextFrame();
             double distanceX = (zombie.positionX - Player.xPosition);
@@ -703,7 +718,35 @@ public class MainApplication extends Application
               }
                 else
               {
+                int positionForInner = 0;
                 System.out.println("Restarting due to death!! ");
+                for(Zombie zom : LevelVar.zombieCollection) {
+                  if(zom.interactedWithPS) {
+                    /*if(LevelVar.pastZombieCollection.size() > 0) {
+                      for(Zombie z : LevelVar.pastZombieCollection) {
+                        if(z.zombieID == zom.zombieID) {
+                          z.getXPos().addAll(zom.getXPos());
+                          z.getYPos().addAll(zom.getYPos());
+                          z.setDeathFrame(frame);
+                          toAddToDeadCollection.add(z);
+                          break;
+                        }
+                      }
+                    } else
+                    {
+                      toAddToDeadCollection.add(zom);
+                      zom.setDeathFrame(frame);
+                    }
+                    positionsToRemove.add(positionForInner);*/
+                  }
+                  positionForInner++;
+                }
+                for(Zombie z : toAddToDeadCollection) {
+                  LevelVar.interactedWithZombieCollection.add(z);
+                }
+                for(PastSelf ps : LevelVar.pastSelfCollection) {
+                  sceneRoot.getChildren().remove(ps.pastSelf3D);
+                }
                 Player.life = 5;
                 lifeView.setImage(life5);
                 deathFrame = frame;
@@ -720,7 +763,20 @@ public class MainApplication extends Application
               if(zombie.getLife() == 1)
               {
                 zombie.setDeathFrame(frame);
-                LevelVar.deadZombieCollection.add(zombie);
+                if(LevelVar.pastZombieCollection.size() > 0) {
+                  for(Zombie z : LevelVar.pastZombieCollection) {
+                    if(z.zombieID == zombie.zombieID) {
+                      z.getXPos().addAll(zombie.getXPos());
+                      z.getYPos().addAll(zombie.getYPos());
+                      z.setDeathFrame(frame);
+                      toAddToDeadCollection.add(z);
+                      break;
+                    }
+                  }
+                } else
+                {
+                  toAddToDeadCollection.add(zombie);
+                }
                 positionToRemove = position;
                 sceneRoot.getChildren().remove(zombie3D);
               }
@@ -780,6 +836,13 @@ public class MainApplication extends Application
 
         if(positionToRemove > 0) {
           LevelVar.zombieCollection.remove(positionToRemove);
+        }
+
+        if(!positionsToRemove.isEmpty()) {
+          for(int i : positionsToRemove)
+          {
+            LevelVar.zombieCollection.remove(i);
+          }
         }
 
         if(spawnPastSelf) {
