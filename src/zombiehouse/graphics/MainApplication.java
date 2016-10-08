@@ -2,6 +2,7 @@ package zombiehouse.graphics;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.*;
@@ -14,6 +15,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
+import javafx.scene.shape.MeshView;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
@@ -99,7 +101,11 @@ public class MainApplication extends Application
   private int deathFrame = 0;
   private boolean interacted = false;
 
-
+  FXMLLoader fxmlloader=new FXMLLoader();
+  {
+    fxmlloader.setLocation(getClass().getResource("/res/knife1.fxml"));
+  }
+  MeshView knife1= null;
 
   /**
    * Create a robot to reset the mouse to the middle of the screen.
@@ -184,6 +190,12 @@ public class MainApplication extends Application
     camera.setRotationAxis(Rotate.Y_AXIS);
     camera.setDepthTest(DepthTest.ENABLE);
     scene.setCamera(camera);
+
+    knife1=fxmlloader.load();
+    knife1.setTranslateZ(cameraZDisplacement);
+    knife1.setTranslateY(cameraYDisplacement);
+    knife1.setRotationAxis(Rotate.Y_AXIS);
+
     
     // Set up key listeners for WASD (movement), F1/F2 (full screen toggle), Shift (run), Escape (exit), F3 (cheat)
     xscene.setOnKeyPressed(event ->
