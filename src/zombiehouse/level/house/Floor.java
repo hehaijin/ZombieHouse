@@ -37,8 +37,8 @@ public class Floor extends Tile
     {
       if(LevelVar.rand.nextDouble() < 0.01 + (LevelVar.levelNum * LevelVar.spawnModifier) )
       {
-        if(LevelVar.rand.nextBoolean()) 
-        { 
+        if(LevelVar.rand.nextBoolean())
+        {
           LevelVar.zombieCollection.add(new LineWalkZombie(LevelVar.rand.nextDouble() * 360, xCor + 0.5, yCor + 0.5, this, Level.nextZombie++));
         }
         else

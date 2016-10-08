@@ -36,6 +36,9 @@ public class Zombie
    * the number of Tiles away that a Zombie can smell
    */
   private int zombie_Smell = 10;
+
+
+  public int canSmellFrame = 0;
   /**
    * whether or not a Zombie has scent of the Player
    */
@@ -44,6 +47,8 @@ public class Zombie
    * whether or not a Zombie has collided with an Object
    */
   private boolean collided = false;
+
+  public boolean interactedWithPS = false;
   /**
    * this Zombie's ID number
    */
@@ -87,7 +92,7 @@ public class Zombie
   /**
    * the Tile the Zombie is currently in inside the ZombieHouse
    */
-  private Tile curTile;
+  public Tile curTile;
 
   /**
    * The Zombie3D that represents this zombie in a 3D graphical world
@@ -97,7 +102,7 @@ public class Zombie
   private int life;
   
   private int deathFrame;
-  
+
   private ArrayList<Double> xPos = new ArrayList<>();
   private ArrayList<Double> yPos = new ArrayList<>();
 
