@@ -1,7 +1,10 @@
 package zombiehouse.graphics;
 
+import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
+import javafx.animation.TranslateTransition;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.*;
@@ -14,10 +17,12 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
+import javafx.scene.shape.MeshView;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import zombiehouse.audio.AudioFiles;
 import zombiehouse.audio.DirectionalPlayer;
 import zombiehouse.common.InputContainer;
@@ -98,6 +103,16 @@ public class MainApplication extends Application
 
   private int deathFrame = 0;
   private boolean interacted = false;
+
+
+  FXMLLoader fxmlloader=new FXMLLoader();
+  {
+    fxmlloader.setLocation(getClass().getResource("/res/knife1.fxml"));
+  }
+
+  MeshView knife1= null;
+  TranslateTransition tt = new TranslateTransition();
+
 
 
   /**
@@ -184,6 +199,15 @@ public class MainApplication extends Application
     camera.setDepthTest(DepthTest.ENABLE);
     scene.setCamera(camera);
 
+
+    knife1=fxmlloader.load();
+    knife1.setTranslateZ(cameraZDisplacement);
+    knife1.setTranslateY(cameraYDisplacement);
+    knife1.setRotationAxis(Rotate.Y_AXIS);
+    sceneRoot.getChildren().add(knife1);
+    knife1.setTranslateY(-345);
+    knife1.getTransforms().add(new Rotate(100,0,0,0,Rotate.X_AXIS));
+
     // Set up key listeners for WASD (movement), F1/F2 (full screen toggle), Shift (run), Escape (exit), F3 (cheat)
     xscene.setOnKeyPressed(event ->
     {
@@ -203,6 +227,13 @@ public class MainApplication extends Application
       } else if (keycode == KeyCode.SPACE)
       {
         InputContainer.hit = true;
+        tt.setDuration(Duration.millis(300));
+        tt.setNode(knife1);
+        tt.setByX(50*Math.sin(cameraYRotation / 180 * 3.1415));
+        tt.setByZ(50*Math.cos(cameraYRotation / 180 * 3.1415));
+        tt.setAutoReverse(true);
+        tt.play();
+
       } else if (keycode == KeyCode.F1)
       {
         stage.setFullScreen(true);
@@ -589,6 +620,16 @@ public class MainApplication extends Application
 
       // Rotate the camera
       camera.setRotate(cameraYRotation);
+      
+
+      if(tt.getStatus()!= Animation.Status.RUNNING) {
+
+        knife1.setTranslateX(cameraXDisplacement + 100 * Math.sin(cameraYRotation / 180 * 3.1415));
+        knife1.setTranslateZ(cameraZDisplacement + 100 * Math.cos(cameraYRotation / 180 * 3.1415));
+        knife1.setRotate(cameraYRotation);
+      }
+
+
 
       xPos.add(Player.xPosition);
       yPos.add(Player.yPosition);
