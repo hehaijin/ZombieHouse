@@ -196,7 +196,8 @@ public class MainApplication extends Application
     knife1.setTranslateY(cameraYDisplacement);
     knife1.setRotationAxis(Rotate.Y_AXIS);
     sceneRoot.getChildren().add(knife1);
-    knife1.setTranslateY(-325);
+    knife1.setTranslateY(-345);
+    knife1.getTransforms().add(new Rotate(100,0,0,0,Rotate.X_AXIS));
     
     // Set up key listeners for WASD (movement), F1/F2 (full screen toggle), Shift (run), Escape (exit), F3 (cheat)
     xscene.setOnKeyPressed(event ->
