@@ -59,7 +59,7 @@ public class PastSelf
     this.positionX = positionX;
     this.positionY = positionY;
     this.deathFrame = deathFrame;
-    this.pastSelfID = psID;
+
     pastSelf3D = new PastSelf3D();
   }
 
