@@ -90,25 +90,13 @@ public class Level
   
   /**
    * restartLevel() should be called when the player is killed by a zombie
-   * resets the appropriate variables, re-seeds random
+   * resets the appropriate variables, re-seeds randomw
    * then creates a new ProGen
    */
   public void restartLevel()
   {
     nextZombie = 0;
     LevelVar.house = new Tile[houseWidth][houseHeight];
-    if(LevelVar.pastZombieCollection.size() > 0) {
-      for(Zombie z : LevelVar.pastZombieCollection) {
-        for(Zombie z2: LevelVar.zombieCollection) {
-          if(z.zombieID == z2.zombieID) {
-            z.getXPos().addAll(z2.getXPos());
-            z.getYPos().addAll(z2.getYPos());
-          }
-        }
-      }
-    } else {
-      LevelVar.pastZombieCollection = LevelVar.zombieCollection;
-    }
     LevelVar.zombieCollection = new ArrayList<>();
     LevelVar.rand.setSeed(rSeed);
     pG = new ProGen();

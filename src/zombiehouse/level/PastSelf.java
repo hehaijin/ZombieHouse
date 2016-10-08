@@ -11,6 +11,9 @@ package zombiehouse.level;
 
 import zombiehouse.graphics.PastSelf3D;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *Zombie class that contains methods inherited by the sub-classes of Zombie
  *as well as all Zombie variables. 
@@ -31,6 +34,14 @@ public class PastSelf
    */
   public double positionY;
 
+  public int pastSelfID;
+
+  private ArrayList<Double> xPos = new ArrayList<>();
+
+  private ArrayList<Double> yPos = new ArrayList<>();
+
+  private ArrayList<Double> cPos = new ArrayList<>();
+
   /**
    * The Zombie3D that represents this zombie in a 3D graphical world
    */
@@ -43,11 +54,33 @@ public class PastSelf
    * Y coordinate position, and the Tile it is in, preferably as given by its
    * X and Y coordinates
    */
-  public PastSelf(double heading, double positionX, double positionY, Integer deathFrame) {
+  public PastSelf(double heading, double positionX, double positionY, Integer deathFrame, Integer psID) {
     this.heading = heading;
     this.positionX = positionX;
     this.positionY = positionY;
     this.deathFrame = deathFrame;
+    this.pastSelfID = psID;
     pastSelf3D = new PastSelf3D();
+  }
+
+  public void setXPos(ArrayList<Double> xPositions)
+  {
+    xPos.addAll(xPositions);
+  }
+
+  public void setYPos(ArrayList<Double> yPositions) { yPos.addAll(yPositions); }
+
+  public void setCPos(ArrayList<Double> cPositions) { cPos.addAll(cPositions); }
+
+  public ArrayList<Double> getCameraPos() { return cPos; }
+
+  public ArrayList<Double> getXPos()
+  {
+    return xPos;
+  }
+
+  public ArrayList<Double> getYPos()
+  {
+    return yPos;
   }
 }

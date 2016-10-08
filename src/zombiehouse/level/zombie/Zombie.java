@@ -49,6 +49,10 @@ public class Zombie
   private boolean collided = false;
 
   public boolean interactedWithPS = false;
+
+  public boolean diesToPastSelf = false;
+
+  public int bifrocatedFrame = 0;
   /**
    * this Zombie's ID number
    */
@@ -105,6 +109,7 @@ public class Zombie
 
   private ArrayList<Double> xPos = new ArrayList<>();
   private ArrayList<Double> yPos = new ArrayList<>();
+  private ArrayList<Double> cameraPos = new ArrayList<>();
 
   /**
    * Constructs a Zombie object with the specified heading, X coordinate position,
@@ -148,7 +153,11 @@ public class Zombie
   {
     yPos.add(yPosition);
   }
-  
+
+  public void addCPos(double cPosition) { cameraPos.add(cPosition); }
+
+  public ArrayList<Double> getCameraPos() { return cameraPos; }
+
   public ArrayList<Double> getXPos()
   {
     return xPos;
