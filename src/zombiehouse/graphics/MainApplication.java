@@ -597,7 +597,14 @@ public class MainApplication extends Application
       
       // Rotate the camera
       camera.setRotate(cameraYRotation);
-      
+
+
+      knife1.setTranslateX(cameraXDisplacement+ 100*Math.sin(cameraYRotation / 180 * 3.1415));
+      knife1.setTranslateZ(cameraZDisplacement+ 100*Math.cos(cameraYRotation / 180 * 3.1415));
+      knife1.setRotate(cameraYRotation);
+
+
+
       xPos.add(Player.xPosition);
       yPos.add(Player.yPosition);
       cameraPos.add(cameraYRotation);
