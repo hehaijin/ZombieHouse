@@ -305,8 +305,8 @@ public class Zombie
       }
       if(this.positionX > 0 && this.positionX <= LevelVar.house[0].length && this.positionY > 0 && this.positionY <= LevelVar.house.length)
       {
-    	this.positionX += moveX;
-    	this.positionY += moveY;
+    	//this.positionX += moveX;
+    	//this.positionY += moveY;
     	this.curTile = LevelVar.house[(int) this.positionX][(int) this.positionY];
       }
       this.setCollided(this.collide());
@@ -512,7 +512,10 @@ public class Zombie
           t.setVisited(false);
           t.setAncestor(null);
         }
-        this.makeHeading();
+        if(path.size() > 1)
+        {
+          this.makeHeading();
+        }
         break;
       }
       if(currentTile.neighbors.size() == 0) 
@@ -526,7 +529,7 @@ public class Zombie
           int xCor = currentTile.neighbors.get(i).xCor;
           int yCor = currentTile.neighbors.get(i).yCor;
           int distance = ((int) Math.sqrt((xCor - ((int)Player.xPosition)) * (xCor - ((int)Player.xPosition)) + ((yCor - ((int)Player.yPosition)) * (yCor - ((int)Player.yPosition)))));
-          if(currentTile.neighbors.get(i) instanceof Wall)
+          /*if(currentTile.neighbors.get(i) instanceof Wall)
           {
             currentTile.neighbors.get(i).setCost(10000);
           }
@@ -537,10 +540,28 @@ public class Zombie
           this.searchQueue.add(currentTile.neighbors.get(i));
           currentTile.neighbors.get(i).setVisited(true);
           visitedTiles.add(currentTile.neighbors.get(i));
-          currentTile.neighbors.get(i).setAncestor(currentTile);
+          currentTile.neighbors.get(i).setAncestor(currentTile);*/
+          if(!(currentTile.neighbors.get(i) instanceof Wall))
+          {
+            currentTile.neighbors.get(i).setCost(distance + currentTile.cost + 1);
+            this.searchQueue.add(currentTile.neighbors.get(i));
+            currentTile.neighbors.get(i).setVisited(true);
+            visitedTiles.add(currentTile.neighbors.get(i));
+            currentTile.neighbors.get(i).setAncestor(currentTile);
+          }
         }
       }
     }
+  }
+  
+  public void printPath()
+  {
+    for (Tile t : path)
+    {
+      System.out.print(t.xCor + "," + t.yCor + " ");
+    }
+    System.out.println();
+    System.out.println("Player:" + Player.xPosition + "," + Player.yPosition);
   }
 
   /**
@@ -560,53 +581,65 @@ public class Zombie
         this.path.remove(0);
         destTile = this.path.get(0);
       }
-      diffX = ((destTile.xCor*2) + 0.5) - this.positionX;
-      diffY = ((destTile.yCor*2) + 0.5) - this.positionY;
-      dist = Math.sqrt(((diffX) * (diffX)) + ((diffY) * (diffY)));
+      //diffX = ((destTile.xCor*2) + 0.5) - this.positionX;
+      //diffY = ((destTile.yCor*2) + 0.5) - this.positionY;
+      //dist = Math.sqrt(((diffX) * (diffX)) + ((diffY) * (diffY)));
       //System.out.println("diffX = " + diffX + " diffY = " + diffY + " dist = " + dist);
       if (destTile.xCor > this.positionX) 
       {
         if (destTile.yCor > this.positionY) 
         {
-          double cosZ = Math.toDegrees(Math.acos(diffX/dist));
-          this.setHeading(cosZ);
+          //double cosZ = Math.toDegrees(Math.acos(diffX/dist));
+          //this.setHeading(cosZ);
+          positionX += 0.1;
+          positionY += 0.1;
         } 
         else if (destTile.yCor == this.positionY)
         {
-          this.setHeading(0.0);
+          //this.setHeading(0.0);
+          positionX += 0.1;
         }
         else 
         {
-          double cosZ = Math.toDegrees(Math.acos(diffX/dist));
-          this.setHeading(360 - cosZ);
+          //double cosZ = Math.toDegrees(Math.acos(diffX/dist));
+          //this.setHeading(360 - cosZ);
+          positionX += 0.1;
+          positionY -= 0.1;
         }
       } 
       else if (destTile.xCor == this.positionX) 
       {
         if (destTile.yCor > this.positionY) 
         {
-          this.setHeading(90.0);
+          //this.setHeading(90.0);
+          positionY += 0.1;
         }
         else 
         {
-          this.setHeading(270.0);
+          //this.setHeading(270.0);
+          positionY -= 0.1;
         }
       } 
       else if (destTile.xCor < this.positionX) 
       {
         if (destTile.yCor > this.positionY) 
         {
-          double cosZ = Math.toDegrees(Math.acos((diffX/dist)));
-          this.setHeading(90 + cosZ);
+          //double cosZ = Math.toDegrees(Math.acos((diffX/dist)));
+          //this.setHeading(90 + cosZ);
+          positionX -= 0.1;
+          positionY += 0.1;
         }
         else if (destTile.yCor == this.positionY)
         {
-          this.setHeading(180.0);
+          //this.setHeading(180.0);
+          positionX -= 0.1;
         }
         else 
         {
-          double cosZ = Math.toDegrees(Math.acos(diffX/dist));
-          this.setHeading(180 + cosZ);
+          //double cosZ = Math.toDegrees(Math.acos(diffX/dist));
+          //this.setHeading(180 + cosZ);
+          positionX -= 0.1;
+          positionY -= 0.1;
         }
       }
     } 

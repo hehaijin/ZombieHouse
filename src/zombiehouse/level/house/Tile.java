@@ -41,10 +41,15 @@ public class Tile
   
   public void setNeighbors(Tile[][] house)
   {
-    if(xCor+1 < house.length)     { if( house[xCor+1][yCor].isFloor() ) { neighbors.add(house[xCor+1][yCor]); } }
-    if(yCor+1 < house[0].length)  { if( house[xCor][yCor+1].isFloor() ) { neighbors.add(house[xCor][yCor+1]); } }
-    if(yCor-1 >= 0)               { if( house[xCor][yCor-1].isFloor() ) { neighbors.add(house[xCor][yCor-1]); } }
-    if(xCor-1 >= 0)               { if( house[xCor-1][yCor].isFloor() ) { neighbors.add(house[xCor-1][yCor]); } }
+    if(xCor+1 < house.length)     neighbors.add(house[xCor+1][yCor]);
+    if(yCor+1 < house[0].length)  neighbors.add(house[xCor][yCor+1]);
+    if(yCor-1 >= 0)               neighbors.add(house[xCor][yCor-1]);
+    if(xCor-1 >= 0)               neighbors.add(house[xCor-1][yCor]);
+    
+    if(xCor+1 < house.length && yCor+1 < house[0].length) neighbors.add(house[xCor+1][yCor+1]);
+    if(xCor+1 < house.length && yCor-1 >= 0)              neighbors.add(house[xCor+1][yCor-1]);
+    if(xCor-1 >= 0 && yCor+1 < house[0].length)           neighbors.add(house[xCor-1][yCor+1]);
+    if(xCor-1 >= 0 && yCor-1 >= 0)                        neighbors.add(house[xCor-1][yCor-1]);
   }
   
   public void addNeighbor(Tile nextTile) { neighbors.add(nextTile); }

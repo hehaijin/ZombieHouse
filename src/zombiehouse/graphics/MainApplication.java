@@ -869,7 +869,8 @@ public class MainApplication extends Application
                 sceneRoot.getChildren().remove(zombie3D);
               }
             }
-
+            
+            /*
             double desiredPositionX = zombie.positionX - (distanceX / totalDistance * LevelVar.zombieSpeed * percentOfSecond);
             double desiredPositionY = zombie.positionY - (distanceY / totalDistance * LevelVar.zombieSpeed * percentOfSecond);
 
@@ -883,7 +884,10 @@ public class MainApplication extends Application
                     !(LevelVar.house[round(zombie.positionX)][round(desiredPositionY - WALL_COLLISION_OFFSET)] instanceof Wall))
             {
               zombie.positionY = desiredPositionY;
-            }
+            }*/
+            zombie.makeDecision();
+            zombie.move();
+            zombie.printPath();
 
             double zombieVectorX = zombie.positionX - Player.xPosition;
             double zombieVectorY = zombie.positionY - Player.yPosition;

@@ -163,7 +163,7 @@ public class HouseAniTest extends Application
       
       for(Zombie z : LevelVar.zombieCollection)
       {
-//        z.makeDecision();
+        z.makeDecision();
         z.move();
         if(z instanceof LineWalkZombie) { gfx.setFill(Color.DARKOLIVEGREEN); }
         else if(z instanceof RandomWalkZombie) { gfx.setFill(Color.LIGHTGREEN); }
