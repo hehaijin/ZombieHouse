@@ -507,6 +507,11 @@ public class Zombie
       if(currentTile.xCor == destTile.xCor && currentTile.yCor == destTile.yCor)
       {
         lastTile = currentTile;
+        reconstructPath(came_from, destTile);
+        if(path.size() > 1)
+        {
+          makeHeading();
+        }
         break;
       }
 
@@ -529,8 +534,6 @@ public class Zombie
       System.out.println("error");
       path.clear();
     }
-
-    reconstructPath(came_from, destTile);
   }
 
   private int distance()
@@ -626,21 +629,39 @@ public class Zombie
    */
   public void makeHeading()
   {
-    Tile destTile = this.path.get(0);
+    Tile destTile = path.get(0);
     double diffX;
     double diffY;
     double dist;
     
-    if (destTile.xCor == (int) this.positionX
-          && destTile.yCor == (int) this.positionY) 
+    if (destTile.xCor == (int) positionX
+          && destTile.yCor == (int) positionY)
     {
-      this.path.remove(0);
-      destTile = this.path.get(0);
+      path.remove(0);
+      destTile = path.get(0);
     }
       //diffX = ((destTile.xCor*2) + 0.5) - this.positionX;
       //diffY = ((destTile.yCor*2) + 0.5) - this.positionY;
       //dist = Math.sqrt(((diffX) * (diffX)) + ((diffY) * (diffY)));
       //System.out.println("diffX = " + diffX + " diffY = " + diffY + " dist = " + dist);
+    
+    /*if(destTile.xCor > positionX )
+    {
+      positionX += 0.05;
+    }
+    if(destTile.xCor < positionX )
+    {
+      positionX -= 0.05;
+    }
+
+    if(destTile.yCor > positionY )
+    {
+      positionY += 0.05;
+    }
+    if(destTile.yCor < positionY )
+    {
+      positionY -= 0.05;
+    }*/
 
     if (destTile.xCor > this.positionX)
     {

@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="442e509c-61a4-4c06-afc7-5bb19b6b4dd1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java" afterPath="$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/level/house/Tile.java" afterPath="$PROJECT_DIR$/src/zombiehouse/level/house/Tile.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java" afterPath="$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java" />
     </list>
@@ -20,36 +19,6 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
-  <component name="DockManager">
-    <window id="1">
-      <content type="file-editors">
-        <state>
-          <leaf>
-            <file leaf-file-name="Zombie.java" pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="408">
-                    <caret line="601" column="184" selection-start-line="599" selection-start-column="10" selection-end-line="601" selection-end-column="184" />
-                    <folding />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file leaf-file-name="Path.java" pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/../../../AStar/Path.java">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="1441">
-                    <caret line="126" column="37" selection-start-line="126" selection-start-column="37" selection-end-line="126" selection-end-column="37" />
-                    <folding />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
-  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="ZombieHouse" />
@@ -59,8 +28,18 @@
       <file leaf-file-name="MainApplication.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="241">
-              <caret line="886" column="15" selection-start-line="886" selection-start-column="15" selection-end-line="886" selection-end-column="15" />
+            <state relative-caret-position="292">
+              <caret line="889" column="12" selection-start-line="889" selection-start-column="12" selection-end-line="889" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Tile.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/house/Tile.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="51" column="6" selection-start-line="51" selection-start-column="6" selection-end-line="51" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -69,8 +48,8 @@
       <file leaf-file-name="Zombie.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-121">
-              <caret line="529" column="19" selection-start-line="529" selection-start-column="19" selection-end-line="529" selection-end-column="19" />
+            <state relative-caret-position="3995">
+              <caret line="646" column="4" selection-start-line="646" selection-start-column="4" selection-end-line="646" selection-end-column="4" />
               <folding>
                 <element signature="e#3629#3630#0" expanded="true" />
                 <element signature="e#3658#3659#0" expanded="true" />
@@ -84,8 +63,8 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
-        <option value="jdonckels &lt;jdonckels@unm.edu&gt;" />
         <option value="akuzmin96 &lt;akuzmin@unm.edu&gt;" />
+        <option value="jdonckels &lt;jdonckels@unm.edu&gt;" />
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -111,8 +90,8 @@
         <option value="$PROJECT_DIR$/src/zombiehouse/level/house/Level.java" />
         <option value="$PROJECT_DIR$/src/zombiehouse/level/PastSelf.java" />
         <option value="$PROJECT_DIR$/src/zombiehouse/AStar/Path.java" />
-        <option value="$PROJECT_DIR$/src/zombiehouse/level/house/Tile.java" />
         <option value="$PROJECT_DIR$/../../../AStar/Path.java" />
+        <option value="$PROJECT_DIR$/src/zombiehouse/level/house/Tile.java" />
         <option value="$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java" />
         <option value="$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java" />
       </list>
@@ -615,7 +594,14 @@
       <option name="project" value="LOCAL" />
       <updated>1475965238683</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Got A* to find proper path, just need movement">
+      <created>1476134727747</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1476134727747</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -665,7 +651,8 @@
     <MESSAGE value="Pressing 'Space' near a zombie will kill it after 5 hits but it doesn't disappear on the second life." />
     <MESSAGE value="Getting zombies to die and follow pastSelf" />
     <MESSAGE value="Updating Past Self" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updating Past Self" />
+    <MESSAGE value="Got A* to find proper path, just need movement" />
+    <option name="LAST_COMMIT_MESSAGE" value="Got A* to find proper path, just need movement" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1030,34 +1017,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../../../AStar/Path.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="659">
+          <caret line="59" column="4" selection-start-line="59" selection-start-column="4" selection-end-line="59" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/house/Tile.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="51" column="100" selection-start-line="51" selection-start-column="100" selection-end-line="51" selection-end-column="100" />
+        <state relative-caret-position="408">
+          <caret line="51" column="6" selection-start-line="51" selection-start-column="6" selection-end-line="51" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="886" column="15" selection-start-line="886" selection-start-column="15" selection-end-line="886" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../AStar/Path.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1441">
-          <caret line="126" column="37" selection-start-line="126" selection-start-column="37" selection-end-line="126" selection-end-column="37" />
+        <state relative-caret-position="292">
+          <caret line="889" column="12" selection-start-line="889" selection-start-column="12" selection-end-line="889" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-121">
-          <caret line="529" column="19" selection-start-line="529" selection-start-column="19" selection-end-line="529" selection-end-column="19" />
+        <state relative-caret-position="3995">
+          <caret line="646" column="4" selection-start-line="646" selection-start-column="4" selection-end-line="646" selection-end-column="4" />
           <folding>
             <element signature="e#3629#3630#0" expanded="true" />
             <element signature="e#3658#3659#0" expanded="true" />
