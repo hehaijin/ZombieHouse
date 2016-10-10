@@ -75,7 +75,7 @@ public class MainApplication extends Application
   private static final int WINDOW_WIDTH = 800;
   private static final int WINDOW_HEIGHT = 600;
 
-  private static final int ZOMBIE_ACTIVATION_DISTANCE = 14;
+  private static final int ZOMBIE_ACTIVATION_DISTANCE = 7;
 
   private static final PhongMaterial floorMaterial1 = new PhongMaterial();
   private static final PhongMaterial floorMaterial2 = new PhongMaterial();

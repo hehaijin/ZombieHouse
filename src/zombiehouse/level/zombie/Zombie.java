@@ -9,11 +9,10 @@
 
 package zombiehouse.level.zombie;
 
-import java.util.ArrayList;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Comparator;
-import java.util.LinkedList;
+import java.awt.*;
+import java.util.*;
+import java.util.List;
+
 import zombiehouse.level.house.*;
 import zombiehouse.common.*;
 import zombiehouse.graphics.Zombie3D;
@@ -60,31 +59,36 @@ public class Zombie
   /**
    * array of Tiles that lead to the Player
    */
-  public ArrayList<Tile> path = new ArrayList<>();
+  private LinkedList<Tile> path = new LinkedList<>();
+
   /**
    * a queue to hold Tiles that search for the Player for scent detection
    */
-  public Queue<Tile> bfsQueue = new LinkedList<>();
+  private Queue<Tile> bfsQueue = new LinkedList<>();
   /**
    * a priority queue that holds Tiles examined while finding Zombie's path to
    * Player
    */
-  public PriorityQueue<Tile> searchQueue = new PriorityQueue<>(25,
+  private PriorityQueue<Tile> searchQueue = new PriorityQueue<>(1,
       new Comparator<Tile>() {
 
         public int compare(Tile one, Tile two)
         {
           if (one.cost > two.cost)
+          {
             return 1;
+          }
           if (one.cost < two.cost)
+          {
             return -1;
+          }
           return 0;
         }
       });
   /**
    * the direction the Zombie will head in degrees
    */
-  public double heading;
+  private double heading;
   /**
    * the Zombie's current X coordinate in the ZombieHouse
    */
@@ -478,33 +482,100 @@ public class Zombie
     }
     return false;
   }
-  
-  
+
+
+  public void calcPath(Tile[][] house)
+  {
+    Tile destTile = house[(int)Player.xPosition][(int)Player.yPosition];
+    curTile = house[(int)positionX][(int)positionY];
+
+    searchQueue.clear();
+    path.clear();
+
+    Tile lastTile = null;
+    curTile.setCost(0);
+    searchQueue.add(curTile);
+    LinkedHashMap<Tile, Tile> came_from = new LinkedHashMap<>();
+    LinkedHashMap<Tile, Integer> cost_so_far = new LinkedHashMap<>();
+    came_from.put(curTile, null);
+    cost_so_far.put(curTile, 0);
+
+    while(searchQueue.size() > 0)
+    {
+      Tile currentTile = searchQueue.poll();
+
+      if(currentTile.xCor == destTile.xCor && currentTile.yCor == destTile.yCor)
+      {
+        lastTile = currentTile;
+        break;
+      }
+
+      List<Tile> neighbors = currentTile.getNeighbors();
+      for(Tile neighbor : neighbors)
+      {
+        int new_cost = cost_so_far.get(currentTile) + 1;
+        if(!cost_so_far.containsKey(neighbor) || new_cost < cost_so_far.get(neighbor))
+        {
+          cost_so_far.put(neighbor, new_cost);
+          int priority = new_cost + distance();
+          searchQueue.add(neighbor);
+          came_from.put(neighbor, currentTile);
+          neighbor.setCost(priority);
+        }
+      }
+    }
+    if(lastTile == null)
+    {
+      System.out.println("error");
+      path.clear();
+    }
+
+    reconstructPath(came_from, destTile);
+  }
+
+  private int distance()
+  {
+    int xCor = curTile.xCor;
+    int yCor = curTile.yCor;
+    int distance = ((int) Math.sqrt((xCor - ((int)Player.xPosition)) * (xCor - ((int)Player.xPosition)) + ((yCor - ((int)Player.yPosition)) * (yCor - ((int)Player.yPosition)))));
+    return distance;
+  }
+
+  private void reconstructPath(LinkedHashMap<Tile, Tile> came_from, Tile finish)
+  {
+    Tile currentTile = finish;
+    while(currentTile != null)
+    {
+      path.addFirst(currentTile);
+      currentTile = came_from.get(currentTile);
+    }
+  }
+
   /**
    * A* algorithm for the Zombie to use once it's canSmell value is true
    * Sets the Zombie's path arrayList to a list of Tiles from itself to the
    * player.
    * @param house 2d array of Tiles to search
    */
-  public void calcPath(Tile[][] house)
+  /*public void calcPath(Tile[][] house)
   {
     ArrayList<Tile> visitedTiles = new ArrayList<>();
     Tile destTile = house[(int)Player.xPosition][(int)Player.yPosition];
   
-    this.searchQueue.clear();
-    this.path.clear();
-    this.searchQueue.add(this.curTile);
-    this.curTile.setVisited(true);
-    visitedTiles.add(this.curTile);
-    while(!(this.searchQueue.isEmpty()))
+    searchQueue.clear();
+    path.clear();
+    searchQueue.add(curTile);
+    curTile.setVisited(true);
+    visitedTiles.add(curTile);
+    while(!(searchQueue.isEmpty()))
     {
-      Tile currentTile = this.searchQueue.poll();
+      Tile currentTile = searchQueue.poll();
       if(currentTile.xCor == destTile.xCor && currentTile.yCor == destTile.yCor)
       {
-        this.path.add(0, currentTile);
+        path.add(0, currentTile);
         while(currentTile.ancestor != null)
         {
-          this.path.add(0, currentTile.ancestor);
+          path.add(0, currentTile.ancestor);
           if(currentTile.ancestor != null) currentTile = currentTile.ancestor;
         }
         for(Tile t : visitedTiles)
@@ -514,7 +585,7 @@ public class Zombie
         }
         if(path.size() > 1)
         {
-          this.makeHeading();
+          makeHeading();
         }
         break;
       }
@@ -529,30 +600,15 @@ public class Zombie
           int xCor = currentTile.neighbors.get(i).xCor;
           int yCor = currentTile.neighbors.get(i).yCor;
           int distance = ((int) Math.sqrt((xCor - ((int)Player.xPosition)) * (xCor - ((int)Player.xPosition)) + ((yCor - ((int)Player.yPosition)) * (yCor - ((int)Player.yPosition)))));
-          /*if(currentTile.neighbors.get(i) instanceof Wall)
-          {
-            currentTile.neighbors.get(i).setCost(10000);
-          }
-          else 
-          {
-            currentTile.neighbors.get(i).setCost(distance + currentTile.cost + 1);
-          }
-          this.searchQueue.add(currentTile.neighbors.get(i));
+          currentTile.neighbors.get(i).setCost(distance + currentTile.cost + 1);
+          searchQueue.add(currentTile.neighbors.get(i));
           currentTile.neighbors.get(i).setVisited(true);
           visitedTiles.add(currentTile.neighbors.get(i));
-          currentTile.neighbors.get(i).setAncestor(currentTile);*/
-          if(!(currentTile.neighbors.get(i) instanceof Wall))
-          {
-            currentTile.neighbors.get(i).setCost(distance + currentTile.cost + 1);
-            this.searchQueue.add(currentTile.neighbors.get(i));
-            currentTile.neighbors.get(i).setVisited(true);
-            visitedTiles.add(currentTile.neighbors.get(i));
-            currentTile.neighbors.get(i).setAncestor(currentTile);
-          }
+          currentTile.neighbors.get(i).setAncestor(currentTile);
         }
       }
     }
-  }
+  }*/
   
   public void printPath()
   {
@@ -575,52 +631,54 @@ public class Zombie
     double diffY;
     double dist;
     
-      if (destTile.xCor == (int) this.positionX
+    if (destTile.xCor == (int) this.positionX
           && destTile.yCor == (int) this.positionY) 
-      {
-        this.path.remove(0);
-        destTile = this.path.get(0);
-      }
+    {
+      this.path.remove(0);
+      destTile = this.path.get(0);
+    }
       //diffX = ((destTile.xCor*2) + 0.5) - this.positionX;
       //diffY = ((destTile.yCor*2) + 0.5) - this.positionY;
       //dist = Math.sqrt(((diffX) * (diffX)) + ((diffY) * (diffY)));
       //System.out.println("diffX = " + diffX + " diffY = " + diffY + " dist = " + dist);
-      if (destTile.xCor > this.positionX) 
+
+    if (destTile.xCor > this.positionX)
+    {
+      if (destTile.yCor > this.positionY)
       {
-        if (destTile.yCor > this.positionY) 
-        {
-          //double cosZ = Math.toDegrees(Math.acos(diffX/dist));
-          //this.setHeading(cosZ);
-          positionX += 0.1;
-          positionY += 0.1;
-        } 
-        else if (destTile.yCor == this.positionY)
-        {
-          //this.setHeading(0.0);
-          positionX += 0.1;
-        }
-        else 
-        {
-          //double cosZ = Math.toDegrees(Math.acos(diffX/dist));
-          //this.setHeading(360 - cosZ);
-          positionX += 0.1;
-          positionY -= 0.1;
-        }
-      } 
-      else if (destTile.xCor == this.positionX) 
+        //double cosZ = Math.toDegrees(Math.acos(diffX/dist));
+        //this.setHeading(cosZ);
+        positionX += 0.1;
+        positionY += 0.1;
+      }
+      else if (destTile.yCor == this.positionY)
       {
+        //this.setHeading(0.0);
+        positionX += 0.1;
+      }
+      else
+      {
+        //double cosZ = Math.toDegrees(Math.acos(diffX/dist));
+        //this.setHeading(360 - cosZ);
+        positionX += 0.1;
+        positionY -= 0.1;
+      }
+
+      if (destTile.xCor == this.positionX)
+
         if (destTile.yCor > this.positionY) 
         {
           //this.setHeading(90.0);
           positionY += 0.1;
         }
-        else 
+        else
         {
           //this.setHeading(270.0);
           positionY -= 0.1;
         }
-      } 
-      else if (destTile.xCor < this.positionX) 
+      }
+
+      if (destTile.xCor < this.positionX)
       {
         if (destTile.yCor > this.positionY) 
         {
@@ -634,7 +692,7 @@ public class Zombie
           //this.setHeading(180.0);
           positionX -= 0.1;
         }
-        else 
+        else
         {
           //double cosZ = Math.toDegrees(Math.acos(diffX/dist));
           //this.setHeading(180 + cosZ);
