@@ -77,8 +77,6 @@ public class MainApplication extends Application
   private static final int WINDOW_WIDTH = 800;
   private static final int WINDOW_HEIGHT = 600;
 
-  private static final int ZOMBIE_ACTIVATION_DISTANCE = 7;
-
   private static final PhongMaterial floorMaterial1 = new PhongMaterial();
   private static final PhongMaterial floorMaterial2 = new PhongMaterial();
   private static final PhongMaterial floorMaterial3 = new PhongMaterial();
@@ -816,7 +814,7 @@ public class MainApplication extends Application
           // Move and rotate the zombie. A* doesn't currently work, so this allows zombies to move towards player. Ugly.
           double distance = Math.sqrt(Math.abs(zombie.positionX - Player.xPosition) * Math.abs(zombie.positionX - Player.xPosition) +
                   Math.abs(zombie.positionY - Player.yPosition) * Math.abs(zombie.positionY - Player.yPosition));
-          if (distance < ZOMBIE_ACTIVATION_DISTANCE)
+          if (zombie.getSmell())
           {
             if (!zombie.interactedWithPS)
             {
@@ -954,7 +952,7 @@ public class MainApplication extends Application
                     (LevelVar.house[round(zombie.positionX)][round(desiredPositionY - WALL_COLLISION_OFFSET)] instanceof Wall))
             {
               zombie.makeDecision();
-              zombie.move();
+              //zombie.move();
             }
             else
             {

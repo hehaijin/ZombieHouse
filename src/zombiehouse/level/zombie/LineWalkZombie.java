@@ -66,6 +66,9 @@ public class LineWalkZombie extends Zombie
 
 		}
 	  }
+	  if(!this.getSmell()) {
+      this.zombie3D.setRotate(this.getHeading() + 100);
+    }
 	  super.move();
 	}
   }

@@ -31,11 +31,11 @@ public class Zombie
   /**
    * the amount of time between Zombie heading updates
    */
-  private static long zombie_Decision_Rate = 2000;
+  private static long zombie_Decision_Rate = 200;
   /**
    * the number of Tiles away that a Zombie can smell
    */
-  private int zombie_Smell = 10;
+  private int zombie_Smell = 14;
 
 
   public int canSmellFrame = 0;
