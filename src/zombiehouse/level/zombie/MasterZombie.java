@@ -36,7 +36,7 @@ public class MasterZombie extends Zombie
   {
     boolean canDetectPlayer = false;
     for(Zombie z : LevelVar.zombieCollection) {
-      if(z.getSmell()) {
+      if(z.getSmell() && z.type != 2) {
         canDetectPlayer = true;
       }
     }

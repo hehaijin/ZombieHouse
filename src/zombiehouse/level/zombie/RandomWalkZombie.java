@@ -53,5 +53,6 @@ public class RandomWalkZombie extends Zombie
 		  super.setCollided(false);
 		}
 	  }
+	  super.move();
 	}
   }

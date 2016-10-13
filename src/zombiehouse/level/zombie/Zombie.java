@@ -27,7 +27,7 @@ public class Zombie
   /**
    * the number of Tiles a Zombie can traverse over 1 second
    */
-  private double zombie_Speed = 1;
+  private double zombie_Speed = 0.5;
   /**
    * the amount of time between Zombie heading updates
    */
@@ -297,7 +297,7 @@ public class Zombie
     {
       double moveX;
       double moveY;
-      double step = (double)1/10;
+      double step = (double)1/40;
       if(this instanceof MasterZombie)
       {
         moveX = (Math.cos(Math.toRadians(heading)) * (zombie_Speed + LevelVar.levelNum*0.125)) * step;
@@ -556,66 +556,6 @@ public class Zombie
     }
   }
 
-  /**
-   * A* algorithm for the Zombie to use once it's canSmell value is true
-   * Sets the Zombie's path arrayList to a list of Tiles from itself to the
-   * player.
-   * //@param house 2d array of Tiles to search
-   */
-  /*
-  public void calcPath(Tile[][] house)
-  {
-    ArrayList<Tile> visitedTiles = new ArrayList<>();
-    Tile destTile = house[(int)Player.xPosition][(int)Player.yPosition];
-  
-    searchQueue.clear();
-    path.clear();
-    searchQueue.add(curTile);
-    curTile.setVisited(true);
-    visitedTiles.add(curTile);
-    while(!(searchQueue.isEmpty()))
-    {
-      Tile currentTile = searchQueue.poll();
-      if(currentTile.xCor == destTile.xCor && currentTile.yCor == destTile.yCor)
-      {
-        path.add(0, currentTile);
-        while(currentTile.ancestor != null)
-        {
-          path.add(0, currentTile.ancestor);
-          if(currentTile.ancestor != null) currentTile = currentTile.ancestor;
-        }
-        for(Tile t : visitedTiles)
-        {
-          t.setVisited(false);
-          t.setAncestor(null);
-        }
-        if(path.size() > 1)
-        {
-          makeHeading();
-        }
-        break;
-      }
-      if(currentTile.neighbors.size() == 0) 
-      {
-        currentTile.setNeighbors(house);
-      }
-      for(int i = 0; i < currentTile.neighbors.size(); i++)
-      {
-        if(!(currentTile.neighbors.get(i).visited))
-        {
-          int xCor = currentTile.neighbors.get(i).xCor;
-          int yCor = currentTile.neighbors.get(i).yCor;
-          int distance = ((int) Math.sqrt((xCor - ((int)Player.xPosition)) * (xCor - ((int)Player.xPosition)) + ((yCor - ((int)Player.yPosition)) * (yCor - ((int)Player.yPosition)))));
-          currentTile.neighbors.get(i).setCost(distance + currentTile.cost + 1);
-          searchQueue.add(currentTile.neighbors.get(i));
-          currentTile.neighbors.get(i).setVisited(true);
-          visitedTiles.add(currentTile.neighbors.get(i));
-          currentTile.neighbors.get(i).setAncestor(currentTile);
-        }
-      }
-    }
-  }
-*/
   public void printPath()
   {
     for (Tile t : path)
@@ -633,9 +573,6 @@ public class Zombie
   public void makeHeading()
   {
     Tile destTile = path.get(0);
-    double diffX;
-    double diffY;
-    double dist;
     
     if (destTile.xCor == (int) positionX
           && destTile.yCor == (int) positionY)
@@ -643,83 +580,24 @@ public class Zombie
       path.remove(0);
       destTile = path.get(0);
     }
-      diffX = ((destTile.xCor*2) + 0.5) - positionX;
-      diffY = ((destTile.yCor*2) + 0.5) - positionY;
-      dist = Math.sqrt(((diffX) * (diffX)) + ((diffY) * (diffY)));
-      //System.out.println("diffX = " + diffX + " diffY = " + diffY + " dist = " + dist);
-    /*
+
     if(destTile.xCor > positionX )
     {
-      positionX += 0.1;
+      setHeading(0.0);
     }
     if(destTile.xCor < positionX )
     {
-      positionX -= 0.1;
+      setHeading(180.0);
     }
 
     if(destTile.yCor > positionY )
     {
-      positionY += 0.1;
+      setHeading(90.0);
     }
     if(destTile.yCor < positionY )
     {
-      positionY -= 0.1;
-    }*/
-    double cosZ = Math.toDegrees(Math.acos(diffX/dist));
-    if (destTile.xCor > positionX)
-    {
-      if (destTile.yCor > positionY)
-      {
-        setHeading(cosZ);
-        //positionX += 0.1;
-        //positionY += 0.1;
-      }
-      else if (destTile.yCor == positionY)
-      {
-        setHeading(0.0);
-        //positionX += 0.1;
-      }
-      else
-      {
-        setHeading(360 - cosZ);
-        //positionX += 0.1;
-        //positionY -= 0.1;
-      }
-
-      if (destTile.xCor == positionX)
-
-        if (destTile.yCor > positionY)
-        {
-          setHeading(90.0);
-          //positionY += 0.1;
-        }
-        else
-        {
-          setHeading(270.0);
-          //positionY -= 0.1;
-        }
-      }
-
-      if (destTile.xCor < positionX)
-      {
-        if (destTile.yCor > positionY)
-        {
-          setHeading(90 + cosZ);
-          //positionX -= 0.1;
-          //positionY += 0.1;
-        }
-        else if (destTile.yCor == positionY)
-        {
-          setHeading(180.0);
-          //positionX -= 0.1;
-        }
-        else
-        {
-          setHeading(180 + cosZ);
-          //positionX -= 0.1;
-          //positionY -= 0.1;
-        }
-      }
+      setHeading(270.0);
+    }
     } 
 
   /**

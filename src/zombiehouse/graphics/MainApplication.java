@@ -820,7 +820,7 @@ public class MainApplication extends Application
           {
             if (!zombie.interactedWithPS)
             {
-              zombie.canSmellFrame = frame;
+              //zombie.canSmellFrame = frame;
               zombie.interactedWithPS = true;
             }
             // Animate 3D zombie and move it to its parent zombie location

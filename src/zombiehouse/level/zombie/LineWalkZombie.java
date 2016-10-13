@@ -66,6 +66,7 @@ public class LineWalkZombie extends Zombie
 
 		}
 	  }
+	  super.move();
 	}
   }
 }
