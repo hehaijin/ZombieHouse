@@ -15,12 +15,14 @@ public class AudioFiles
 {
   public static AudioClip userStep1 = null;
   public static AudioClip userStep2 = null;
+  public static AudioClip shout=null;
   public static AudioClip[] zombieSounds = new AudioClip[24];
   public static Random random = new Random();
   static
   {
     userStep1 = new AudioClip(AudioFiles.class.getResource("/res/footstep1.wav").toString());
     userStep2 = new AudioClip(AudioFiles.class.getResource("/res/footstep2.wav").toString());
+    shout=new AudioClip(AudioFiles.class.getResource("/res/shout1.wav").toString());
     for (int i = 1; i <= 24; i++)
     {
       zombieSounds[i - 1] = new AudioClip(AudioFiles.class.getResource("/res/zombies/zombie-" + i + ".wav").toString());
