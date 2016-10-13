@@ -17,6 +17,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.MeshView;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Scale;
@@ -94,6 +95,10 @@ public class MainApplication extends Application
   private Group sceneRoot;
   private Image life5;
   private ImageView lifeView;
+  private Rectangle staminaBar;
+  private Label staminaLabel;
+  private Rectangle verticalCross;
+  private Rectangle horizontalCross;
 
   private ArrayList<Double> xPos = new ArrayList<>();
   private ArrayList<Double> yPos = new ArrayList<>();
@@ -102,8 +107,6 @@ public class MainApplication extends Application
   boolean spawnPastSelf = false;
 
   private int deathFrame = 0;
-  private boolean interacted = false;
-
 
   FXMLLoader fxmlloader=new FXMLLoader();
   {
@@ -156,10 +159,30 @@ public class MainApplication extends Application
     SubScene scene = new SubScene(sceneRoot, WINDOW_WIDTH, WINDOW_HEIGHT, true, SceneAntialiasing.BALANCED);
     scene.setFill(Color.BLACK);
     pane.getChildren().add(scene);
+    
     life5 = new Image(getClass().getResourceAsStream("/res/life5.png"));
     lifeView = new ImageView(life5);
     Label life = new Label("", lifeView);
-
+    
+    staminaBar = new Rectangle(150, 13);
+    staminaBar.setFill(Color.BLUE);
+    pane.getChildren().add(staminaBar);
+    StackPane.setAlignment(staminaBar, Pos.TOP_LEFT);
+    staminaBar.getTransforms().add(new Translate(25, 65));
+    
+    staminaLabel = new Label("Stamina: " + Player.stamina);
+    staminaLabel.setTextFill(Color.BLACK);
+    pane.getChildren().add(staminaLabel);
+    StackPane.setAlignment(staminaLabel, Pos.TOP_LEFT);
+    staminaLabel.getTransforms().add(new Translate(65, 63));
+    
+    verticalCross = new Rectangle(2, 20);
+    verticalCross.setFill(Color.GREEN);
+    pane.getChildren().add(verticalCross);
+  
+    horizontalCross = new Rectangle(20, 2);
+    horizontalCross.setFill(Color.GREEN);
+    pane.getChildren().add(horizontalCross);
 
     pane.getChildren().add(life);
     StackPane.setAlignment(life, Pos.TOP_LEFT);
@@ -329,7 +352,7 @@ public class MainApplication extends Application
     bookcaseMaterial.setDiffuseColor(new Color(0.45, 0.45, 0.45, 1.0));
     bookcaseMaterial.setSpecularColor(Color.BLACK);
     bookcaseMaterial.setSpecularPower(256);
-    bookcaseMaterial.setDiffuseMap(new Image(getClass().getResource("/res/bookcase3.png").toExternalForm()));
+    bookcaseMaterial.setDiffuseMap(new Image(getClass().getResource("/res/bookcase2.png").toExternalForm()));
 
 
     ceilingMaterial.setDiffuseColor(Color.WHITE);
@@ -346,7 +369,7 @@ public class MainApplication extends Application
     exitMaterial.setSpecularColor(Color.WHITE);
 
     setupLevel();
-
+    
     new GameLoop().start();
   }
 
@@ -539,7 +562,32 @@ public class MainApplication extends Application
         Player.stamina += Player.staminaRegen / TARGET_FRAMES_PER_SECOND;
         if (Player.stamina > Player.maxStamina) Player.stamina = Player.maxStamina;
       }
-
+  
+      double roundOffStamina = (double) Math.round(Player.stamina * 100) / 100;
+      
+      staminaLabel.setText("Stamina: " + roundOffStamina);
+      
+      if(Player.stamina >= 4.0)
+      {
+        staminaBar.setFill(Color.BLUE);
+      }
+      else if(Player.stamina >= 3.0)
+      {
+        staminaBar.setFill(Color.GREEN);
+      }
+      else if(Player.stamina >= 2.0)
+      {
+        staminaBar.setFill(Color.YELLOW);
+      }
+      else if(Player.stamina >= 1.0)
+      {
+        staminaBar.setFill(Color.ORANGE);
+      }
+      else if(Player.stamina >= 0.0)
+      {
+        staminaBar.setFill(Color.RED);
+      }
+      
       // How often to play the stepping noise (walking vs running)
       int stepFrequency = isRunning ? 20 : 40;
 
@@ -628,8 +676,6 @@ public class MainApplication extends Application
         knife1.setTranslateZ(cameraZDisplacement + 100 * Math.cos(cameraYRotation / 180 * 3.1415));
         knife1.setRotate(cameraYRotation);
       }
-
-
 
       xPos.add(Player.xPosition);
       yPos.add(Player.yPosition);
@@ -838,6 +884,17 @@ public class MainApplication extends Application
                 rebuildLevel();
               }
             }
+            
+            if(totalDistance < 1)
+            {
+              verticalCross.setFill(Color.RED);
+              horizontalCross.setFill(Color.RED);
+            }
+            else
+            {
+              verticalCross.setFill(Color.GREEN);
+              horizontalCross.setFill(Color.GREEN);
+            }
 
             if (totalDistance < 1 && frame % 5 == 0 && InputContainer.hit)
             {
@@ -887,7 +944,6 @@ public class MainApplication extends Application
             }*/
             zombie.makeDecision();
             zombie.move();
-            zombie.printPath();
 
             double zombieVectorX = zombie.positionX - Player.xPosition;
             double zombieVectorY = zombie.positionY - Player.yPosition;
