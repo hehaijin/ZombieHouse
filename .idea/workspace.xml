@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="442e509c-61a4-4c06-afc7-5bb19b6b4dd1" name="Default" comment="">
+    <list default="true" id="442e509c-61a4-4c06-afc7-5bb19b6b4dd1" name="Default" comment="Added stamina bar and crosshair that turns red when you're in range to attack a zombie. A* works a bit better with zombie movement changes.">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/common/Player.java" afterPath="$PROJECT_DIR$/src/zombiehouse/common/Player.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java" afterPath="$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/graphics/Zombie3D.java" afterPath="$PROJECT_DIR$/src/zombiehouse/graphics/Zombie3D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java" afterPath="$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java" />
     </list>
     <ignored path="ZombieHouse.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -19,7 +15,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CreatePatchCommitExecutor">
-    <option name="PATCH_PATH" value="" />
+    <option name="PATCH_PATH" value="C:\Users\Anton\Desktop\UNM Work Folder\CS 351\ZombieHouse" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
@@ -79,6 +75,7 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
+        <option value="a" />
         <option value="akuzmin96 &lt;akuzmin@unm.edu&gt;" />
         <option value="jdonckels &lt;jdonckels@unm.edu&gt;" />
       </list>
@@ -665,7 +662,14 @@
       <option name="project" value="LOCAL" />
       <updated>1476134727747</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Added stamina bar and crosshair that turns red when you're in range to attack a zombie. A* works a bit better with zombie movement changes.">
+      <created>1476326220026</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1476326220026</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -716,7 +720,8 @@
     <MESSAGE value="Getting zombies to die and follow pastSelf" />
     <MESSAGE value="Updating Past Self" />
     <MESSAGE value="Got A* to find proper path, just need movement" />
-    <option name="LAST_COMMIT_MESSAGE" value="Got A* to find proper path, just need movement" />
+    <MESSAGE value="Added stamina bar and crosshair that turns red when you're in range to attack a zombie. A* works a bit better with zombie movement changes." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added stamina bar and crosshair that turns red when you're in range to attack a zombie. A* works a bit better with zombie movement changes." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
