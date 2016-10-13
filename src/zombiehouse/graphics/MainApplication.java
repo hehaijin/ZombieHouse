@@ -77,8 +77,6 @@ public class MainApplication extends Application
   private static final int WINDOW_WIDTH = 800;
   private static final int WINDOW_HEIGHT = 600;
 
-  private static final int ZOMBIE_ACTIVATION_DISTANCE = 7;
-
   private static final PhongMaterial floorMaterial1 = new PhongMaterial();
   private static final PhongMaterial floorMaterial2 = new PhongMaterial();
   private static final PhongMaterial floorMaterial3 = new PhongMaterial();
@@ -730,7 +728,7 @@ public class MainApplication extends Application
       //System.out.println(frame);
       if (frame == 0) lastFrame = time;
       frame++;
-      double percentOfSecond = ((double) time - (double) lastFrame) / 2000000000;
+      double percentOfSecond = ((double) time - (double) lastFrame) / 2_000_000_000;
       movePlayerIfRequested(percentOfSecond);
 
       double playerDirectionVectorX = Math.toDegrees(Math.cos(cameraYRotation));
@@ -766,8 +764,6 @@ public class MainApplication extends Application
           {
             Zombie3D z = zombie.zombie3D;
             //System.out.println(frame - i + " : " + zombie.canSmellFrame + " : " + zombie.getDeathFrame() / 4 + " : " + zombie.getXPos().size() + " : " + zombie.getYPos().size() + " : " + zombie.zombieID + " : " + zombie.diesToPastSelf);
-            if ((frame - i) > zombie.canSmellFrame)
-            {
               if ((frame - i) < (zombie.getDeathFrame() - 4) && ((frame - i) / 4) < zombie.getXPos().size() - 1 && ((frame - i) / 4 < zombie.getCameraPos().size()))
               {
                 zombie.setPositionX(zombie.getXPos().get((frame - (i + zombie.canSmellFrame)) / 4));
@@ -805,7 +801,6 @@ public class MainApplication extends Application
                   positionsInLoopToRemove.add(positionInLoop);
                 }
               }
-            }
             positionInLoop++;
           }
         }
@@ -819,11 +814,11 @@ public class MainApplication extends Application
           // Move and rotate the zombie. A* doesn't currently work, so this allows zombies to move towards player. Ugly.
           double distance = Math.sqrt(Math.abs(zombie.positionX - Player.xPosition) * Math.abs(zombie.positionX - Player.xPosition) +
                   Math.abs(zombie.positionY - Player.yPosition) * Math.abs(zombie.positionY - Player.yPosition));
-          if (distance < ZOMBIE_ACTIVATION_DISTANCE)
+          if (zombie.getSmell())
           {
             if (!zombie.interactedWithPS)
             {
-              zombie.canSmellFrame = frame;
+              //zombie.canSmellFrame = frame;
               zombie.interactedWithPS = true;
             }
             // Animate 3D zombie and move it to its parent zombie location
@@ -890,6 +885,11 @@ public class MainApplication extends Application
             
             if(totalDistance < 1)
             {
+              verticalCross.setFill(Color.YELLOW);
+              horizontalCross.setFill(Color.YELLOW);
+            }
+            else if(totalDistance < 0.5)
+            {
               verticalCross.setFill(Color.RED);
               horizontalCross.setFill(Color.RED);
             }
@@ -930,10 +930,11 @@ public class MainApplication extends Application
               }
             }
             
-            /*
+            
             double desiredPositionX = zombie.positionX - (distanceX / totalDistance * LevelVar.zombieSpeed * percentOfSecond);
             double desiredPositionY = zombie.positionY - (distanceY / totalDistance * LevelVar.zombieSpeed * percentOfSecond);
-
+            
+            /*
             // Check for wall collisions
             if (!(LevelVar.house[round(desiredPositionX + WALL_COLLISION_OFFSET)][round(zombie.positionY)] instanceof Wall) &&
                     !(LevelVar.house[round(desiredPositionX - WALL_COLLISION_OFFSET)][round(zombie.positionY)] instanceof Wall))
@@ -945,15 +946,22 @@ public class MainApplication extends Application
             {
               zombie.positionY = desiredPositionY;
             }*/
-            zombie.makeDecision();
-            zombie.move();
+            if((LevelVar.house[round(desiredPositionX + WALL_COLLISION_OFFSET)][round(zombie.positionY)] instanceof Wall) ||
+                    (LevelVar.house[round(desiredPositionX - WALL_COLLISION_OFFSET)][round(zombie.positionY)] instanceof Wall) ||
+                    (LevelVar.house[round(zombie.positionX)][round(desiredPositionY + WALL_COLLISION_OFFSET)] instanceof Wall) ||
+                    (LevelVar.house[round(zombie.positionX)][round(desiredPositionY - WALL_COLLISION_OFFSET)] instanceof Wall))
+            {
+              zombie.makeDecision();
+              //zombie.move();
+            }
+            else
+            {
+              zombie.positionX = desiredPositionX;
+              zombie.positionY = desiredPositionY;
+            }
 
             double zombieVectorX = zombie.positionX - Player.xPosition;
             double zombieVectorY = zombie.positionY - Player.yPosition;
-
-            zombie.addXPos(zombie.positionX);
-            zombie.addYPos(zombie.positionY);
-            zombie.addCPos(zombie3D.getRotate());
 
             // Accomodate all four quadrants of the unit circle, rotate to face the user
             if (distanceX < 0)
@@ -983,6 +991,9 @@ public class MainApplication extends Application
               DirectionalPlayer.playSound(AudioFiles.randomZombieSound(), angleBetweenVectors(playerDirectionVectorX, playerDirectionVectorY, zombieVectorX, zombieVectorY), distance);
             }
           }
+          zombie.addXPos(zombie.positionX);
+          zombie.addYPos(zombie.positionY);
+          zombie.addCPos(zombie3D.getRotate());
           position++;
         }
 

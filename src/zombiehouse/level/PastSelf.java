@@ -25,6 +25,8 @@ public class PastSelf
    * the direction the Zombie will head in degrees
    */
   public double heading;
+
+  public int PastSelfID;
   /**
    * the Zombie's current X coordinate in the ZombieHouse
    */
@@ -59,7 +61,7 @@ public class PastSelf
     this.positionX = positionX;
     this.positionY = positionY;
     this.deathFrame = deathFrame;
-
+    this.PastSelfID = psID;
     pastSelf3D = new PastSelf3D();
   }
 
