@@ -717,12 +717,21 @@ public class MainApplication extends Application
       return Math.toDegrees(Math.atan2(x1 * y2 - x2 * y1, x1 * x2 + y1 * y2));
     }
 
+    long lastTime = 0;
+    int testframe = 0;
+    int lasttestFrame = 0;
     /**
      * Called for every frame of the game. Moves the player, nearby zombies, and determiens win/loss conditions.
      */
     @Override
     public void handle(long time)
     {
+      if(time - lastTime > 1_000_000_000) {
+        lastTime = time;
+        System.out.println(testframe - lasttestFrame);
+        lasttestFrame = testframe;
+      }
+      testframe++;
       int position = 0;
       int pastSelfCSize = LevelVar.pastSelfCollection.size();
       //System.out.println(frame);

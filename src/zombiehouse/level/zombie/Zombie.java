@@ -532,7 +532,7 @@ public class Zombie
     }
     if(lastTile == null)
     {
-      System.out.println("error");
+      //System.out.println("error");
       path.clear();
       return;
     }

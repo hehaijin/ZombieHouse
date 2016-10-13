@@ -40,7 +40,8 @@ public class Zombie3D extends Group
       {
 	// Load in zombie meshes
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("/res/" + i + ".fxml"));
+        //fxmlLoader.setLocation(getClass().getResource("/res/" + i + ".fxml"));
+        fxmlLoader.setLocation(getClass().getResource("/res/Zombie.fxml"));
         Group zombieModel = fxmlLoader.load();
         zombieModel.setVisible(false);
         getChildren().add(zombieModel);
@@ -49,9 +50,9 @@ public class Zombie3D extends Group
         e.printStackTrace();
       }
     }
-    setScaleX(25);
-    setScaleY(25);
-    setScaleZ(25);
+    setScaleX(200);
+    setScaleY(200);
+    setScaleZ(200);
     setTranslateY(-235);
     
     setRotationAxis(Rotate.Y_AXIS);
