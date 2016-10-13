@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
@@ -256,6 +257,8 @@ public class MainApplication extends Application
         tt.setByZ(50*Math.cos(cameraYRotation / 180 * 3.1415));
         tt.setAutoReverse(true);
         tt.play();
+        AudioFiles.shout.setVolume(0.25);
+        AudioFiles.shout.play();
 
       } else if (keycode == KeyCode.F1)
       {
