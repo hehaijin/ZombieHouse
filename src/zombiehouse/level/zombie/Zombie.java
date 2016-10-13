@@ -31,11 +31,11 @@ public class Zombie
   /**
    * the amount of time between Zombie heading updates
    */
-  private static long zombie_Decision_Rate = 200;
+  private static long zombie_Decision_Rate = 50;
   /**
    * the number of Tiles away that a Zombie can smell
    */
-  private int zombie_Smell = 14;
+  private int zombie_Smell = 1;
 
 
   public int canSmellFrame = 0;
@@ -75,19 +75,22 @@ public class Zombie
 
         public int compare(Tile one, Tile two)
         {
-          if (one.cost > two.cost)
+          if (one != null && two != null)
           {
-            return 1;
-          }
-          if (one.cost < two.cost)
-          {
-            return -1;
+            if (one.cost > two.cost)
+            {
+              return 1;
+            }
+            if (one.cost < two.cost)
+            {
+              return -1;
+            }
           }
           return 0;
         }
       });
   /**
-   * the direction the Zombie will head in degrees
+   * the direction the Zombie will head in degreesdww
    */
   private double heading;
   /**

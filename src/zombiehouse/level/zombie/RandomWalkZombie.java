@@ -58,7 +58,7 @@ public class RandomWalkZombie extends Zombie
     }
     if (!this.getSmell())
     {
-      this.zombie3D.setRotate(this.getHeading() + 100);
+      this.zombie3D.setRotate(this.getHeading());
     }
     super.move();
   }

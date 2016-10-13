@@ -774,7 +774,7 @@ public class MainApplication extends Application
             Zombie3D z = zombie.zombie3D;
             int rFrame = frame - i; //restarted frame, to restart everything from 0
             int rFrameDivided = rFrame/4; //this is so it only goe through to the 4th amount of frames
-              if (rFrame < (zombie.getDeathFrame() - 4) && rFrameDivided < zombie.getXPos().size() - 1 && rFrameDivided < zombie.getCameraPos().size())
+              if ((rFrame < zombie.getDeathFrame()) && (rFrameDivided < zombie.getXPos().size()) && (rFrameDivided < zombie.getCameraPos().size()))
               {
                 zombie.setPositionX(zombie.getXPos().get(rFrameDivided));
                 zombie.setPositionY(zombie.getYPos().get(rFrameDivided));
@@ -783,11 +783,9 @@ public class MainApplication extends Application
                 z.setRotate(zombie.getCameraPos().get(rFrameDivided));
                 double distanceX = (zombie.positionX - Player.xPosition);
                 double distanceY = (zombie.positionY - Player.yPosition);
-                double cRotate = zombie.getCameraPos().get((frame - i) / 4);
+                double cRotate = zombie.getCameraPos().get(rFrameDivided);
                 double totalDistance = Math.abs(distanceX) + Math.abs(distanceY);
-                if(frame % 8 == 0) {
-                  z.nextFrame();
-                }
+                z.nextFrame();
                 if (totalDistance < 1 && frame % 5 == 0 && InputContainer.hit)
                 {
                   zombie.bifrocatedFrame = frame;
@@ -831,7 +829,6 @@ public class MainApplication extends Application
           {
             if (!zombie.interactedWithPS)
             {
-              //zombie.canSmellFrame = frame;
               zombie.interactedWithPS = true;
             }
             // Animate 3D zombie and move it to its parent zombie location
@@ -972,6 +969,7 @@ public class MainApplication extends Application
               zombie.positionX = desiredPositionX;
               zombie.positionY = desiredPositionY;
             }
+            zombie3D.nextFrame();
 
             double zombieVectorX = zombie.positionX - Player.xPosition;
             double zombieVectorY = zombie.positionY - Player.yPosition;
@@ -1003,9 +1001,6 @@ public class MainApplication extends Application
             {
               DirectionalPlayer.playSound(AudioFiles.randomZombieSound(), angleBetweenVectors(playerDirectionVectorX, playerDirectionVectorY, zombieVectorX, zombieVectorY), distance);
             }
-          }
-          if(frame % 8 == 0) {
-            zombie3D.nextFrame();
           }
           zombie.addXPos(zombie.positionX);
           zombie.addYPos(zombie.positionY);
