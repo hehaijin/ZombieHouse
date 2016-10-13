@@ -730,7 +730,7 @@ public class MainApplication extends Application
       //System.out.println(frame);
       if (frame == 0) lastFrame = time;
       frame++;
-      double percentOfSecond = ((double) time - (double) lastFrame) / 2000000000;
+      double percentOfSecond = ((double) time - (double) lastFrame) / 2_000_000_000;
       movePlayerIfRequested(percentOfSecond);
 
       double playerDirectionVectorX = Math.toDegrees(Math.cos(cameraYRotation));
@@ -890,6 +890,11 @@ public class MainApplication extends Application
             
             if(totalDistance < 1)
             {
+              verticalCross.setFill(Color.YELLOW);
+              horizontalCross.setFill(Color.YELLOW);
+            }
+            else if(totalDistance < 0.5)
+            {
               verticalCross.setFill(Color.RED);
               horizontalCross.setFill(Color.RED);
             }
@@ -930,10 +935,11 @@ public class MainApplication extends Application
               }
             }
             
-            /*
+            
             double desiredPositionX = zombie.positionX - (distanceX / totalDistance * LevelVar.zombieSpeed * percentOfSecond);
             double desiredPositionY = zombie.positionY - (distanceY / totalDistance * LevelVar.zombieSpeed * percentOfSecond);
-
+            
+            /*
             // Check for wall collisions
             if (!(LevelVar.house[round(desiredPositionX + WALL_COLLISION_OFFSET)][round(zombie.positionY)] instanceof Wall) &&
                     !(LevelVar.house[round(desiredPositionX - WALL_COLLISION_OFFSET)][round(zombie.positionY)] instanceof Wall))
@@ -945,8 +951,19 @@ public class MainApplication extends Application
             {
               zombie.positionY = desiredPositionY;
             }*/
-            zombie.makeDecision();
-            zombie.move();
+            if((LevelVar.house[round(desiredPositionX + WALL_COLLISION_OFFSET)][round(zombie.positionY)] instanceof Wall) ||
+                    (LevelVar.house[round(desiredPositionX - WALL_COLLISION_OFFSET)][round(zombie.positionY)] instanceof Wall) ||
+                    (LevelVar.house[round(zombie.positionX)][round(desiredPositionY + WALL_COLLISION_OFFSET)] instanceof Wall) ||
+                    (LevelVar.house[round(zombie.positionX)][round(desiredPositionY - WALL_COLLISION_OFFSET)] instanceof Wall))
+            {
+              zombie.makeDecision();
+              zombie.move();
+            }
+            else
+            {
+              zombie.positionX = desiredPositionX;
+              zombie.positionY = desiredPositionY;
+            }
 
             double zombieVectorX = zombie.positionX - Player.xPosition;
             double zombieVectorY = zombie.positionY - Player.yPosition;
