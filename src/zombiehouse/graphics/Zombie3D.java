@@ -3,21 +3,16 @@ package zombiehouse.graphics;
 import java.util.Random;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.DepthTest;
 import javafx.scene.Group;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Box;
 import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Translate;
 
 /**
  * Zombie3D holds zombie animation frames that I animated in Blender.
  * Zombie model originally from http://www.blendswap.com/blends/view/4807.
  * Texturing and movement by me.
- * 
+ *
  * Each Zombie3D is tied to a traditional Zombie object.
- * 
+ *
  * @author Maxwell Sanchez
  *
  */
@@ -30,40 +25,26 @@ public class Zombie3D extends Group
   private int frameDirection = 1;
   private static Random random = new Random();
 
-  private PhongMaterial redMaterial = new PhongMaterial();
-  {
-    redMaterial.setDiffuseColor(Color.DARKRED);
-    redMaterial.setSpecularColor(Color.DARKRED);
-  }
-
-
   /**
    * Create a Zombie3D by loading in 8 random, contiguous frames,
    * setting the mesh group's scale and Y translation, and preparing
    * the model to rotate on the Y axis.
    */
-  public Zombie3D() 
+  public Zombie3D()
   {
-    //getChildren().add(lifebox);
     // Give each zombie 8 random, continuous frames to work with, so they aren't all alike
     int randomStart = random.nextInt(LARGEST_FRAME - 8);
     for (int i = randomStart; i <= randomStart + 1; i++)
     {
-      try 
+      try
       {
-	     // Load in zombie meshes
+        // Load in zombie meshes
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/res/" + i + ".fxml"));
-        Group zombieModel1 = fxmlLoader.load();
-        Group zombieModel=new Group();
-        Box lifebox=new Box(20,2,2);
-        lifebox.setMaterial(redMaterial);
-        lifebox.setDepthTest(DepthTest.ENABLE);
-        lifebox.setTranslateY(-350);
-        zombieModel.getChildren().addAll(zombieModel1,lifebox);
+        Group zombieModel = fxmlLoader.load();
         zombieModel.setVisible(false);
         getChildren().add(zombieModel);
-      } catch (Exception e) 
+      } catch (Exception e)
       {
         e.printStackTrace();
       }
@@ -74,20 +55,19 @@ public class Zombie3D extends Group
     setTranslateY(-235);
 
     setRotationAxis(Rotate.Y_AXIS);
-    
+
     // Make sure zombies are on different frames to avoid "synchronized" movement
     getChildren().get(random.nextInt(MAXIMUM_FRAME)).setVisible(true);
-   //
   }
-  
+
   public void setType(String zombieType)
   {
     if (zombieType.equalsIgnoreCase("linewalk"))
     {
-      
+
     }
   }
-  
+
   /**
    * Change the current animation frame to the next frame.
    */
