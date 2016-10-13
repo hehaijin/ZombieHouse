@@ -772,18 +772,22 @@ public class MainApplication extends Application
           for (Zombie zombie : LevelVar.interactedWithZombieCollection)
           {
             Zombie3D z = zombie.zombie3D;
-            //System.out.println(frame - i + " : " + zombie.canSmellFrame + " : " + zombie.getDeathFrame() / 4 + " : " + zombie.getXPos().size() + " : " + zombie.getYPos().size() + " : " + zombie.zombieID + " : " + zombie.diesToPastSelf);
-              if ((frame - i) < (zombie.getDeathFrame() - 4) && ((frame - i) / 4) < zombie.getXPos().size() - 1 && ((frame - i) / 4 < zombie.getCameraPos().size()))
+            int rFrame = frame - i; //restarted frame, to restart everything from 0
+            int rFrameDivided = rFrame/4; //this is so it only goe through to the 4th amount of frames
+              if (rFrame < (zombie.getDeathFrame() - 4) && rFrameDivided < zombie.getXPos().size() - 1 && rFrameDivided < zombie.getCameraPos().size())
               {
-                zombie.setPositionX(zombie.getXPos().get((frame - (i + zombie.canSmellFrame)) / 4));
-                zombie.setPositionY(zombie.getYPos().get((frame - (i + zombie.canSmellFrame)) / 4));
+                zombie.setPositionX(zombie.getXPos().get(rFrameDivided));
+                zombie.setPositionY(zombie.getYPos().get(rFrameDivided));
                 z.setTranslateX(zombie.positionX * TILE_WIDTH_AND_HEIGHT);
                 z.setTranslateZ(zombie.positionY * TILE_WIDTH_AND_HEIGHT);
-                z.setRotate(zombie.getCameraPos().get((frame - (i + zombie.canSmellFrame)) / 4));
+                z.setRotate(zombie.getCameraPos().get(rFrameDivided));
                 double distanceX = (zombie.positionX - Player.xPosition);
                 double distanceY = (zombie.positionY - Player.yPosition);
-                double cRotate = zombie.getCameraPos().get((frame - (i + zombie.canSmellFrame)) / 4);
+                double cRotate = zombie.getCameraPos().get((frame - i) / 4);
                 double totalDistance = Math.abs(distanceX) + Math.abs(distanceY);
+                if(frame % 8 == 0) {
+                  z.nextFrame();
+                }
                 if (totalDistance < 1 && frame % 5 == 0 && InputContainer.hit)
                 {
                   zombie.bifrocatedFrame = frame;
@@ -1000,11 +1004,15 @@ public class MainApplication extends Application
               DirectionalPlayer.playSound(AudioFiles.randomZombieSound(), angleBetweenVectors(playerDirectionVectorX, playerDirectionVectorY, zombieVectorX, zombieVectorY), distance);
             }
           }
+          if(frame % 8 == 0) {
+            zombie3D.nextFrame();
+          }
           zombie.addXPos(zombie.positionX);
           zombie.addYPos(zombie.positionY);
           zombie.addCPos(zombie3D.getRotate());
           position++;
         }
+
 
         if (!positionsInLoopToRemove.isEmpty())
         {

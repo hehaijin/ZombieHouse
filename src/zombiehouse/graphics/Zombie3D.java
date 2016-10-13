@@ -19,10 +19,8 @@ import javafx.scene.transform.Rotate;
 public class Zombie3D extends Group
 {
 
-  private static final int MAXIMUM_FRAME = 2;
-  private static final int LARGEST_FRAME = 30;
+  private static final int MAXIMUM_FRAME = 39;
   private int currentFrame = 0;
-  private int frameDirection = 1;
   private static Random random = new Random();
 
   /**
@@ -33,15 +31,15 @@ public class Zombie3D extends Group
   public Zombie3D()
   {
     // Give each zombie 8 random, continuous frames to work with, so they aren't all alike
-    int randomStart = random.nextInt(LARGEST_FRAME - 8);
-    for (int i = randomStart; i <= randomStart + 1; i++)
+    int randomStart = random.nextInt(MAXIMUM_FRAME);
+    this.currentFrame = randomStart;
+    for (int i = 0; i <= 39; i++)
     {
       try
       {
         // Load in zombie meshes
         FXMLLoader fxmlLoader = new FXMLLoader();
-        //fxmlLoader.setLocation(getClass().getResource("/res/" + i + ".fxml"));
-        fxmlLoader.setLocation(getClass().getResource("/res/Zombie.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("/res/Zombie" + i + ".fxml"));
         Group zombieModel = fxmlLoader.load();
         zombieModel.setVisible(false);
         getChildren().add(zombieModel);
@@ -75,15 +73,10 @@ public class Zombie3D extends Group
   public void nextFrame()
   {
     getChildren().get(currentFrame).setVisible(false);
-    currentFrame += frameDirection;
+    currentFrame += 1;
     if (currentFrame >= MAXIMUM_FRAME)
     {
-      currentFrame = MAXIMUM_FRAME - 1;
-      frameDirection = -1;
-    } else if (currentFrame < 0)
-    {
-      currentFrame = 1;
-      frameDirection = 1;
+      currentFrame = 0;
     }
     getChildren().get(currentFrame).setVisible(true);
   }
