@@ -23,6 +23,7 @@ import zombiehouse.graphics.Zombie3D;
  */
 public class Zombie
 {
+  public int type;
   /**
    * the number of Tiles a Zombie can traverse over 1 second
    */

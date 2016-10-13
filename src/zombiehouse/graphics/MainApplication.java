@@ -766,8 +766,6 @@ public class MainApplication extends Application
           {
             Zombie3D z = zombie.zombie3D;
             //System.out.println(frame - i + " : " + zombie.canSmellFrame + " : " + zombie.getDeathFrame() / 4 + " : " + zombie.getXPos().size() + " : " + zombie.getYPos().size() + " : " + zombie.zombieID + " : " + zombie.diesToPastSelf);
-            if ((frame - i) > zombie.canSmellFrame)
-            {
               if ((frame - i) < (zombie.getDeathFrame() - 4) && ((frame - i) / 4) < zombie.getXPos().size() - 1 && ((frame - i) / 4 < zombie.getCameraPos().size()))
               {
                 zombie.setPositionX(zombie.getXPos().get((frame - (i + zombie.canSmellFrame)) / 4));
@@ -805,7 +803,6 @@ public class MainApplication extends Application
                   positionsInLoopToRemove.add(positionInLoop);
                 }
               }
-            }
             positionInLoop++;
           }
         }
@@ -968,10 +965,6 @@ public class MainApplication extends Application
             double zombieVectorX = zombie.positionX - Player.xPosition;
             double zombieVectorY = zombie.positionY - Player.yPosition;
 
-            zombie.addXPos(zombie.positionX);
-            zombie.addYPos(zombie.positionY);
-            zombie.addCPos(zombie3D.getRotate());
-
             // Accomodate all four quadrants of the unit circle, rotate to face the user
             if (distanceX < 0)
             {
@@ -1000,6 +993,9 @@ public class MainApplication extends Application
               DirectionalPlayer.playSound(AudioFiles.randomZombieSound(), angleBetweenVectors(playerDirectionVectorX, playerDirectionVectorY, zombieVectorX, zombieVectorY), distance);
             }
           }
+          zombie.addXPos(zombie.positionX);
+          zombie.addYPos(zombie.positionY);
+          zombie.addCPos(zombie3D.getRotate());
           position++;
         }
 

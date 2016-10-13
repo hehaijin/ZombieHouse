@@ -23,7 +23,8 @@ public class MasterZombie extends Zombie
    */
   public MasterZombie(double heading, double positionX, double positionY, Tile curTile, int id)
   {
-    super(heading, positionX, positionY, curTile, id, 5, -1);
+    super(heading, positionX, positionY, curTile, id, 5, 0);
+    this.type = 2;
   }
 
     /**
@@ -33,28 +34,32 @@ public class MasterZombie extends Zombie
   @Override
   public void makeDecision()
   {
-    if(super.scentDetection(super.getZombieSmell(), house))
+    boolean canDetectPlayer = false;
+    for(Zombie z : LevelVar.zombieCollection) {
+      if(z.getSmell()) {
+        canDetectPlayer = true;
+      }
+    }
+    if(canDetectPlayer)
     {
       this.setCollided(false);
       super.setSmell(true);
       super.calcPath(house);
-      for(Zombie z : LevelVar.zombieCollection) z.setSmell(true);
     }
     else
     {
-      for(Zombie z : LevelVar.zombieCollection) z.setSmell(false);
       super.setSmell(false);
       if(super.getCollide())
       {
         double curHeading = super.getHeading();
         double boundA = (curHeading + 90)%360;
         double boundB = (curHeading - 90)%360;
-        if(boundA < boundB) 
+        if(boundA < boundB)
         {
           super.setHeading((180 + curHeading)%360);
           super.setCollided(false);
         }
-        else 
+        else
         {
           super.setHeading((180 + curHeading)%360);
           super.setCollided(false);
