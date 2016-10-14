@@ -2,15 +2,50 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="442e509c-61a4-4c06-afc7-5bb19b6b4dd1" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/desktop.ini" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie0.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie1.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie10.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie11.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie12.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie13.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie14.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie15.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie16.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie17.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie18.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie19.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie2.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie20.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie21.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie22.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie23.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie24.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie25.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie26.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie27.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie28.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie29.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie3.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie30.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie31.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie32.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie33.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie34.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie35.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie36.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie37.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie38.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie39.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie4.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie5.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie6.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie7.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie8.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/masterZombie9.fxml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/pastSelfM.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java" afterPath="$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/graphics/PastSelf3D.java" afterPath="$PROJECT_DIR$/src/zombiehouse/graphics/PastSelf3D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/graphics/Zombie3D.java" afterPath="$PROJECT_DIR$/src/zombiehouse/graphics/Zombie3D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/level/house/Level.java" afterPath="$PROJECT_DIR$/src/zombiehouse/level/house/Level.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/level/zombie/LineWalkZombie.java" afterPath="$PROJECT_DIR$/src/zombiehouse/level/zombie/LineWalkZombie.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/level/zombie/MasterZombie.java" afterPath="$PROJECT_DIR$/src/zombiehouse/level/zombie/MasterZombie.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/level/zombie/RandomWalkZombie.java" afterPath="$PROJECT_DIR$/src/zombiehouse/level/zombie/RandomWalkZombie.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java" afterPath="$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java" />
     </list>
     <ignored path="ZombieHouse.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -117,8 +152,8 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
-        <option value="Josh Donckels &lt;jdonckels@unm.edu&gt;" />
         <option value="jdonckels &lt;jdonckels@unm.edu&gt;" />
+        <option value="Josh Donckels &lt;jdonckels@unm.edu&gt;" />
         <option value="akuzmin96 &lt;akuzmin@unm.edu&gt;" />
         <option value="a" />
       </list>
@@ -860,12 +895,19 @@
       <option name="project" value="LOCAL" />
       <updated>1476403118326</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Added master zombie model, made it dark in the distance, still need to work on making the tile darker, and past self model">
+      <created>1476488954898</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1476488954898</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="2418" height="1318" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -879,7 +921,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1125" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1125" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30637813" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -916,7 +958,8 @@
     <MESSAGE value="updating past self to requirments and masterZombie" />
     <MESSAGE value="uploading obj files" />
     <MESSAGE value="Updating zombie models" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updating zombie models" />
+    <MESSAGE value="Added master zombie model, made it dark in the distance, still need to work on making the tile darker, and past self model" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added master zombie model, made it dark in the distance, still need to work on making the tile darker, and past self model" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
