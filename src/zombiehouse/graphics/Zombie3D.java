@@ -34,6 +34,7 @@ public class Zombie3D extends Group
     redMaterial.setDiffuseColor(Color.DARKRED);
     redMaterial.setSpecularColor(Color.DARKRED);
   }
+  //the boxes are for zombie life display.
   Box lifebox5=new Box(1,0.1,0.1);
 
   {
@@ -78,8 +79,10 @@ public class Zombie3D extends Group
    */
   public Zombie3D()
   {
+    //add life display.
     getChildren().add(lifebox5);
     // Give each zombie 8 random, continuous frames to work with, so they aren't all alike
+    //add one to avoid 0.
     int randomStart = random.nextInt(MAXIMUM_FRAME)+1;
     this.currentFrame = randomStart;
     for (int i = 0; i <= MAXIMUM_FRAME; i++)
@@ -126,6 +129,7 @@ public class Zombie3D extends Group
     currentFrame += 1;
     if (currentFrame >= MAXIMUM_FRAME)
     {
+      //cycle through 1-39, but not 0. 0 is for the life box.
       currentFrame = 1;
     }
     getChildren().get(currentFrame).setVisible(true);
@@ -133,8 +137,10 @@ public class Zombie3D extends Group
 
   }
 
-
-
+  /**
+   * set the display of zombie life
+   * @param life  zombie life, from 1-5, int value.
+   */
   public void setLife(int life)
   {
     if(life>5 || life <1)
