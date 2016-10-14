@@ -206,6 +206,8 @@ public class MainApplication extends Application
     pl.setTranslateY(cameraYDisplacement);
 
     sceneRoot.getChildren().add(pl);
+    AmbientLight am=new AmbientLight();
+    //sceneRoot.getChildren().add(am);
 
     // Create the camera, set it to view far enough for any reasonably-sized map
     camera = new PerspectiveCamera(true);
@@ -912,6 +914,7 @@ public class MainApplication extends Application
             if (totalDistance < 1 && frame % 5 == 0 && InputContainer.hit)
             {
               zombie.setLife(zombie.getLife() - 1);
+              zombie.zombie3D.setLife(zombie.getLife() - 1);
               System.out.println("Life: " + zombie.getLife());
               if (zombie.getLife() == 1)
               {

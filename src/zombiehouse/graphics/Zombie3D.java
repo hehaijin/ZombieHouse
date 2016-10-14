@@ -3,7 +3,11 @@ package zombiehouse.graphics;
 import java.util.Random;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.DepthTest;
 import javafx.scene.Group;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
+import javafx.scene.shape.Box;
 import javafx.scene.transform.Rotate;
 
 /**
@@ -23,6 +27,50 @@ public class Zombie3D extends Group
   private int currentFrame = 0;
   private static Random random = new Random();
 
+
+  //
+  private PhongMaterial redMaterial = new PhongMaterial();
+  {
+    redMaterial.setDiffuseColor(Color.DARKRED);
+    redMaterial.setSpecularColor(Color.DARKRED);
+  }
+  Box lifebox5=new Box(1,0.1,0.1);
+
+  {
+    lifebox5.setMaterial(redMaterial);
+    lifebox5.setDepthTest(DepthTest.ENABLE);
+    lifebox5.setTranslateY(-2.2);
+  }
+  Box lifebox4=new Box(0.8,0.1,0.1);
+
+  {
+    lifebox4.setMaterial(redMaterial);
+    lifebox4.setDepthTest(DepthTest.ENABLE);
+    lifebox4.setTranslateY(-2.2);
+  }
+  Box lifebox3=new Box(0.6,0.1,0.1);
+
+  {
+    lifebox3.setMaterial(redMaterial);
+    lifebox3.setDepthTest(DepthTest.ENABLE);
+    lifebox3.setTranslateY(-2.2);
+  }
+
+  Box lifebox2=new Box(0.4,0.1,0.1);
+
+  {
+    lifebox2.setMaterial(redMaterial);
+    lifebox2.setDepthTest(DepthTest.ENABLE);
+    lifebox2.setTranslateY(-2.2);
+  }
+
+  Box lifebox1=new Box(0.2,0.1,0.1);
+
+  {
+    lifebox1.setMaterial(redMaterial);
+    lifebox1.setDepthTest(DepthTest.ENABLE);
+    lifebox1.setTranslateY(-2.2);
+  }
   /**
    * Create a Zombie3D by loading in 8 random, contiguous frames,
    * setting the mesh group's scale and Y translation, and preparing
@@ -30,10 +78,11 @@ public class Zombie3D extends Group
    */
   public Zombie3D()
   {
+    getChildren().add(lifebox5);
     // Give each zombie 8 random, continuous frames to work with, so they aren't all alike
-    int randomStart = random.nextInt(MAXIMUM_FRAME);
+    int randomStart = random.nextInt(MAXIMUM_FRAME)+1;
     this.currentFrame = randomStart;
-    for (int i = 0; i <= 39; i++)
+    for (int i = 0; i <= MAXIMUM_FRAME; i++)
     {
       try
       {
@@ -56,7 +105,8 @@ public class Zombie3D extends Group
     setRotationAxis(Rotate.Y_AXIS);
 
     // Make sure zombies are on different frames to avoid "synchronized" movement
-    getChildren().get(random.nextInt(MAXIMUM_FRAME)).setVisible(true);
+    getChildren().get(currentFrame).setVisible(true);
+
   }
 
   public void setType(String zombieType)
@@ -76,8 +126,37 @@ public class Zombie3D extends Group
     currentFrame += 1;
     if (currentFrame >= MAXIMUM_FRAME)
     {
-      currentFrame = 0;
+      currentFrame = 1;
     }
     getChildren().get(currentFrame).setVisible(true);
+
+
   }
+
+
+
+  public void setLife(int life)
+  {
+    if(life>5 || life <1)
+      System.out.println("wrong input for zombie life");
+    switch(life)
+    {
+      case 1: getChildren().set(0,lifebox1);
+        break;
+      case 2: getChildren().set(0,lifebox2);
+        break;
+      case 3: getChildren().set(0,lifebox3);
+        break;
+      case 4: getChildren().set(0,lifebox4);
+        break;
+      case 5: getChildren().set(0,lifebox5);
+        break;
+      default: break;
+
+
+    }
+
+
+  }
+
 }
