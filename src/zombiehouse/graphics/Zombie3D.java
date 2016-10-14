@@ -77,7 +77,7 @@ public class Zombie3D extends Group
    * setting the mesh group's scale and Y translation, and preparing
    * the model to rotate on the Y axis.
    */
-  public Zombie3D()
+  public Zombie3D(int type)
   {
     //add life display.
     getChildren().add(lifebox5);
@@ -85,25 +85,50 @@ public class Zombie3D extends Group
     //add one to avoid 0.
     int randomStart = random.nextInt(MAXIMUM_FRAME)+1;
     this.currentFrame = randomStart;
-    for (int i = 0; i <= MAXIMUM_FRAME; i++)
+    if(type == 2)
     {
-      try
+      for (int i = 0; i <= MAXIMUM_FRAME; i++)
       {
-        // Load in zombie meshes
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("/res/Zombie" + i + ".fxml"));
-        Group zombieModel = fxmlLoader.load();
-        zombieModel.setVisible(false);
-        getChildren().add(zombieModel);
-      } catch (Exception e)
-      {
-        e.printStackTrace();
+        try
+        {
+          // Load in zombie meshes
+          FXMLLoader fxmlLoader = new FXMLLoader();
+          fxmlLoader.setLocation(getClass().getResource("/res/masterZombie" + i + ".fxml"));
+          Group zombieModel = fxmlLoader.load();
+          zombieModel.setVisible(false);
+          getChildren().add(zombieModel);
+        } catch (Exception e)
+        {
+          e.printStackTrace();
+        }
       }
+      setScaleX(60);
+      setScaleY(60);
+      setScaleZ(60);
+      setTranslateY(-260);
+    } else
+    {
+      for (int i = 0; i <= MAXIMUM_FRAME; i++)
+      {
+        try
+        {
+          // Load in zombie meshes
+          FXMLLoader fxmlLoader = new FXMLLoader();
+          fxmlLoader.setLocation(getClass().getResource("/res/Zombie" + i + ".fxml"));
+          Group zombieModel = fxmlLoader.load();
+          zombieModel.setVisible(false);
+          getChildren().add(zombieModel);
+        } catch (Exception e)
+        {
+          e.printStackTrace();
+        }
+      }
+      setScaleX(220);
+      setScaleY(220);
+      setScaleZ(220);
+      setTranslateY(-260);
     }
-    setScaleX(200);
-    setScaleY(200);
-    setScaleZ(200);
-    setTranslateY(-235);
+
 
     setRotationAxis(Rotate.Y_AXIS);
 

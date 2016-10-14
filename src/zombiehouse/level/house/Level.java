@@ -32,7 +32,7 @@ import zombiehouse.common.Player;
  */
 public class Level
 {
-  private static final int MIN_HOUSE_SIZE = 5;
+  private static final int MIN_HOUSE_SIZE = 4;
   
   static int mazeTilesXPerZone = MIN_HOUSE_SIZE + LevelVar.levelNum; // getting bigger house each level
   static int mazeTilesYPerZone = MIN_HOUSE_SIZE + LevelVar.levelNum; // also only assumes 4 quartered zones

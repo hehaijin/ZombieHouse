@@ -19,10 +19,7 @@ import javafx.scene.transform.Rotate;
 public class PastSelf3D extends Group
 {
 
-  private static final int MAXIMUM_FRAME = 1;
-  private static final int LARGEST_FRAME = 30;
-  private int currentFrame = 0;
-  private int frameDirection = 1;
+  private static final int MAXIMUM_FRAME = 9;
   private static Random random = new Random();
 
   /**
@@ -33,49 +30,26 @@ public class PastSelf3D extends Group
   public PastSelf3D()
   {
     // Give each zombie 8 random, continuous frames to work with, so they aren't all alike
-    int randomStart = random.nextInt(LARGEST_FRAME - 8);
-    for (int i = randomStart; i <= randomStart + 1; i++)
+    try
     {
-      try
-      {
-        // Load in zombie meshes
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("/res/" + i + ".fxml"));
-        Group zombieModel = fxmlLoader.load();
-        zombieModel.setVisible(false);
-        getChildren().add(zombieModel);
-      } catch (Exception e)
-      {
-        e.printStackTrace();
-      }
+      // Load in zombie meshes
+      FXMLLoader fxmlLoader = new FXMLLoader();
+      fxmlLoader.setLocation(getClass().getResource("/res/pastSelfM.fxml"));
+      Group pastSelfModel = fxmlLoader.load();
+      pastSelfModel.setVisible(false);
+      getChildren().add(pastSelfModel);
+    } catch (Exception e)
+    {
+      e.printStackTrace();
     }
-    setScaleX(25);
-    setScaleY(25);
-    setScaleZ(25);
-    setTranslateY(-235);
+    setScaleX(220);
+    setScaleY(220);
+    setScaleZ(220);
+    setTranslateY(-260);
 
     setRotationAxis(Rotate.Y_AXIS);
 
     // Make sure zombies are on different frames to avoid "synchronized" movement
     getChildren().get(random.nextInt(MAXIMUM_FRAME)).setVisible(true);
-  }
-
-  /**
-   * Change the current animation frame to the next frame.
-   */
-  public void nextFrame()
-  {
-    getChildren().get(currentFrame).setVisible(false);
-    currentFrame += frameDirection;
-    if (currentFrame >= MAXIMUM_FRAME)
-    {
-      currentFrame = MAXIMUM_FRAME - 1;
-      frameDirection = -1;
-    } else if (currentFrame < 0)
-    {
-      currentFrame = 1;
-      frameDirection = 1;
-    }
-    getChildren().get(currentFrame).setVisible(true);
   }
 }

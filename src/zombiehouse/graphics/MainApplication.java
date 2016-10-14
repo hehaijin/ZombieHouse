@@ -212,7 +212,7 @@ public class MainApplication extends Application
     // Create the camera, set it to view far enough for any reasonably-sized map
     camera = new PerspectiveCamera(true);
     camera.setNearClip(0.1);
-    camera.setFarClip(20000.0);
+    camera.setFarClip(4000.0);
     camera.setFieldOfView(62.5);
 
     // Rotate camera on the y-axis for swivel in response to mouse
@@ -658,6 +658,7 @@ public class MainApplication extends Application
       cameraXDisplacement = Player.xPosition * TILE_WIDTH_AND_HEIGHT;
       cameraZDisplacement = Player.yPosition * TILE_WIDTH_AND_HEIGHT;
 
+
       // Move the point light with the light
       pl.setTranslateX(cameraXDisplacement);
       pl.setTranslateZ(cameraZDisplacement);
@@ -758,7 +759,6 @@ public class MainApplication extends Application
             PastSelf3D ps3D = ps.pastSelf3D;
             if (frame - ps.deathFrame < ps.deathFrame && (frame - ps.deathFrame) < ps.getXPos().size())
             {
-              System.out.println("PS:" + ps.pastSelfID + " : " + ps.deathFrame);
               ps.positionX = ps.getXPos().get(frame - ps.deathFrame);
               ps.positionY = ps.getYPos().get(frame - ps.deathFrame);
               ps3D.setTranslateX(ps.positionX * TILE_WIDTH_AND_HEIGHT);
@@ -915,7 +915,7 @@ public class MainApplication extends Application
             {
               zombie.setLife(zombie.getLife() - 1);
               zombie.zombie3D.setLife(zombie.getLife() - 1);
-              System.out.println("Life: " + zombie.getLife());
+              //System.out.println("Life: " + zombie.getLife());
               if (zombie.getLife() == 1)
               {
                 zombie.diesToPastSelf = true;
@@ -1005,6 +1005,9 @@ public class MainApplication extends Application
               DirectionalPlayer.playSound(AudioFiles.randomZombieSound(), angleBetweenVectors(playerDirectionVectorX, playerDirectionVectorY, zombieVectorX, zombieVectorY), distance);
             }
           }
+          if(zombie.type == 2) {
+            System.out.println("Difference:" + (zombie.positionX - Player.xPosition) + " : " + (zombie.positionY - Player.yPosition));
+          }
           zombie.addXPos(zombie.positionX);
           zombie.addYPos(zombie.positionY);
           zombie.addCPos(zombie3D.getRotate());
@@ -1017,8 +1020,12 @@ public class MainApplication extends Application
           int removedInThisIteration = 0;
           for (int i : positionsInLoopToRemove)
           {
-            LevelVar.interactedWithZombieCollection.remove(i - removedInThisIteration);
-            removedInThisIteration++;
+            int allowed = i - removedInThisIteration;
+            if(allowed < LevelVar.interactedWithZombieCollection.size() && allowed >= 0 )
+            {
+              LevelVar.interactedWithZombieCollection.remove(i - removedInThisIteration);
+              removedInThisIteration++;
+            }
           }
           positionsInLoopToRemove.clear();
         }
@@ -1028,8 +1035,12 @@ public class MainApplication extends Application
           int removedInThisIteration = 0;
           for (int i : positionsToRemove)
           {
-            LevelVar.zombieCollection.remove(i - removedInThisIteration);
-            removedInThisIteration++;
+            int allowed = i - removedInThisIteration;
+            if(allowed < LevelVar.zombieCollection.size() && allowed >= 0 )
+            {
+              LevelVar.zombieCollection.remove(i - removedInThisIteration);
+              removedInThisIteration++;
+            }
           }
           positionsToRemove.clear();
         }
