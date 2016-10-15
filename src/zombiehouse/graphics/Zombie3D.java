@@ -106,7 +106,7 @@ public class Zombie3D extends Group
       setScaleY(60);
       setScaleZ(60);
       setTranslateY(-260);
-    } else
+    } else if(type == 1)
     {
       for (int i = 0; i <= MAXIMUM_FRAME; i++)
       {
@@ -115,6 +115,27 @@ public class Zombie3D extends Group
           // Load in zombie meshes
           FXMLLoader fxmlLoader = new FXMLLoader();
           fxmlLoader.setLocation(getClass().getResource("/res/Zombie" + i + ".fxml"));
+          Group zombieModel = fxmlLoader.load();
+          zombieModel.setVisible(false);
+          getChildren().add(zombieModel);
+        } catch (Exception e)
+        {
+          e.printStackTrace();
+        }
+      }
+      setScaleX(220);
+      setScaleY(220);
+      setScaleZ(220);
+      setTranslateY(-260);
+    }
+    else {
+      for (int i = 0; i <= MAXIMUM_FRAME; i++)
+      {
+        try
+        {
+          // Load in zombie meshes
+          FXMLLoader fxmlLoader = new FXMLLoader();
+          fxmlLoader.setLocation(getClass().getResource("/res/ZombieR" + i + ".fxml"));
           Group zombieModel = fxmlLoader.load();
           zombieModel.setVisible(false);
           getChildren().add(zombieModel);
