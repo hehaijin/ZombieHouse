@@ -318,12 +318,22 @@ public class Zombie
         moveX = (Math.cos(Math.toRadians(heading)) * zombie_Speed) * step;
         moveY = (Math.sin(Math.toRadians(heading)) * zombie_Speed) * step;
       }
-      if(positionX > 0 && positionX <= LevelVar.house[0].length && positionY > 0 && positionY <= LevelVar.house.length)
+      if(positionX > 0 && positionX <= LevelVar.house[0].length && positionY > 0 && positionY <= LevelVar.house.length && !collide())
       {
         positionX += moveX;
         positionY += moveY;
-        curTile = LevelVar.house[(int) positionX][(int) positionY];
       }
+      else if(collide())
+      {
+        positionX -= (moveX + 0.07);
+        positionY -= (moveY + 0.07);
+      }
+      else
+      {
+        positionX += 0.0;
+        positionY += 0.0;
+      }
+      curTile = LevelVar.house[(int) positionX][(int) positionY];
       setCollided(collide());
       if(getCollide())
       {
