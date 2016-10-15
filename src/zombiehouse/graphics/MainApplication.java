@@ -109,10 +109,10 @@ public class MainApplication extends Application
 
   FXMLLoader fxmlloader=new FXMLLoader();
   {
-    fxmlloader.setLocation(getClass().getResource("/res/knife1.fxml"));
+    fxmlloader.setLocation(getClass().getResource("/res/Bayonet.fxml"));
   }
 
-  MeshView knife1= null;
+  Group knife= null;
   TranslateTransition tt = new TranslateTransition();
 
 
@@ -224,14 +224,17 @@ public class MainApplication extends Application
     scene.setCamera(camera);
 
 
-    knife1=fxmlloader.load();
-    knife1.setTranslateZ(cameraZDisplacement);
-    knife1.setTranslateY(cameraYDisplacement);
-    knife1.setRotationAxis(Rotate.Y_AXIS);
-    sceneRoot.getChildren().add(knife1);
-    knife1.setTranslateY(-330);
-    knife1.getTransforms().add(new Rotate(100,0,0,0,Rotate.X_AXIS));
-    knife1.getTransforms().add(new Rotate(60,0,0,0,Rotate.Y_AXIS));
+    //knife=fxmlloader.load();
+    //knife.setScaleX(20);
+    //knife.setScaleY(20);
+    //knife.setScaleZ(20);
+    //knife.setTranslateZ(cameraZDisplacement);
+    //knife.setTranslateY(cameraYDisplacement + 100);
+    //knife.setRotationAxis(Rotate.Y_AXIS);
+    //sceneRoot.getChildren().add(knife);
+    //knife.setTranslateY(-330);
+    //knife.getTransforms().add(new Rotate(90,0,0,0,Rotate.Z_AXIS));
+    //knife.getTransforms().add(new Rotate(-90,0,0,0,Rotate.Y_AXIS));
 
     // Set up key listeners for WASD (movement), F1/F2 (full screen toggle), Shift (run), Escape (exit), F3 (cheat)
     xscene.setOnKeyPressed(event ->
@@ -253,7 +256,7 @@ public class MainApplication extends Application
       {
         InputContainer.hit = true;
         tt.setDuration(Duration.millis(300));
-        tt.setNode(knife1);
+        tt.setNode(knife);
         tt.setByX(50*Math.sin(cameraYRotation / 180 * 3.1415));
         tt.setByZ(50*Math.cos(cameraYRotation / 180 * 3.1415));
         tt.setAutoReverse(true);
@@ -685,12 +688,12 @@ public class MainApplication extends Application
       camera.setRotate(cameraYRotation);
       
 
-      if(tt.getStatus()!= Animation.Status.RUNNING) {
+      /*if(tt.getStatus()!= Animation.Status.RUNNING) {
 
-        knife1.setTranslateX(cameraXDisplacement + 100 * Math.sin(cameraYRotation / 180 * 3.1415));
-        knife1.setTranslateZ(cameraZDisplacement + 100 * Math.cos(cameraYRotation / 180 * 3.1415));
-        knife1.setRotate(cameraYRotation);
-      }
+        knife.setTranslateX(cameraXDisplacement + 90 + 100 * Math.sin(cameraYRotation / 180 * 3.1415));
+        knife.setTranslateZ(cameraZDisplacement + 100 * Math.cos(cameraYRotation / 180 * 3.1415));
+        knife.setRotate(cameraYRotation);
+      }*/
 
       xPos.add(Player.xPosition);
       yPos.add(Player.yPosition);

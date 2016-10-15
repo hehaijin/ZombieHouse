@@ -60,5 +60,6 @@ public class RandomWalkZombie extends Zombie
       this.zombie3D.setRotate(this.getHeading());
     }
     super.move();
+    this.zombie3D.nextFrame();
   }
 }

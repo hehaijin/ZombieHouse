@@ -38,14 +38,12 @@ public class Zombie
   /**
    * the amount of time between Zombie heading updates
    */
-  private static long zombie_Decision_Rate = 200;
+  private static long zombie_Decision_Rate = 2000;
   /**
    * the number of Tiles away that a Zombie can smell
    */
   private int zombie_Smell = 14;
 
-
-  public int canSmellFrame = 0;
   /**
    * whether or not a Zombie has scent of the Player
    */
