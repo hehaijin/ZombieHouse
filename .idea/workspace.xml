@@ -2,56 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="442e509c-61a4-4c06-afc7-5bb19b6b4dd1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieTwo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR0.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR1.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR10.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR11.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR12.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR13.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR14.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR15.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR16.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR17.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR18.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR19.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR2.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR20.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR21.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR22.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR23.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR24.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR25.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR26.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR27.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR28.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR29.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR3.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR30.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR31.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR32.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR33.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR34.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR35.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR36.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR37.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR38.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR39.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR4.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR5.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR6.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR7.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR8.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/ZombieR9.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/common/LevelVar.java" afterPath="$PROJECT_DIR$/src/zombiehouse/common/LevelVar.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java" afterPath="$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/graphics/Zombie3D.java" afterPath="$PROJECT_DIR$/src/zombiehouse/graphics/Zombie3D.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/level/house/Level.java" afterPath="$PROJECT_DIR$/src/zombiehouse/level/house/Level.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/level/zombie/LineWalkZombie.java" afterPath="$PROJECT_DIR$/src/zombiehouse/level/zombie/LineWalkZombie.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/level/zombie/MasterZombie.java" afterPath="$PROJECT_DIR$/src/zombiehouse/level/zombie/MasterZombie.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/level/zombie/RandomWalkZombie.java" afterPath="$PROJECT_DIR$/src/zombiehouse/level/zombie/RandomWalkZombie.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java" afterPath="$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java" />
     </list>
     <ignored path="ZombieHouse.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -85,8 +36,8 @@
       <file leaf-file-name="ZTimer.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/ZTimer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+            <state relative-caret-position="272">
+              <caret line="27" column="31" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -913,12 +864,19 @@
       <option name="project" value="LOCAL" />
       <updated>1476500087785</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="adding another zombie model">
+      <created>1476559472120</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1476559472120</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1552" height="840" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -932,7 +890,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13802083" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13802083" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30539772" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -973,7 +931,8 @@
     <MESSAGE value="forgot to add all the models" />
     <MESSAGE value="Updated zombie class" />
     <MESSAGE value="Updated pastself" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated pastself" />
+    <MESSAGE value="adding another zombie model" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding another zombie model" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1520,8 +1479,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/ZTimer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        <state relative-caret-position="272">
+          <caret line="27" column="31" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
           <folding />
         </state>
       </provider>
