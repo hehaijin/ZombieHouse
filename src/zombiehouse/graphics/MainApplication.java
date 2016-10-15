@@ -31,11 +31,7 @@ import zombiehouse.common.InputContainer;
 import zombiehouse.common.LevelVar;
 import zombiehouse.common.Player;
 import zombiehouse.level.PastSelf;
-import zombiehouse.level.house.Exit;
-import zombiehouse.level.house.Level;
-import zombiehouse.level.house.Tile;
-import zombiehouse.level.house.Wall;
-import zombiehouse.level.house.BookCase;
+import zombiehouse.level.house.*;
 import zombiehouse.level.zombie.*;
 
 import java.awt.*;
@@ -85,6 +81,7 @@ public class MainApplication extends Application
   private static final PhongMaterial bookcaseMaterial = new PhongMaterial();
   private static final PhongMaterial wallMaterial = new PhongMaterial();
   private static final PhongMaterial exitMaterial = new PhongMaterial();
+  private static final PhongMaterial tapestryMaterial[]=new PhongMaterial[4];
 
   private Level level;
   private Stage stage;
@@ -206,8 +203,8 @@ public class MainApplication extends Application
     pl.setTranslateY(cameraYDisplacement);
 
     sceneRoot.getChildren().add(pl);
-    //AmbientLight am=new AmbientLight();
-    //sceneRoot.getChildren().add(am);
+    AmbientLight am=new AmbientLight();
+    sceneRoot.getChildren().add(am);
 
     // Create the camera, set it to view far enough for any reasonably-sized map
     camera = new PerspectiveCamera(true);
@@ -372,6 +369,15 @@ public class MainApplication extends Application
     wallMaterial.setSpecularPower(256);
     wallMaterial.setDiffuseMap(new Image(getClass().getResource("/res/wall.png").toExternalForm()));
 
+    for(int i=1;i<=4;i++) {
+      tapestryMaterial[i-1]=new PhongMaterial();
+      tapestryMaterial[i-1].setDiffuseColor(new Color(0.45, 0.45, 0.45, 1.0));
+      tapestryMaterial[i-1].setSpecularColor(Color.BLACK);
+      tapestryMaterial[i-1].setSpecularPower(256);
+      tapestryMaterial[i-1].setDiffuseMap(new Image(getClass().getResource("/res/demon"+i+".png").toExternalForm()));
+    }
+
+
     exitMaterial.setDiffuseColor(Color.WHITE);
     exitMaterial.setSpecularColor(Color.WHITE);
 
@@ -430,7 +436,7 @@ public class MainApplication extends Application
         sceneRoot.getChildren().add(ceiling);
 
         // If wall, place a ground-to-ceiling wall box
-        if (house[x][z] instanceof Wall && !(house[x][z] instanceof BookCase))
+        if (house[x][z] instanceof Wall && !(house[x][z] instanceof BookCase) &&!(house[x][z] instanceof Tapestry) )
         {
           Box wall = new Box(TILE_WIDTH_AND_HEIGHT, WALL_HEIGHT, TILE_WIDTH_AND_HEIGHT);
           wall.setMaterial(wallMaterial);
@@ -450,6 +456,15 @@ public class MainApplication extends Application
           sceneRoot.getChildren().add(bookcase);
         }
 
+        if (house[x][z] instanceof Tapestry)
+        {
+          Box tapestry = new Box(TILE_WIDTH_AND_HEIGHT, WALL_HEIGHT, TILE_WIDTH_AND_HEIGHT);
+          tapestry.setMaterial(tapestryMaterial[(int)(Math.random()*4)]);
+          tapestry.setTranslateY(-WALL_HEIGHT / 2);
+          tapestry.setTranslateX(x * TILE_WIDTH_AND_HEIGHT);
+          tapestry.setTranslateZ(z * TILE_WIDTH_AND_HEIGHT);
+          sceneRoot.getChildren().add(tapestry);
+        }
 
         // If exit, place a ground-to-ceiling exit box
         else if (house[x][z] instanceof Exit)

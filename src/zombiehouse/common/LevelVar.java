@@ -101,5 +101,7 @@ public class LevelVar
   
   public static boolean HOUSE_PRESENTATION = false;
 
-  public static double bookcasechance=0.15;
+  public static double bookcasechance=0.10;
+
+  public static double tapestrychance=0.20;
 }
