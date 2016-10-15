@@ -871,12 +871,20 @@ public class MainApplication extends Application
             // Player collided with zombie, restart level
             if (totalDistance < 0.5 && frame % 5 == 0)
             {
-              if (Player.life > 1)
+              if (Player.life > 1 && zombie.type != 2)
               {
                 Player.life--;
                 Image img = new Image(getClass().getResourceAsStream("/res/life" + Player.life + ".png"));
                 lifeView.setImage(img);
-              } else
+              }
+              else
+              {
+                Player.life = 1;
+                Image img = new Image(getClass().getResourceAsStream("/res/life" + Player.life + ".png"));
+                lifeView.setImage(img);
+              }
+              
+              if (Player.life == 1)
               {
                 int positionForInner = 0;
                 System.out.println("Restarting due to death!! ");

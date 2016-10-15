@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="442e509c-61a4-4c06-afc7-5bb19b6b4dd1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/level/house/Floor.java" afterPath="$PROJECT_DIR$/src/zombiehouse/level/house/Floor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java" afterPath="$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java" />
     </list>
     <ignored path="ZombieHouse.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -24,21 +24,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MainApplication.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MainApplication.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="158">
-              <caret line="553" column="8" selection-start-line="553" selection-start-column="8" selection-end-line="553" selection-end-column="8" />
+            <state relative-caret-position="-1719">
+              <caret line="550" column="46" selection-start-line="550" selection-start-column="39" selection-end-line="550" selection-end-column="46" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Floor.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Floor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/house/Floor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="45" column="105" selection-start-line="45" selection-start-column="105" selection-end-line="45" selection-end-column="105" />
+            <state relative-caret-position="298">
+              <caret line="47" column="24" selection-start-line="47" selection-start-column="24" selection-end-line="47" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Level.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/house/Level.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="108">
+              <caret line="34" column="45" selection-start-line="34" selection-start-column="45" selection-end-line="34" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -111,11 +121,11 @@
         <option value="$PROJECT_DIR$/src/zombiehouse/level/zombie/MasterZombie.java" />
         <option value="$PROJECT_DIR$/src/zombiehouse/level/house/HouseAniTest.java" />
         <option value="$PROJECT_DIR$/src/zombiehouse/common/LevelVar.java" />
-        <option value="$PROJECT_DIR$/src/zombiehouse/level/house/Level.java" />
         <option value="$PROJECT_DIR$/../../../zombiehouse/graphics/MainApplication.java" />
         <option value="$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java" />
         <option value="$PROJECT_DIR$/src/zombiehouse/level/house/Floor.java" />
         <option value="$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java" />
+        <option value="$PROJECT_DIR$/src/zombiehouse/level/house/Level.java" />
       </list>
     </option>
   </component>
@@ -788,7 +798,14 @@
       <option name="project" value="LOCAL" />
       <updated>1476565981384</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Zombies don't spawn in walls anymore">
+      <created>1476566499862</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1476566499862</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -850,7 +867,8 @@
     <MESSAGE value="Updated pastself" />
     <MESSAGE value="adding another zombie model" />
     <MESSAGE value="Zombie to zombie and player to wall collision fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Zombie to zombie and player to wall collision fixed" />
+    <MESSAGE value="Zombies don't spawn in walls anymore" />
+    <option name="LAST_COMMIT_MESSAGE" value="Zombies don't spawn in walls anymore" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1284,14 +1302,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/house/Level.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1950">
-          <caret line="36" column="84" selection-start-line="36" selection-start-column="84" selection-end-line="36" selection-end-column="84" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -1308,18 +1318,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java">
+    <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/house/Level.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="553" column="8" selection-start-line="553" selection-start-column="8" selection-end-line="553" selection-end-column="8" />
+        <state relative-caret-position="108">
+          <caret line="34" column="45" selection-start-line="34" selection-start-column="45" selection-end-line="34" selection-end-column="45" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/house/Floor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="45" column="105" selection-start-line="45" selection-start-column="105" selection-end-line="45" selection-end-column="105" />
+        <state relative-caret-position="298">
+          <caret line="47" column="24" selection-start-line="47" selection-start-column="24" selection-end-line="47" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1719">
+          <caret line="550" column="46" selection-start-line="550" selection-start-column="39" selection-end-line="550" selection-end-column="46" />
           <folding />
         </state>
       </provider>
