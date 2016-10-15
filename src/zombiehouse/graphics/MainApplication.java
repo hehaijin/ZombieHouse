@@ -639,17 +639,30 @@ public class MainApplication extends Application
           Player.xPosition -= 1;
         }
       }
-
-      // Check for wall collisions
-      if (!(LevelVar.house[round(desiredPlayerXPosition + WALL_COLLISION_OFFSET)][round(Player.yPosition)] instanceof Wall) &&
-              !(LevelVar.house[round(desiredPlayerXPosition - WALL_COLLISION_OFFSET)][round(Player.yPosition)] instanceof Wall))
+  
+      boolean canMove = true;
+  
+      for(Zombie z: LevelVar.zombieCollection)
+      {
+        double distanceX = (z.positionX - Player.xPosition);
+        double distanceY = (z.positionY - Player.yPosition);
+        double totalDistance = Math.abs(distanceX) + Math.abs(distanceY);
+    
+        if(totalDistance < 0.3)
+        {
+          canMove = false;
+        }
+      }
+  
+      if(canMove)
       {
         Player.xPosition += desiredXDisplacement * (percentOfSecond * Player.playerSpeed);
-      }
-      if (!(LevelVar.house[round(Player.xPosition)][round(desiredPlayerYPosition + WALL_COLLISION_OFFSET)] instanceof Wall) &&
-              !(LevelVar.house[round(Player.xPosition)][round(desiredPlayerYPosition - WALL_COLLISION_OFFSET)] instanceof Wall))
-      {
         Player.yPosition += desiredZDisplacement * (percentOfSecond * Player.playerSpeed);
+      }
+      else
+      {
+        Player.xPosition -= desiredXDisplacement * (percentOfSecond * Player.playerSpeed);
+        Player.yPosition -= desiredZDisplacement * (percentOfSecond * Player.playerSpeed);
       }
 
       // Calculate camera displacement
@@ -944,32 +957,26 @@ public class MainApplication extends Application
             
             double desiredPositionX = zombie.positionX - (distanceX / totalDistance * LevelVar.zombieSpeed * percentOfSecond);
             double desiredPositionY = zombie.positionY - (distanceY / totalDistance * LevelVar.zombieSpeed * percentOfSecond);
+  
+            if(totalDistance > 0.5)
+            {
+              if ((LevelVar.house[round(desiredPositionX + WALL_COLLISION_OFFSET)][round(zombie.positionY)] instanceof Wall) ||
+                      (LevelVar.house[round(desiredPositionX - WALL_COLLISION_OFFSET)][round(zombie.positionY)] instanceof Wall) ||
+                      (LevelVar.house[round(zombie.positionX)][round(desiredPositionY + WALL_COLLISION_OFFSET)] instanceof Wall) ||
+                      (LevelVar.house[round(zombie.positionX)][round(desiredPositionY - WALL_COLLISION_OFFSET)] instanceof Wall))
+              {
+                zombie.makeDecision();
+              } else
+              {
+                zombie.positionX = desiredPositionX;
+                zombie.positionY = desiredPositionY;
+              }
+            }
+            else {
+              zombie.positionX -= 0.01;
+              zombie.positionY -= 0.01;
+            }
             
-            /*
-            // Check for wall collisions
-            if (!(LevelVar.house[round(desiredPositionX + WALL_COLLISION_OFFSET)][round(zombie.positionY)] instanceof Wall) &&
-                    !(LevelVar.house[round(desiredPositionX - WALL_COLLISION_OFFSET)][round(zombie.positionY)] instanceof Wall))
-            {
-              zombie.positionX = desiredPositionX;
-            }
-            if (!(LevelVar.house[round(zombie.positionX)][round(desiredPositionY + WALL_COLLISION_OFFSET)] instanceof Wall) &&
-                    !(LevelVar.house[round(zombie.positionX)][round(desiredPositionY - WALL_COLLISION_OFFSET)] instanceof Wall))
-            {
-              zombie.positionY = desiredPositionY;
-            }*/
-            if((LevelVar.house[round(desiredPositionX + WALL_COLLISION_OFFSET)][round(zombie.positionY)] instanceof Wall) ||
-                    (LevelVar.house[round(desiredPositionX - WALL_COLLISION_OFFSET)][round(zombie.positionY)] instanceof Wall) ||
-                    (LevelVar.house[round(zombie.positionX)][round(desiredPositionY + WALL_COLLISION_OFFSET)] instanceof Wall) ||
-                    (LevelVar.house[round(zombie.positionX)][round(desiredPositionY - WALL_COLLISION_OFFSET)] instanceof Wall))
-            {
-              zombie.makeDecision();
-              //zombie.move();
-            }
-            else
-            {
-              zombie.positionX = desiredPositionX;
-              zombie.positionY = desiredPositionY;
-            }
             zombie3D.nextFrame();
 
             double zombieVectorX = zombie.positionX - Player.xPosition;
