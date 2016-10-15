@@ -27,10 +27,7 @@ public class Tapestry extends Wall
   }
 
 
-  /**
-   *
-   * @return
-   */
+  
   public Color getColor()
   {
     return null;
