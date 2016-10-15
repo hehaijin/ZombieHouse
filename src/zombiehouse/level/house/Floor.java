@@ -35,15 +35,15 @@ public class Floor extends Tile
     
     if(allowSpawn && LevelVar.SPAWN_MONSTERS)
     {
-      if(LevelVar.rand.nextDouble() < 0.01 + (LevelVar.levelNum * LevelVar.spawnModifier) )
+      if(LevelVar.rand.nextDouble() < 0.02 && LevelVar.zombieCollection.size() < LevelVar.spawnMax)
       {
         if(LevelVar.rand.nextBoolean())
         {
-          LevelVar.zombieCollection.add(new LineWalkZombie(LevelVar.rand.nextDouble() * 360, xCor + 0.5, yCor + 0.5, this, Level.nextZombie++));
+          LevelVar.zombieCollection.add(new LineWalkZombie(LevelVar.rand.nextDouble() * 360, xCor, yCor, this, Level.nextZombie++));
         }
         else
         { 
-          LevelVar.zombieCollection.add(new RandomWalkZombie(LevelVar.rand.nextDouble() * 360, xCor + 0.5, yCor + 0.5, this, Level.nextZombie++));
+          LevelVar.zombieCollection.add(new RandomWalkZombie(LevelVar.rand.nextDouble() * 360, xCor, yCor, this, Level.nextZombie++));
         }
         isEmpty = false;
       }

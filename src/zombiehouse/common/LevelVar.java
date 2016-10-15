@@ -47,13 +47,13 @@ public class LevelVar
    * is used in level generation to increase dificulty
    */
   public static int levelNum = 0;
-  
+
   /**
    * This is the incremental Zombie spawn modifier
    * Note: at final level (levelNum = 4) there will be a 2% chance to spawn
    *       which is the 2x the chance of the first level (and makes for a challenging density)
    */
-  public static double spawnModifier = 0.25;
+  public static double spawnMax= 10;
   
   /**
    * This is the (percent) chance to spawn a pillar at each 'opening'

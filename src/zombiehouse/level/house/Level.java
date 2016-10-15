@@ -32,10 +32,10 @@ import zombiehouse.common.Player;
  */
 public class Level
 {
-  private static final int MIN_HOUSE_SIZE = 3;
+  private static final int MIN_HOUSE_SIZE = 4;
   
-  static int mazeTilesXPerZone = MIN_HOUSE_SIZE + LevelVar.levelNum; // getting bigger house each level
-  static int mazeTilesYPerZone = MIN_HOUSE_SIZE + LevelVar.levelNum; // also only assumes 4 quartered zones
+  static int mazeTilesXPerZone = MIN_HOUSE_SIZE ; // getting bigger house each level
+  static int mazeTilesYPerZone = MIN_HOUSE_SIZE ; // also only assumes 4 quartered zones
   
   static int houseWidth = mazeTilesXPerZone * 2 * 4 + 1;
   static int houseHeight = mazeTilesXPerZone * 2 * 4 + 1;
@@ -76,6 +76,7 @@ public class Level
     nextZombie = 0;
     houseWidth = mazeTilesXPerZone * 2 * 4 + 1;
     houseHeight = mazeTilesXPerZone * 2 * 4 + 1;
+    LevelVar.spawnMax += 5;
     LevelVar.house = new Tile[houseWidth][houseHeight];
     LevelVar.zombieCollection = new ArrayList<>();
     LevelVar.interactedWithZombieCollection = new ArrayList<>();

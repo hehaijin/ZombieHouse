@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import javafx.scene.paint.Color;
 import zombiehouse.common.LevelVar;
 import zombiehouse.common.Player;
+import zombiehouse.level.zombie.Zombie;
 
 /**
  * @author Rob

@@ -511,6 +511,7 @@ public class MainApplication extends Application
       sceneRoot.getChildren().add(ps.pastSelf3D);
     }
 
+    System.out.println(LevelVar.zombieCollection.size());
     // Create a zombie update timer
     ZTimer zMoves = new ZTimer();
     zMoves.zUpdateTimer.schedule(zMoves.myUpdate, Zombie.getDecisionRate(), Zombie.getDecisionRate());
@@ -659,6 +660,7 @@ public class MainApplication extends Application
       }
   
       boolean canMove = true;
+      boolean wallCollisionMove = true;
   
       for(Zombie z: LevelVar.zombieCollection)
       {
@@ -666,16 +668,29 @@ public class MainApplication extends Application
         double distanceY = (z.positionY - Player.yPosition);
         double totalDistance = Math.abs(distanceX) + Math.abs(distanceY);
     
-        if(totalDistance < 0.3)
+        if((totalDistance < 0.3))
         {
           canMove = false;
         }
       }
   
-      if(canMove)
+      if((LevelVar.house[round(desiredPlayerXPosition + WALL_COLLISION_OFFSET)][round(Player.yPosition)] instanceof Wall) ||
+              (LevelVar.house[round(desiredPlayerXPosition - WALL_COLLISION_OFFSET)][round(Player.yPosition)] instanceof Wall) ||
+              (LevelVar.house[round(Player.xPosition)][round(desiredPlayerYPosition + WALL_COLLISION_OFFSET)] instanceof Wall) ||
+              (LevelVar.house[round(Player.xPosition)][round(desiredPlayerYPosition - WALL_COLLISION_OFFSET)] instanceof Wall))
+      {
+        wallCollisionMove = false;
+      }
+  
+      if(canMove && wallCollisionMove)
       {
         Player.xPosition += desiredXDisplacement * (percentOfSecond * Player.playerSpeed);
         Player.yPosition += desiredZDisplacement * (percentOfSecond * Player.playerSpeed);
+      }
+      else if(!wallCollisionMove)
+      {
+        Player.xPosition -= 0.0001;
+        Player.yPosition -= 0.0001;
       }
       else
       {
@@ -871,12 +886,20 @@ public class MainApplication extends Application
             // Player collided with zombie, restart level
             if (totalDistance < 0.5 && frame % 5 == 0)
             {
-              if (Player.life > 1)
+              if (Player.life > 1 && zombie.type != 2)
               {
                 Player.life--;
                 Image img = new Image(getClass().getResourceAsStream("/res/life" + Player.life + ".png"));
                 lifeView.setImage(img);
-              } else
+              }
+              else
+              {
+                Player.life = 1;
+                Image img = new Image(getClass().getResourceAsStream("/res/life" + Player.life + ".png"));
+                lifeView.setImage(img);
+              }
+              
+              if (Player.life == 1)
               {
                 int positionForInner = 0;
                 System.out.println("Restarting due to death!! ");
