@@ -496,6 +496,7 @@ public class MainApplication extends Application
       sceneRoot.getChildren().add(ps.pastSelf3D);
     }
 
+    System.out.println(LevelVar.zombieCollection.size());
     // Create a zombie update timer
     ZTimer zMoves = new ZTimer();
     zMoves.zUpdateTimer.schedule(zMoves.myUpdate, Zombie.getDecisionRate(), Zombie.getDecisionRate());

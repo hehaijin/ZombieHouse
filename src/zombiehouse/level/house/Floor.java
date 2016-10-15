@@ -35,7 +35,7 @@ public class Floor extends Tile
     
     if(allowSpawn && LevelVar.SPAWN_MONSTERS)
     {
-      if(LevelVar.rand.nextDouble() < 0.01 + (LevelVar.levelNum * LevelVar.spawnModifier) )
+      if(LevelVar.rand.nextDouble() < 0.02 && LevelVar.zombieCollection.size() < LevelVar.spawnMax)
       {
         if(LevelVar.rand.nextBoolean())
         {

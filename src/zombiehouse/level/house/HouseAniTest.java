@@ -19,8 +19,8 @@ public class HouseAniTest extends Application
 
   private Stage stage;
   private Canvas canvas;
-  private int canvasWidth = 1000;
-  private int canvasHeight = 1000;
+  private int canvasWidth = 800;
+  private int canvasHeight = 800;
   
   private static double PLAYER_MOVE_SPEED = 1.0 / 6.0;
   
@@ -163,8 +163,8 @@ public class HouseAniTest extends Application
       
       for(Zombie z : LevelVar.zombieCollection)
       {
-        z.makeDecision();
-        z.move();
+        //z.makeDecision();
+        //z.move();
         if(z instanceof LineWalkZombie) { gfx.setFill(Color.DARKOLIVEGREEN); }
         else if(z instanceof RandomWalkZombie) { gfx.setFill(Color.LIGHTGREEN); }
         else { gfx.setFill(Color.VIOLET); }
@@ -209,8 +209,8 @@ public class HouseAniTest extends Application
       double deltaY = Player.yPosition - z.positionY;
       if( deltaX * deltaX + deltaY * deltaY < 1  )
       {
-        System.out.println("player dead");
-        l.restartLevel();
+        //System.out.println("player dead");
+        //l.restartLevel();
       }
     }
     if (LevelVar.house[(int)desiredPlayerXPosition][(int)desiredPlayerYPosition] instanceof Exit)
