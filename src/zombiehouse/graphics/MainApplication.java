@@ -339,12 +339,12 @@ public class MainApplication extends Application
     floorMaterial1.setDiffuseColor(Color.WHITE);
     floorMaterial1.setSpecularColor(Color.WHITE.darker());
     floorMaterial1.setSpecularPower(128);
-    floorMaterial1.setDiffuseMap(new Image(getClass().getResource("/res/dirt.png").toExternalForm()));
+    floorMaterial1.setDiffuseMap(new Image(getClass().getResource("/res/brick.png").toExternalForm()));
 
     floorMaterial2.setDiffuseColor(Color.WHITE);
     floorMaterial2.setSpecularColor(Color.WHITE.darker());
     floorMaterial2.setSpecularPower(128);
-    floorMaterial2.setDiffuseMap(new Image(getClass().getResource("/res/floor2.png").toExternalForm()));
+    floorMaterial2.setDiffuseMap(new Image(getClass().getResource("/res/tiles.png").toExternalForm()));
 
     floorMaterial3.setDiffuseColor(Color.WHITE);
     floorMaterial3.setSpecularColor(Color.WHITE.darker());
@@ -405,14 +405,15 @@ public class MainApplication extends Application
         {
           floor.setMaterial(floorMaterial1);
         }
-        if (house[x][z].zone == 1)
+        else if (house[x][z].zone == 1)
         {
           floor.setMaterial(floorMaterial2);
         }
-        if (house[x][z].zone == 2)
+        else if (house[x][z].zone == 2)
         {
           floor.setMaterial(floorMaterial3);
-        } else
+        }
+        else
         {
           floor.setMaterial(floorMaterial4);
         }
@@ -551,7 +552,7 @@ public class MainApplication extends Application
       if (InputContainer.run && Player.stamina > 0)
       {
         displacementScaleFactor *= 2;
-        Player.stamina -= 1.0 / TARGET_FRAMES_PER_SECOND;
+        //Player.stamina -= 1.0 / TARGET_FRAMES_PER_SECOND;
         isRunning = true;
       }
 

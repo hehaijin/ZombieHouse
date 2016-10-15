@@ -142,7 +142,7 @@ public class Level
     {
       for( int j = 0; j < houseHeight; j++)
       {
-        print.append( LevelVar.house[j][i].getChar() );
+        print.append( LevelVar.house[j][i].getChar());
       }
       print.append("\n");
     }
