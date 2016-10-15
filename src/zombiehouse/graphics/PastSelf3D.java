@@ -19,9 +19,6 @@ import javafx.scene.transform.Rotate;
 public class PastSelf3D extends Group
 {
 
-  private static final int MAXIMUM_FRAME = 9;
-  private static Random random = new Random();
-
   /**
    * Create a Zombie3D by loading in 8 random, contiguous frames,
    * setting the mesh group's scale and Y translation, and preparing
@@ -50,6 +47,6 @@ public class PastSelf3D extends Group
     setRotationAxis(Rotate.Y_AXIS);
 
     // Make sure zombies are on different frames to avoid "synchronized" movement
-    getChildren().get(random.nextInt(MAXIMUM_FRAME)).setVisible(true);
+    getChildren().get(0).setVisible(true);
   }
 }
