@@ -268,8 +268,10 @@ public class ProGen
             {
               if(Math.random()<LevelVar.bookcasechance)
                 fullSizeHouse[i * SCALER + x][j * SCALER + y] = new BookCase(i * SCALER + x, j * SCALER + y, scaledHouse[i][j].zone);
+              else if(Math.random()< LevelVar.tapestrychance)
+                fullSizeHouse[i * SCALER + x][j * SCALER + y] = new Tapestry(i * SCALER + x, j * SCALER + y, scaledHouse[i][j].zone);
               else
-                fullSizeHouse[i * SCALER + x][j * SCALER + y] = new Wall(i * SCALER + x, j * SCALER + y, scaledHouse[i][j].zone);
+              fullSizeHouse[i * SCALER + x][j * SCALER + y] = new Wall(i * SCALER + x, j * SCALER + y, scaledHouse[i][j].zone);
             }
             else if(x == 0 && scaledHouse[i][j].westWall)
             {
@@ -281,6 +283,8 @@ public class ProGen
               {
                 if(Math.random()<LevelVar.bookcasechance)
                   fullSizeHouse[i * SCALER + x][j * SCALER + y] = new BookCase(i * SCALER + x, j * SCALER + y, scaledHouse[i][j].zone);
+                else if(Math.random()< LevelVar.tapestrychance)
+                  fullSizeHouse[i * SCALER + x][j * SCALER + y] = new Tapestry(i * SCALER + x, j * SCALER + y, scaledHouse[i][j].zone);
                 else
                 fullSizeHouse[i * SCALER + x][j * SCALER + y] = new Wall(i * SCALER + x, j * SCALER + y, scaledHouse[i][j].zone );
               }
@@ -296,6 +300,8 @@ public class ProGen
               {
                 if(Math.random()<LevelVar.bookcasechance)
                   fullSizeHouse[i * SCALER + x][j * SCALER + y] = new BookCase(i * SCALER + x, j * SCALER + y, scaledHouse[i][j].zone);
+                else if(Math.random()< LevelVar.tapestrychance)
+                  fullSizeHouse[i * SCALER + x][j * SCALER + y] = new Tapestry(i * SCALER + x, j * SCALER + y, scaledHouse[i][j].zone);
                 else
                 fullSizeHouse[i * SCALER + x][j * SCALER + y] = new Wall(i * SCALER + x, j * SCALER + y, scaledHouse[i][j].zone );
               }
