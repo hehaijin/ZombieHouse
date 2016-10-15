@@ -204,7 +204,7 @@ public class MainApplication extends Application
 
     sceneRoot.getChildren().add(pl);
     AmbientLight am=new AmbientLight();
-    sceneRoot.getChildren().add(am);
+   // sceneRoot.getChildren().add(am);
 
     // Create the camera, set it to view far enough for any reasonably-sized map
     camera = new PerspectiveCamera(true);
