@@ -206,7 +206,7 @@ public class MainApplication extends Application
     pl.setTranslateY(cameraYDisplacement);
 
     sceneRoot.getChildren().add(pl);
-    AmbientLight am=new AmbientLight();
+    //AmbientLight am=new AmbientLight();
     //sceneRoot.getChildren().add(am);
 
     // Create the camera, set it to view far enough for any reasonably-sized map
@@ -229,8 +229,9 @@ public class MainApplication extends Application
     knife1.setTranslateY(cameraYDisplacement);
     knife1.setRotationAxis(Rotate.Y_AXIS);
     sceneRoot.getChildren().add(knife1);
-    knife1.setTranslateY(-345);
+    knife1.setTranslateY(-330);
     knife1.getTransforms().add(new Rotate(100,0,0,0,Rotate.X_AXIS));
+    knife1.getTransforms().add(new Rotate(60,0,0,0,Rotate.Y_AXIS));
 
     // Set up key listeners for WASD (movement), F1/F2 (full screen toggle), Shift (run), Escape (exit), F3 (cheat)
     xscene.setOnKeyPressed(event ->
@@ -486,9 +487,6 @@ public class MainApplication extends Application
     {
       sceneRoot.getChildren().add(zombie.zombie3D);
     }
-
-    //System.out.println("Number of zombies:" + LevelVar.zombieCollection.size());
-    //System.out.println("Number of interactedWithPSZombies:" + LevelVar.interactedWithZombieCollection.size());
 
     for (PastSelf ps : LevelVar.pastSelfCollection)
     {
@@ -1004,9 +1002,6 @@ public class MainApplication extends Application
             {
               DirectionalPlayer.playSound(AudioFiles.randomZombieSound(), angleBetweenVectors(playerDirectionVectorX, playerDirectionVectorY, zombieVectorX, zombieVectorY), distance);
             }
-          }
-          if(zombie.type == 2) {
-            System.out.println("Difference:" + (zombie.positionX - Player.xPosition) + " : " + (zombie.positionY - Player.yPosition));
           }
           zombie.addXPos(zombie.positionX);
           zombie.addYPos(zombie.positionY);
