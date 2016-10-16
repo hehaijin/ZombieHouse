@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.*;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -101,8 +102,11 @@ public class MainApplication extends Application
   private ArrayList<Double> cameraPos = new ArrayList<>();
   private ArrayList<Zombie> toAddToInteractedCollection = new ArrayList<>();
   boolean spawnPastSelf = false;
-
   private int deathFrame = 0;
+  
+  private GameLoop gameLoop = new GameLoop();
+  private int zombieKillCount = 0;
+  private int levelCount = 0;
 
   FXMLLoader fxmlloader=new FXMLLoader();
   {
@@ -383,7 +387,7 @@ public class MainApplication extends Application
 
     setupLevel();
     
-    new GameLoop().start();
+    gameLoop.start();
   }
 
   /**
@@ -572,7 +576,7 @@ public class MainApplication extends Application
       if (InputContainer.run && Player.stamina > 0)
       {
         displacementScaleFactor *= 2;
-        //Player.stamina -= 1.0 / TARGET_FRAMES_PER_SECOND;
+        Player.stamina -= 1.0 / TARGET_FRAMES_PER_SECOND;
         isRunning = true;
       }
 
@@ -683,6 +687,22 @@ public class MainApplication extends Application
         if(z.type == 2 && totalDistance < 10)
         {
           masterZombieSense = true;
+        }
+  
+        if(totalDistance < 2)
+        {
+          verticalCross.setFill(Color.GREEN);
+          horizontalCross.setFill(Color.GREEN);
+        }
+        if(totalDistance < 1)
+        {
+          verticalCross.setFill(Color.YELLOW);
+          horizontalCross.setFill(Color.YELLOW);
+        }
+        if(totalDistance < 0.5)
+        {
+          verticalCross.setFill(Color.RED);
+          horizontalCross.setFill(Color.RED);
         }
       }
   
@@ -924,12 +944,12 @@ public class MainApplication extends Application
               }
               else
               {
-                Player.life = 1;
-                Image img = new Image(getClass().getResourceAsStream("/res/life" + Player.life + ".png"));
+                Player.life = 0;
+                Image img = new Image(getClass().getResourceAsStream("/res/life1.png"));
                 lifeView.setImage(img);
               }
               
-              if (Player.life == 1)
+              if (Player.life == 0)
               {
                 int positionForInner = 0;
                 System.out.println("Restarting due to death!! ");
@@ -1128,12 +1148,9 @@ public class MainApplication extends Application
             {
               ps.deathFrame = deathFrame;
             }
-            PastSelf newPS = new PastSelf(0, 0, 0, deathFrame, size + 1);
-            newPS.setCPos(cameraPos);
-            newPS.setXPos(xPos);
-            newPS.setYPos(yPos);
-            LevelVar.pastSelfCollection.add(newPS);
-          } else
+          }
+          
+          if(LevelVar.pastSelfCollection.size() < 3)
           {
             PastSelf newPS = new PastSelf(0, 0, 0, deathFrame, size + 1);
             newPS.setCPos(cameraPos);
@@ -1141,6 +1158,17 @@ public class MainApplication extends Application
             newPS.setYPos(yPos);
             LevelVar.pastSelfCollection.add(newPS);
           }
+          else
+          {
+            gameLoop.stop();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Your brains have been eaten.");
+            alert.setHeaderText(null);
+            alert.setContentText("You have used up all 3 lives!\nHighest level: " + (LevelVar.levelNum + 1)  +
+                    "\nZombies killed: " + zombieKillCount + "\nBetter luck next time.");
+            alert.show();
+          }
+          
           System.out.println("PS Count:" + LevelVar.pastSelfCollection.size());
           spawnPastSelf = false;
           xPos.clear();
