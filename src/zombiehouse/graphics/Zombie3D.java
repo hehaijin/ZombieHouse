@@ -35,43 +35,18 @@ public class Zombie3D extends Group
     redMaterial.setSpecularColor(Color.DARKRED);
   }
   //the boxes are for zombie life display.
-  Box lifebox5=new Box(1,0.1,0.1);
+  Box lifebox[]=new Box[5];
 
   {
-    lifebox5.setMaterial(redMaterial);
-    lifebox5.setDepthTest(DepthTest.ENABLE);
-    lifebox5.setTranslateY(-2.2);
-  }
-  Box lifebox4=new Box(0.8,0.1,0.1);
-
-  {
-    lifebox4.setMaterial(redMaterial);
-    lifebox4.setDepthTest(DepthTest.ENABLE);
-    lifebox4.setTranslateY(-2.2);
-  }
-  Box lifebox3=new Box(0.6,0.1,0.1);
-
-  {
-    lifebox3.setMaterial(redMaterial);
-    lifebox3.setDepthTest(DepthTest.ENABLE);
-    lifebox3.setTranslateY(-2.2);
+    for(int i=0;i<5;i++)
+    {
+      lifebox[i]=new Box(i*0.2+0.2,0.1,0.1);
+      lifebox[i].setMaterial(redMaterial);
+      lifebox[i].setDepthTest(DepthTest.ENABLE);
+      lifebox[i].setTranslateY(-2.2);
+    }
   }
 
-  Box lifebox2=new Box(0.4,0.1,0.1);
-
-  {
-    lifebox2.setMaterial(redMaterial);
-    lifebox2.setDepthTest(DepthTest.ENABLE);
-    lifebox2.setTranslateY(-2.2);
-  }
-
-  Box lifebox1=new Box(0.2,0.1,0.1);
-
-  {
-    lifebox1.setMaterial(redMaterial);
-    lifebox1.setDepthTest(DepthTest.ENABLE);
-    lifebox1.setTranslateY(-2.2);
-  }
   /**
    * Create a Zombie3D by loading in 8 random, contiguous frames,
    * setting the mesh group's scale and Y translation, and preparing
@@ -80,7 +55,7 @@ public class Zombie3D extends Group
   public Zombie3D(int type)
   {
     //add life display.
-    getChildren().add(lifebox5);
+    getChildren().add(lifebox[4]);
     // Give each zombie 8 random, continuous frames to work with, so they aren't all alike
     //add one to avoid 0.
     int randomStart = random.nextInt(MAXIMUM_FRAME)+1;
@@ -191,22 +166,7 @@ public class Zombie3D extends Group
   {
     if(life>5 || life <1)
       System.out.println("wrong input for zombie life");
-    switch(life)
-    {
-      case 1: getChildren().set(0,lifebox1);
-        break;
-      case 2: getChildren().set(0,lifebox2);
-        break;
-      case 3: getChildren().set(0,lifebox3);
-        break;
-      case 4: getChildren().set(0,lifebox4);
-        break;
-      case 5: getChildren().set(0,lifebox5);
-        break;
-      default: break;
-
-
-    }
+    else getChildren().set(0,lifebox[life-1]);
 
 
   }
