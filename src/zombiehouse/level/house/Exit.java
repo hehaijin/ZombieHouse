@@ -30,8 +30,8 @@ public class Exit extends Tile
    * getColor only used by 2d House Animation
    */
   public Color getColor()
-  { 
+  {
     if(LevelVar.WITH_SIGHT && !hasBeenSeen) { return Color.BLACK; }
-    return Color.YELLOW; 
+    return Color.YELLOW;
   }
 }
