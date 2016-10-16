@@ -346,12 +346,12 @@ public class MainApplication extends Application
     floorMaterial3.setDiffuseColor(Color.WHITE);
     floorMaterial3.setSpecularColor(Color.WHITE.darker());
     floorMaterial3.setSpecularPower(128);
-    floorMaterial3.setDiffuseMap(new Image(getClass().getResource("/res/floor3.png").toExternalForm()));
+    floorMaterial3.setDiffuseMap(new Image(getClass().getResource("/res/floor1.png").toExternalForm()));
 
     floorMaterial4.setDiffuseColor(Color.WHITE);
     floorMaterial4.setSpecularColor(Color.WHITE.darker());
     floorMaterial4.setSpecularPower(128);
-    floorMaterial4.setDiffuseMap(new Image(getClass().getResource("/res/floor4.png").toExternalForm()));
+    floorMaterial4.setDiffuseMap(new Image(getClass().getResource("/res/wooden.png").toExternalForm()));
 
     bookcaseMaterial.setDiffuseColor(new Color(0.45, 0.45, 0.45, 1.0));
     bookcaseMaterial.setSpecularColor(Color.BLACK);
