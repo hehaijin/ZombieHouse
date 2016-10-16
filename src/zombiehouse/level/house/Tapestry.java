@@ -1,8 +1,10 @@
 package zombiehouse.level.house;
 
 /**
- *
+ * Created by Haijin on 10/13/2016.
+ *a class for tapestry.
  */
+
 
 import javafx.scene.paint.Color;
 import zombiehouse.common.LevelVar;
