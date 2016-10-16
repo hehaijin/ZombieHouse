@@ -408,36 +408,35 @@ public class MainApplication extends Application
       for (int z = 0; z < house[0].length; z++)
       {
         // Always have a floor and ceiling
-        Box floor = new Box(TILE_WIDTH_AND_HEIGHT, 10, TILE_WIDTH_AND_HEIGHT);
-        if (house[x][z].zone == 0)
-        {
-          floor.setMaterial(floorMaterial1);
-        }
-        else if (house[x][z].zone == 1)
-        {
-          floor.setMaterial(floorMaterial2);
-        }
-        else if (house[x][z].zone == 2)
-        {
-          floor.setMaterial(floorMaterial3);
-        }
-        else
-        {
-          floor.setMaterial(floorMaterial4);
-        }
 
-        floor.setTranslateY(FLOOR_Y_DISPLACEMENT);
-        floor.setTranslateX(x * TILE_WIDTH_AND_HEIGHT);
-        floor.setTranslateZ(z * TILE_WIDTH_AND_HEIGHT);
-        sceneRoot.getChildren().add(floor);
+       if(x % 4 == 0 && z % 4 == 0)
+        {
+          Box floor = new Box(TILE_WIDTH_AND_HEIGHT * 4, 10, TILE_WIDTH_AND_HEIGHT * 4);
+
+          if (house[x][z].zone == 0 ) {
+            floor.setMaterial(floorMaterial1);
+          } else if (house[x][z].zone == 1) {
+            floor.setMaterial(floorMaterial2);
+          } else if (house[x][z].zone == 2) {
+            floor.setMaterial(floorMaterial3);
+          } else {
+            floor.setMaterial(floorMaterial4);
+          }
+
+          floor.setTranslateY(FLOOR_Y_DISPLACEMENT);
+          floor.setTranslateX((x+2) * TILE_WIDTH_AND_HEIGHT);
+          floor.setTranslateZ((z+2) * TILE_WIDTH_AND_HEIGHT);
+          sceneRoot.getChildren().add(floor);
+
+        }
 
         if (x % 4 == 0 && z % 4 == 0)
         {
         Box ceiling = new Box(TILE_WIDTH_AND_HEIGHT*4, 10, TILE_WIDTH_AND_HEIGHT*4);
         ceiling.setMaterial(ceilingMaterial);
         ceiling.setTranslateY(CEILING_Y_DISPLACEMENT);
-        ceiling.setTranslateX(x * TILE_WIDTH_AND_HEIGHT+2);
-        ceiling.setTranslateZ(z * TILE_WIDTH_AND_HEIGHT+2);
+        ceiling.setTranslateX((x+2) * TILE_WIDTH_AND_HEIGHT);
+        ceiling.setTranslateZ((z+2) * TILE_WIDTH_AND_HEIGHT);
         sceneRoot.getChildren().add(ceiling);
         }
 
