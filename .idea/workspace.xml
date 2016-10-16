@@ -27,11 +27,13 @@
       <file leaf-file-name="MainApplication.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="353" column="78" selection-start-line="353" selection-start-column="78" selection-end-line="353" selection-end-column="78" />
+            <state relative-caret-position="504">
+              <caret line="862" column="132" selection-start-line="862" selection-start-column="132" selection-end-line="862" selection-end-column="132" />
               <folding>
                 <element signature="e#13225#13226#0" expanded="true" />
                 <element signature="e#13260#13261#0" expanded="true" />
+                <marker date="1476582694381" expanded="false" signature="43112:43121" ph=" { " />
+                <marker date="1476582694381" expanded="false" signature="43134:43138" ph=" }" />
               </folding>
             </state>
           </provider>
@@ -846,7 +848,14 @@
       <option name="project" value="LOCAL" />
       <updated>1476581452802</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="wasn't loading the correct new floor pattern">
+      <created>1476582472566</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1476582472567</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -912,7 +921,8 @@
     <MESSAGE value="Master Zombie 1 shots you" />
     <MESSAGE value="4 floor section textures fixed" />
     <MESSAGE value="updating a floor square, and some updates for bifrucation" />
-    <option name="LAST_COMMIT_MESSAGE" value="updating a floor square, and some updates for bifrucation" />
+    <MESSAGE value="wasn't loading the correct new floor pattern" />
+    <option name="LAST_COMMIT_MESSAGE" value="wasn't loading the correct new floor pattern" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1342,11 +1352,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="353" column="78" selection-start-line="353" selection-start-column="78" selection-end-line="353" selection-end-column="78" />
+        <state relative-caret-position="504">
+          <caret line="862" column="132" selection-start-line="862" selection-start-column="132" selection-end-line="862" selection-end-column="132" />
           <folding>
             <element signature="e#13225#13226#0" expanded="true" />
             <element signature="e#13260#13261#0" expanded="true" />
+            <marker date="1476582694381" expanded="false" signature="43112:43121" ph=" { " />
+            <marker date="1476582694381" expanded="false" signature="43134:43138" ph=" }" />
           </folding>
         </state>
       </provider>

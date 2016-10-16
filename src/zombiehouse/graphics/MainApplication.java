@@ -844,13 +844,26 @@ public class MainApplication extends Application
                 double cRotate = zombie.getCameraPos().get(rFrameDivided);
                 double totalDistance = Math.abs(distanceX) + Math.abs(distanceY);
                 z.nextFrame();
-                if (totalDistance < 1 && frame % 5 == 0 && InputContainer.hit)
+                if ((totalDistance < 1 && InputContainer.hit) || (((int)Player.xPosition == (int)zombie.positionX) && ((int)Player.yPosition == (int)zombie.positionY)) && frame % 5 == 0)
                 {
                   zombie.bifrocatedFrame = frame;
                   int numOfZ = LevelVar.zombieCollection.size();
-                  LineWalkZombie newZom = new LineWalkZombie(cRotate, zombie.positionX, zombie.positionY, zombie.curTile, numOfZ + 1);
-                  sceneRoot.getChildren().add(newZom.zombie3D);
-                  LevelVar.zombieCollection.add(newZom);
+                  if(zombie.type == 0) {
+                    RandomWalkZombie newZom = new RandomWalkZombie(cRotate, zombie.positionX, zombie.positionY, zombie.curTile, numOfZ + 1);
+                    sceneRoot.getChildren().add(newZom.zombie3D);
+                    LevelVar.zombieCollection.add(newZom);
+                  } else if(zombie.type == 1)
+                  {
+                    LineWalkZombie newZom = new LineWalkZombie(cRotate, zombie.positionX, zombie.positionY, zombie.curTile, numOfZ + 1);
+                    sceneRoot.getChildren().add(newZom.zombie3D);
+                    LevelVar.zombieCollection.add(newZom);
+                  }
+                  else
+                  {
+                    MasterZombie newZom = new MasterZombie(cRotate, zombie.positionX, zombie.positionY, zombie.curTile, numOfZ + 1);
+                    sceneRoot.getChildren().add(newZom.zombie3D);
+                    LevelVar.zombieCollection.add(newZom);
+                  }
                 }
                 if (zombie.bifrocatedFrame != 0 && (frame - i) == zombie.bifrocatedFrame)
                 {
