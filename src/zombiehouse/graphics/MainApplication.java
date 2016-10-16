@@ -14,7 +14,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
@@ -82,7 +84,7 @@ public class MainApplication extends Application
   private static final PhongMaterial bookcaseMaterial = new PhongMaterial();
   private static final PhongMaterial wallMaterial = new PhongMaterial();
   private static final PhongMaterial exitMaterial = new PhongMaterial();
-  private static final PhongMaterial tapestryMaterial[]=new PhongMaterial[4];
+  private static final PhongMaterial tapestryMaterial[] = new PhongMaterial[4];
 
   private Level level;
   private Stage stage;
@@ -103,19 +105,19 @@ public class MainApplication extends Application
   private ArrayList<Zombie> toAddToInteractedCollection = new ArrayList<>();
   boolean spawnPastSelf = false;
   private int deathFrame = 0;
-  
+
   private GameLoop gameLoop = new GameLoop();
   private int zombieKillCount = 0;
   private int levelCount = 0;
 
-  FXMLLoader fxmlloader=new FXMLLoader();
+  FXMLLoader fxmlloader = new FXMLLoader();
+
   {
     fxmlloader.setLocation(getClass().getResource("/res/Bayonet.fxml"));
   }
 
-  Group knife= null;
+  Group knife = null;
   TranslateTransition tt = new TranslateTransition();
-
 
 
   /**
@@ -159,27 +161,27 @@ public class MainApplication extends Application
     SubScene scene = new SubScene(sceneRoot, WINDOW_WIDTH, WINDOW_HEIGHT, true, SceneAntialiasing.BALANCED);
     scene.setFill(Color.BLACK);
     pane.getChildren().add(scene);
-    
+
     life5 = new Image(getClass().getResourceAsStream("/res/life5.png"));
     lifeView = new ImageView(life5);
     Label life = new Label("", lifeView);
-    
+
     staminaBar = new Rectangle(150, 13);
     staminaBar.setFill(Color.BLUE);
     pane.getChildren().add(staminaBar);
     StackPane.setAlignment(staminaBar, Pos.TOP_LEFT);
     staminaBar.getTransforms().add(new Translate(25, 65));
-    
+
     staminaLabel = new Label("Stamina: " + Player.stamina);
     staminaLabel.setTextFill(Color.BLACK);
     pane.getChildren().add(staminaLabel);
     StackPane.setAlignment(staminaLabel, Pos.TOP_LEFT);
     staminaLabel.getTransforms().add(new Translate(65, 63));
-    
+
     verticalCross = new Rectangle(2, 20);
     verticalCross.setFill(Color.GREEN);
     pane.getChildren().add(verticalCross);
-  
+
     horizontalCross = new Rectangle(20, 2);
     horizontalCross.setFill(Color.GREEN);
     pane.getChildren().add(horizontalCross);
@@ -207,8 +209,8 @@ public class MainApplication extends Application
     pl.setTranslateY(cameraYDisplacement);
 
     sceneRoot.getChildren().add(pl);
-    AmbientLight am=new AmbientLight();
-   // sceneRoot.getChildren().add(am);
+    AmbientLight am = new AmbientLight();
+    // sceneRoot.getChildren().add(am);
 
     // Create the camera, set it to view far enough for any reasonably-sized map
     camera = new PerspectiveCamera(true);
@@ -258,8 +260,8 @@ public class MainApplication extends Application
         InputContainer.hit = true;
         tt.setDuration(Duration.millis(300));
         tt.setNode(knife);
-        tt.setByX(50*Math.sin(cameraYRotation / 180 * 3.1415));
-        tt.setByZ(50*Math.cos(cameraYRotation / 180 * 3.1415));
+        tt.setByX(50 * Math.sin(cameraYRotation / 180 * 3.1415));
+        tt.setByZ(50 * Math.cos(cameraYRotation / 180 * 3.1415));
         tt.setAutoReverse(true);
         tt.play();
         AudioFiles.shout.setVolume(0.25);
@@ -373,12 +375,13 @@ public class MainApplication extends Application
     wallMaterial.setSpecularPower(256);
     wallMaterial.setDiffuseMap(new Image(getClass().getResource("/res/wall.png").toExternalForm()));
 
-    for(int i=1;i<=4;i++) {
-      tapestryMaterial[i-1]=new PhongMaterial();
-      tapestryMaterial[i-1].setDiffuseColor(new Color(0.45, 0.45, 0.45, 1.0));
-      tapestryMaterial[i-1].setSpecularColor(Color.BLACK);
-      tapestryMaterial[i-1].setSpecularPower(256);
-      tapestryMaterial[i-1].setDiffuseMap(new Image(getClass().getResource("/res/demon"+i+".png").toExternalForm()));
+    for (int i = 1; i <= 4; i++)
+    {
+      tapestryMaterial[i - 1] = new PhongMaterial();
+      tapestryMaterial[i - 1].setDiffuseColor(new Color(0.45, 0.45, 0.45, 1.0));
+      tapestryMaterial[i - 1].setSpecularColor(Color.BLACK);
+      tapestryMaterial[i - 1].setSpecularPower(256);
+      tapestryMaterial[i - 1].setDiffuseMap(new Image(getClass().getResource("/res/demon" + i + ".png").toExternalForm()));
     }
 
 
@@ -386,7 +389,7 @@ public class MainApplication extends Application
     exitMaterial.setSpecularColor(Color.WHITE);
 
     setupLevel();
-    
+
     gameLoop.start();
   }
 
@@ -413,40 +416,44 @@ public class MainApplication extends Application
       {
         // Always have a floor and ceiling
         //4*4 floor share a box
-       if(x % 4 == 0 && z % 4 == 0)
+        if (x % 4 == 0 && z % 4 == 0)
         {
           Box floor = new Box(TILE_WIDTH_AND_HEIGHT * 4, 10, TILE_WIDTH_AND_HEIGHT * 4);
 
-          if (house[x][z].zone == 0 ) {
+          if (house[x][z].zone == 0)
+          {
             floor.setMaterial(floorMaterial1);
-          } else if (house[x][z].zone == 1) {
+          } else if (house[x][z].zone == 1)
+          {
             floor.setMaterial(floorMaterial2);
-          } else if (house[x][z].zone == 2) {
+          } else if (house[x][z].zone == 2)
+          {
             floor.setMaterial(floorMaterial3);
-          } else {
+          } else
+          {
             floor.setMaterial(floorMaterial4);
           }
 
           floor.setTranslateY(FLOOR_Y_DISPLACEMENT);
-          floor.setTranslateX((x+2) * TILE_WIDTH_AND_HEIGHT);
-          floor.setTranslateZ((z+2) * TILE_WIDTH_AND_HEIGHT);
+          floor.setTranslateX((x + 2) * TILE_WIDTH_AND_HEIGHT);
+          floor.setTranslateZ((z + 2) * TILE_WIDTH_AND_HEIGHT);
           sceneRoot.getChildren().add(floor);
 
         }
-       //4*4 ceiling share a box
+        //4*4 ceiling share a box
         if (x % 4 == 0 && z % 4 == 0)
         {
-        Box ceiling = new Box(TILE_WIDTH_AND_HEIGHT*4, 10, TILE_WIDTH_AND_HEIGHT*4);
-        ceiling.setMaterial(ceilingMaterial);
-        ceiling.setTranslateY(CEILING_Y_DISPLACEMENT);
-        ceiling.setTranslateX((x+2) * TILE_WIDTH_AND_HEIGHT);
-        ceiling.setTranslateZ((z+2) * TILE_WIDTH_AND_HEIGHT);
-        sceneRoot.getChildren().add(ceiling);
+          Box ceiling = new Box(TILE_WIDTH_AND_HEIGHT * 4, 10, TILE_WIDTH_AND_HEIGHT * 4);
+          ceiling.setMaterial(ceilingMaterial);
+          ceiling.setTranslateY(CEILING_Y_DISPLACEMENT);
+          ceiling.setTranslateX((x + 2) * TILE_WIDTH_AND_HEIGHT);
+          ceiling.setTranslateZ((z + 2) * TILE_WIDTH_AND_HEIGHT);
+          sceneRoot.getChildren().add(ceiling);
         }
 
 
         // If wall, place a ground-to-ceiling wall box
-        if (house[x][z] instanceof Wall && !(house[x][z] instanceof BookCase) &&!(house[x][z] instanceof Tapestry) )
+        if (house[x][z] instanceof Wall && !(house[x][z] instanceof BookCase) && !(house[x][z] instanceof Tapestry))
         {
           Box wall = new Box(TILE_WIDTH_AND_HEIGHT, WALL_HEIGHT, TILE_WIDTH_AND_HEIGHT);
           wall.setMaterial(wallMaterial);
@@ -469,7 +476,7 @@ public class MainApplication extends Application
         if (house[x][z] instanceof Tapestry)
         {
           Box tapestry = new Box(TILE_WIDTH_AND_HEIGHT, WALL_HEIGHT, TILE_WIDTH_AND_HEIGHT);
-          tapestry.setMaterial(tapestryMaterial[(int)(Math.random()*4)]);
+          tapestry.setMaterial(tapestryMaterial[(int) (Math.random() * 4)]);
           tapestry.setTranslateY(-WALL_HEIGHT / 2);
           tapestry.setTranslateX(x * TILE_WIDTH_AND_HEIGHT);
           tapestry.setTranslateZ(z * TILE_WIDTH_AND_HEIGHT);
@@ -526,6 +533,36 @@ public class MainApplication extends Application
     ZTimer zMoves = new ZTimer();
     zMoves.zUpdateTimer.schedule(zMoves.myUpdate, Zombie.getDecisionRate(), Zombie.getDecisionRate());
 
+  }
+
+  private void addEndScreen() {
+    gameLoop.stop();
+
+    Stage endDialog = new Stage();
+    endDialog.setTitle("Your brains have been eaten.");
+    VBox mainBox = new VBox(10);
+    mainBox.setPrefSize(400, 200);
+    mainBox.setAlignment(Pos.CENTER);
+
+    Label text = new Label("You have used up all 3 lives!\nHighest level: " + (LevelVar.levelNum + 1)  +
+            "\nZombies killed: " + zombieKillCount + "\nBetter luck next time.");
+    text.setAlignment(Pos.CENTER);
+    text.setPrefSize(400, 100);
+
+    HBox hB = new HBox(10);
+    hB.setPrefSize(400, 100);
+    hB.setAlignment(Pos.CENTER);
+    CloseButton cB = new CloseButton(stage, endDialog);
+    cB.setPrefSize(120, 40);
+    RestartButton rB = new RestartButton(level, endDialog, gameLoop);
+    rB.setPrefSize(120, 40);
+    hB.getChildren().addAll(cB, rB);
+
+    mainBox.getChildren().addAll(text, hB);
+
+    Scene sc = new Scene(mainBox);
+    endDialog.setScene(sc);
+    endDialog.show();
   }
 
   /**
@@ -592,32 +629,28 @@ public class MainApplication extends Application
         Player.stamina += Player.staminaRegen / TARGET_FRAMES_PER_SECOND;
         if (Player.stamina > Player.maxStamina) Player.stamina = Player.maxStamina;
       }
-  
+
       double roundOffStamina = (double) Math.round(Player.stamina * 100) / 100;
-      
+
       staminaLabel.setText("Stamina: " + roundOffStamina);
-      
-      if(Player.stamina >= 4.0)
+
+      if (Player.stamina >= 4.0)
       {
         staminaBar.setFill(Color.BLUE);
-      }
-      else if(Player.stamina >= 3.0)
+      } else if (Player.stamina >= 3.0)
       {
         staminaBar.setFill(Color.GREEN);
-      }
-      else if(Player.stamina >= 2.0)
+      } else if (Player.stamina >= 2.0)
       {
         staminaBar.setFill(Color.YELLOW);
-      }
-      else if(Player.stamina >= 1.0)
+      } else if (Player.stamina >= 1.0)
       {
         staminaBar.setFill(Color.ORANGE);
-      }
-      else if(Player.stamina >= 0.0)
+      } else if (Player.stamina >= 0.0)
       {
         staminaBar.setFill(Color.RED);
       }
-      
+
       // How often to play the stepping noise (walking vs running)
       int stepFrequency = isRunning ? 20 : 40;
 
@@ -668,68 +701,65 @@ public class MainApplication extends Application
           Player.xPosition -= 1;
         }
       }
-  
+
       boolean canMove = true;
       boolean wallCollisionMove = true;
       boolean masterZombieSense = false;
-  
-      for(Zombie z: LevelVar.zombieCollection)
+
+      for (Zombie z : LevelVar.zombieCollection)
       {
         double distanceX = (z.positionX - Player.xPosition);
         double distanceY = (z.positionY - Player.yPosition);
         double totalDistance = Math.abs(distanceX) + Math.abs(distanceY);
-    
-        if((totalDistance < 0.3))
+
+        if ((totalDistance < 0.3))
         {
           canMove = false;
         }
-        
-        if(z.type == 2 && totalDistance < 10)
+
+        if (z.type == 2 && totalDistance < 10)
         {
           masterZombieSense = true;
         }
-  
-        if(totalDistance < 2)
+
+        if (totalDistance < 2)
         {
           verticalCross.setFill(Color.GREEN);
           horizontalCross.setFill(Color.GREEN);
         }
-        if(totalDistance < 1)
+        if (totalDistance < 1)
         {
           verticalCross.setFill(Color.YELLOW);
           horizontalCross.setFill(Color.YELLOW);
         }
-        if(totalDistance < 0.5)
+        if (totalDistance < 0.5)
         {
           verticalCross.setFill(Color.RED);
           horizontalCross.setFill(Color.RED);
         }
       }
-  
-      if((LevelVar.house[round(desiredPlayerXPosition + WALL_COLLISION_OFFSET)][round(Player.yPosition)] instanceof Wall) ||
+
+      if ((LevelVar.house[round(desiredPlayerXPosition + WALL_COLLISION_OFFSET)][round(Player.yPosition)] instanceof Wall) ||
               (LevelVar.house[round(desiredPlayerXPosition - WALL_COLLISION_OFFSET)][round(Player.yPosition)] instanceof Wall) ||
               (LevelVar.house[round(Player.xPosition)][round(desiredPlayerYPosition + WALL_COLLISION_OFFSET)] instanceof Wall) ||
               (LevelVar.house[round(Player.xPosition)][round(desiredPlayerYPosition - WALL_COLLISION_OFFSET)] instanceof Wall))
       {
         wallCollisionMove = false;
       }
-      
-      if(canMove && wallCollisionMove && !masterZombieSense)
+
+      if (canMove && wallCollisionMove && !masterZombieSense)
       {
         Player.xPosition += desiredXDisplacement * (percentOfSecond * Player.playerSpeed);
         Player.yPosition += desiredZDisplacement * (percentOfSecond * Player.playerSpeed);
-      }
-      else if(canMove && wallCollisionMove && masterZombieSense)
+      } else if (canMove && wallCollisionMove && masterZombieSense)
       {
         Player.xPosition += (desiredXDisplacement * (percentOfSecond * Player.playerSpeed)) / 2;
         Player.yPosition += (desiredZDisplacement * (percentOfSecond * Player.playerSpeed)) / 2;
-      }
-      else if(!wallCollisionMove)
+      } else if (!wallCollisionMove)
       {
         Player.xPosition -= 0.0001;
         Player.yPosition -= 0.0001;
-      }
-      else
+      } else
       {
         Player.xPosition -= desiredXDisplacement * (percentOfSecond * Player.playerSpeed);
         Player.yPosition -= desiredZDisplacement * (percentOfSecond * Player.playerSpeed);
@@ -804,13 +834,15 @@ public class MainApplication extends Application
     long lastTime = 0;
     int testframe = 0;
     int lasttestFrame = 0;
+
     /**
      * Called for every frame of the game. Moves the player, nearby zombies, and determiens win/loss conditions.
      */
     @Override
     public void handle(long time)
     {
-      if(time - lastTime > 1_000_000_000) {
+      if (time - lastTime > 1_000_000_000)
+      {
         lastTime = time;
         System.out.println(testframe - lasttestFrame);
         lasttestFrame = testframe;
@@ -856,58 +888,58 @@ public class MainApplication extends Application
           {
             Zombie3D z = zombie.zombie3D;
             int rFrame = frame - i; //restarted frame, to restart everything from 0
-            int rFrameDivided = rFrame/4; //this is so it only goe through to the 4th amount of frames
-              if ((rFrame < zombie.getDeathFrame()) && (rFrameDivided < zombie.getXPos().size()) && (rFrameDivided < zombie.getCameraPos().size()))
+            int rFrameDivided = rFrame / 4; //this is so it only goe through to the 4th amount of frames
+            if ((rFrame < zombie.getDeathFrame()) && (rFrameDivided < zombie.getXPos().size()) && (rFrameDivided < zombie.getCameraPos().size()))
+            {
+              zombie.setPositionX(zombie.getXPos().get(rFrameDivided));
+              zombie.setPositionY(zombie.getYPos().get(rFrameDivided));
+              z.setTranslateX(zombie.positionX * TILE_WIDTH_AND_HEIGHT);
+              z.setTranslateZ(zombie.positionY * TILE_WIDTH_AND_HEIGHT);
+              z.setRotate(zombie.getCameraPos().get(rFrameDivided));
+              double distanceX = (zombie.positionX - Player.xPosition);
+              double distanceY = (zombie.positionY - Player.yPosition);
+              double cRotate = zombie.getCameraPos().get(rFrameDivided);
+              double totalDistance = Math.abs(distanceX) + Math.abs(distanceY);
+              z.nextFrame();
+              if ((totalDistance < 1 && InputContainer.hit) || (((int) Player.xPosition == (int) zombie.positionX) && ((int) Player.yPosition == (int) zombie.positionY)) && frame % 5 == 0)
               {
-                zombie.setPositionX(zombie.getXPos().get(rFrameDivided));
-                zombie.setPositionY(zombie.getYPos().get(rFrameDivided));
-                z.setTranslateX(zombie.positionX * TILE_WIDTH_AND_HEIGHT);
-                z.setTranslateZ(zombie.positionY * TILE_WIDTH_AND_HEIGHT);
-                z.setRotate(zombie.getCameraPos().get(rFrameDivided));
-                double distanceX = (zombie.positionX - Player.xPosition);
-                double distanceY = (zombie.positionY - Player.yPosition);
-                double cRotate = zombie.getCameraPos().get(rFrameDivided);
-                double totalDistance = Math.abs(distanceX) + Math.abs(distanceY);
-                z.nextFrame();
-                if ((totalDistance < 1 && InputContainer.hit) || (((int)Player.xPosition == (int)zombie.positionX) && ((int)Player.yPosition == (int)zombie.positionY)) && frame % 5 == 0)
+                zombie.bifrocatedFrame = frame;
+                int numOfZ = LevelVar.zombieCollection.size();
+                if (zombie.type == 0)
                 {
-                  zombie.bifrocatedFrame = frame;
-                  int numOfZ = LevelVar.zombieCollection.size();
-                  if(zombie.type == 0) {
-                    RandomWalkZombie newZom = new RandomWalkZombie(cRotate, zombie.positionX, zombie.positionY, zombie.curTile, numOfZ + 1);
-                    sceneRoot.getChildren().add(newZom.zombie3D);
-                    LevelVar.zombieCollection.add(newZom);
-                  } else if(zombie.type == 1)
-                  {
-                    LineWalkZombie newZom = new LineWalkZombie(cRotate, zombie.positionX, zombie.positionY, zombie.curTile, numOfZ + 1);
-                    sceneRoot.getChildren().add(newZom.zombie3D);
-                    LevelVar.zombieCollection.add(newZom);
-                  }
-                  else
-                  {
-                    MasterZombie newZom = new MasterZombie(cRotate, zombie.positionX, zombie.positionY, zombie.curTile, numOfZ + 1);
-                    sceneRoot.getChildren().add(newZom.zombie3D);
-                    LevelVar.zombieCollection.add(newZom);
-                  }
-                }
-                if (zombie.bifrocatedFrame != 0 && (frame - i) == zombie.bifrocatedFrame)
+                  RandomWalkZombie newZom = new RandomWalkZombie(cRotate, zombie.positionX, zombie.positionY, zombie.curTile, numOfZ + 1);
+                  sceneRoot.getChildren().add(newZom.zombie3D);
+                  LevelVar.zombieCollection.add(newZom);
+                } else if (zombie.type == 1)
                 {
-                  int numOfZ = LevelVar.zombieCollection.size();
                   LineWalkZombie newZom = new LineWalkZombie(cRotate, zombie.positionX, zombie.positionY, zombie.curTile, numOfZ + 1);
                   sceneRoot.getChildren().add(newZom.zombie3D);
                   LevelVar.zombieCollection.add(newZom);
-                }
-              } else
-              {
-                if (zombie.diesToPastSelf)
-                {
-                  sceneRoot.getChildren().remove(z);
                 } else
                 {
-                  LevelVar.zombieCollection.add(zombie);
-                  positionsInLoopToRemove.add(positionInLoop);
+                  MasterZombie newZom = new MasterZombie(cRotate, zombie.positionX, zombie.positionY, zombie.curTile, numOfZ + 1);
+                  sceneRoot.getChildren().add(newZom.zombie3D);
+                  LevelVar.zombieCollection.add(newZom);
                 }
               }
+              if (zombie.bifrocatedFrame != 0 && (frame - i) == zombie.bifrocatedFrame)
+              {
+                int numOfZ = LevelVar.zombieCollection.size();
+                LineWalkZombie newZom = new LineWalkZombie(cRotate, zombie.positionX, zombie.positionY, zombie.curTile, numOfZ + 1);
+                sceneRoot.getChildren().add(newZom.zombie3D);
+                LevelVar.zombieCollection.add(newZom);
+              }
+            } else
+            {
+              if (zombie.diesToPastSelf)
+              {
+                sceneRoot.getChildren().remove(z);
+              } else
+              {
+                LevelVar.zombieCollection.add(zombie);
+                positionsInLoopToRemove.add(positionInLoop);
+              }
+            }
             positionInLoop++;
           }
         }
@@ -941,14 +973,13 @@ public class MainApplication extends Application
                 Player.life--;
                 Image img = new Image(getClass().getResourceAsStream("/res/life" + Player.life + ".png"));
                 lifeView.setImage(img);
-              }
-              else
+              } else
               {
                 Player.life = 0;
                 Image img = new Image(getClass().getResourceAsStream("/res/life1.png"));
                 lifeView.setImage(img);
               }
-              
+
               if (Player.life == 0)
               {
                 int positionForInner = 0;
@@ -996,18 +1027,16 @@ public class MainApplication extends Application
                 rebuildLevel();
               }
             }
-            
-            if(totalDistance < 1)
+
+            if (totalDistance < 1)
             {
               verticalCross.setFill(Color.YELLOW);
               horizontalCross.setFill(Color.YELLOW);
-            }
-            else if(totalDistance < 0.5)
+            } else if (totalDistance < 0.5)
             {
               verticalCross.setFill(Color.RED);
               horizontalCross.setFill(Color.RED);
-            }
-            else
+            } else
             {
               verticalCross.setFill(Color.GREEN);
               horizontalCross.setFill(Color.GREEN);
@@ -1044,12 +1073,12 @@ public class MainApplication extends Application
                 sceneRoot.getChildren().remove(zombie3D);
               }
             }
-            
-            
+
+
             double desiredPositionX = zombie.positionX - (distanceX / totalDistance * LevelVar.zombieSpeed * percentOfSecond);
             double desiredPositionY = zombie.positionY - (distanceY / totalDistance * LevelVar.zombieSpeed * percentOfSecond);
-  
-            if(totalDistance > 0.5)
+
+            if (totalDistance > 0.5)
             {
               if ((LevelVar.house[round(desiredPositionX + WALL_COLLISION_OFFSET)][round(zombie.positionY)] instanceof Wall) ||
                       (LevelVar.house[round(desiredPositionX - WALL_COLLISION_OFFSET)][round(zombie.positionY)] instanceof Wall) ||
@@ -1062,12 +1091,12 @@ public class MainApplication extends Application
                 zombie.positionX = desiredPositionX;
                 zombie.positionY = desiredPositionY;
               }
-            }
-            else {
+            } else
+            {
               zombie.positionX -= 0.01;
               zombie.positionY -= 0.01;
             }
-            
+
             zombie3D.nextFrame();
 
             double zombieVectorX = zombie.positionX - Player.xPosition;
@@ -1114,7 +1143,7 @@ public class MainApplication extends Application
           for (int i : positionsInLoopToRemove)
           {
             int allowed = i - removedInThisIteration;
-            if(allowed < LevelVar.interactedWithZombieCollection.size() && allowed >= 0 )
+            if (allowed < LevelVar.interactedWithZombieCollection.size() && allowed >= 0)
             {
               LevelVar.interactedWithZombieCollection.remove(i - removedInThisIteration);
               removedInThisIteration++;
@@ -1129,7 +1158,7 @@ public class MainApplication extends Application
           for (int i : positionsToRemove)
           {
             int allowed = i - removedInThisIteration;
-            if(allowed < LevelVar.zombieCollection.size() && allowed >= 0 )
+            if (allowed < LevelVar.zombieCollection.size() && allowed >= 0)
             {
               LevelVar.zombieCollection.remove(i - removedInThisIteration);
               removedInThisIteration++;
@@ -1149,26 +1178,13 @@ public class MainApplication extends Application
               ps.deathFrame = deathFrame;
             }
           }
-          
-          if(LevelVar.pastSelfCollection.size() < 3)
-          {
-            PastSelf newPS = new PastSelf(0, 0, 0, deathFrame, size + 1);
-            newPS.setCPos(cameraPos);
-            newPS.setXPos(xPos);
-            newPS.setYPos(yPos);
-            LevelVar.pastSelfCollection.add(newPS);
-          }
-          else
-          {
-            gameLoop.stop();
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Your brains have been eaten.");
-            alert.setHeaderText(null);
-            alert.setContentText("You have used up all 3 lives!\nHighest level: " + (LevelVar.levelNum + 1)  +
-                    "\nZombies killed: " + zombieKillCount + "\nBetter luck next time.");
-            alert.show();
-          }
-          
+
+          PastSelf newPS = new PastSelf(0, 0, 0, deathFrame, size + 1);
+          newPS.setCPos(cameraPos);
+          newPS.setXPos(xPos);
+          newPS.setYPos(yPos);
+          LevelVar.pastSelfCollection.add(newPS);
+
           System.out.println("PS Count:" + LevelVar.pastSelfCollection.size());
           spawnPastSelf = false;
           xPos.clear();
@@ -1181,16 +1197,24 @@ public class MainApplication extends Application
       // Rebuild level if requested. Done here to occur on graphics thread to avoid concurrent modification exceptions.
       if (shouldRebuildLevel)
       {
-        for (int i = 0; i < sceneRoot.getChildren().size(); i++)
+        if(LevelVar.pastSelfCollection.size() < 1)
         {
-          if (sceneRoot.getChildren().get(i) instanceof Box || sceneRoot.getChildren().get(i) instanceof Zombie3D)
+          System.out.println("here");
+          for (int i = 0; i < sceneRoot.getChildren().size(); i++)
           {
-            sceneRoot.getChildren().remove(sceneRoot.getChildren().get(i));
-            i--;
+            if (sceneRoot.getChildren().get(i) instanceof Box || sceneRoot.getChildren().get(i) instanceof Zombie3D)
+            {
+              sceneRoot.getChildren().remove(sceneRoot.getChildren().get(i));
+              i--;
+            }
           }
+          setupLevel();
+          shouldRebuildLevel = false;
         }
-        setupLevel();
-        shouldRebuildLevel = false;
+        else
+        {
+          addEndScreen();
+        }
       }
     }
   }
