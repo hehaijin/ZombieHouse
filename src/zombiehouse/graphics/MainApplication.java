@@ -668,6 +668,7 @@ public class MainApplication extends Application
   
       boolean canMove = true;
       boolean wallCollisionMove = true;
+      boolean masterZombieSense = false;
   
       for(Zombie z: LevelVar.zombieCollection)
       {
@@ -679,6 +680,11 @@ public class MainApplication extends Application
         {
           canMove = false;
         }
+        
+        if(z.type == 2 && totalDistance < 10)
+        {
+          masterZombieSense = true;
+        }
       }
   
       if((LevelVar.house[round(desiredPlayerXPosition + WALL_COLLISION_OFFSET)][round(Player.yPosition)] instanceof Wall) ||
@@ -688,11 +694,16 @@ public class MainApplication extends Application
       {
         wallCollisionMove = false;
       }
-  
-      if(canMove && wallCollisionMove)
+      
+      if(canMove && wallCollisionMove && !masterZombieSense)
       {
         Player.xPosition += desiredXDisplacement * (percentOfSecond * Player.playerSpeed);
         Player.yPosition += desiredZDisplacement * (percentOfSecond * Player.playerSpeed);
+      }
+      else if(canMove && wallCollisionMove && masterZombieSense)
+      {
+        Player.xPosition += (desiredXDisplacement * (percentOfSecond * Player.playerSpeed)) / 2;
+        Player.yPosition += (desiredZDisplacement * (percentOfSecond * Player.playerSpeed)) / 2;
       }
       else if(!wallCollisionMove)
       {
