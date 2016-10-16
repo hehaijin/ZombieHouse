@@ -431,7 +431,7 @@ public class MainApplication extends Application
         floor.setTranslateZ(z * TILE_WIDTH_AND_HEIGHT);
         sceneRoot.getChildren().add(floor);
 
-        if(x%4==0 && z%4==0)
+        if (x % 4 == 0 && z % 4 == 0)
         {
         Box ceiling = new Box(TILE_WIDTH_AND_HEIGHT*4, 10, TILE_WIDTH_AND_HEIGHT*4);
         ceiling.setMaterial(ceilingMaterial);
