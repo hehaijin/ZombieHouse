@@ -48,8 +48,6 @@ public class MasterZombie extends Zombie
     else
     {
       super.setSmell(false);
-      if(super.getCollide())
-      {
         double curHeading = super.getHeading();
         double boundA = (curHeading + 90)%360;
         double boundB = (curHeading - 90)%360;
@@ -63,7 +61,6 @@ public class MasterZombie extends Zombie
           super.setHeading((180 + curHeading)%360);
           super.setCollided(false);
         }
-      }
     }
     if(!this.getSmell()) {
       this.zombie3D.setRotate(this.getHeading());

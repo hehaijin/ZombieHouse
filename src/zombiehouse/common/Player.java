@@ -15,6 +15,8 @@ public class Player
   public static double maxStamina = 5.0;
   public static double playerSpeed = 2.0;
   public static int life = 5;
+
+  public static char getChar() { return 'O'; }
   
   public static int playerSightRange = 7;
 }

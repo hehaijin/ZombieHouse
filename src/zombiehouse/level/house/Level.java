@@ -116,9 +116,9 @@ public class Level
   {
     LevelVar.levelNum++;
     LevelVar.pillarSpawnChance += 0.2;
-    mazeTilesXPerZone = MIN_HOUSE_SIZE + LevelVar.levelNum;
-    mazeTilesYPerZone = MIN_HOUSE_SIZE + LevelVar.levelNum;
-    LevelVar.zombieSpeed *= 1.25;
+    mazeTilesXPerZone = MIN_HOUSE_SIZE;
+    mazeTilesYPerZone = MIN_HOUSE_SIZE;
+    LevelVar.zombieSpeed *= 2;
   }
   
   /**
