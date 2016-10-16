@@ -54,6 +54,8 @@ public class LevelVar
    *       which is the 2x the chance of the first level (and makes for a challenging density)
    */
   public static double spawnMax= 10;
+
+  public static final double masterZombieSpeedModifier = 2;
   
   /**
    * This is the (percent) chance to spawn a pillar at each 'opening'

@@ -204,7 +204,7 @@ public class MainApplication extends Application
 
     sceneRoot.getChildren().add(pl);
     AmbientLight am=new AmbientLight();
-    sceneRoot.getChildren().add(am);
+   // sceneRoot.getChildren().add(am);
 
     // Create the camera, set it to view far enough for any reasonably-sized map
     camera = new PerspectiveCamera(true);
@@ -346,12 +346,12 @@ public class MainApplication extends Application
     floorMaterial3.setDiffuseColor(Color.WHITE);
     floorMaterial3.setSpecularColor(Color.WHITE.darker());
     floorMaterial3.setSpecularPower(128);
-    floorMaterial3.setDiffuseMap(new Image(getClass().getResource("/res/floor3.png").toExternalForm()));
+    floorMaterial3.setDiffuseMap(new Image(getClass().getResource("/res/floor1.png").toExternalForm()));
 
     floorMaterial4.setDiffuseColor(Color.WHITE);
     floorMaterial4.setSpecularColor(Color.WHITE.darker());
     floorMaterial4.setSpecularPower(128);
-    floorMaterial4.setDiffuseMap(new Image(getClass().getResource("/res/floor4.png").toExternalForm()));
+    floorMaterial4.setDiffuseMap(new Image(getClass().getResource("/res/wooden.png").toExternalForm()));
 
     bookcaseMaterial.setDiffuseColor(new Color(0.45, 0.45, 0.45, 1.0));
     bookcaseMaterial.setSpecularColor(Color.BLACK);
@@ -849,13 +849,26 @@ public class MainApplication extends Application
                 double cRotate = zombie.getCameraPos().get(rFrameDivided);
                 double totalDistance = Math.abs(distanceX) + Math.abs(distanceY);
                 z.nextFrame();
-                if (totalDistance < 1 && frame % 5 == 0 && InputContainer.hit)
+                if ((totalDistance < 1 && InputContainer.hit) || (((int)Player.xPosition == (int)zombie.positionX) && ((int)Player.yPosition == (int)zombie.positionY)) && frame % 5 == 0)
                 {
                   zombie.bifrocatedFrame = frame;
                   int numOfZ = LevelVar.zombieCollection.size();
-                  LineWalkZombie newZom = new LineWalkZombie(cRotate, zombie.positionX, zombie.positionY, zombie.curTile, numOfZ + 1);
-                  sceneRoot.getChildren().add(newZom.zombie3D);
-                  LevelVar.zombieCollection.add(newZom);
+                  if(zombie.type == 0) {
+                    RandomWalkZombie newZom = new RandomWalkZombie(cRotate, zombie.positionX, zombie.positionY, zombie.curTile, numOfZ + 1);
+                    sceneRoot.getChildren().add(newZom.zombie3D);
+                    LevelVar.zombieCollection.add(newZom);
+                  } else if(zombie.type == 1)
+                  {
+                    LineWalkZombie newZom = new LineWalkZombie(cRotate, zombie.positionX, zombie.positionY, zombie.curTile, numOfZ + 1);
+                    sceneRoot.getChildren().add(newZom.zombie3D);
+                    LevelVar.zombieCollection.add(newZom);
+                  }
+                  else
+                  {
+                    MasterZombie newZom = new MasterZombie(cRotate, zombie.positionX, zombie.positionY, zombie.curTile, numOfZ + 1);
+                    sceneRoot.getChildren().add(newZom.zombie3D);
+                    LevelVar.zombieCollection.add(newZom);
+                  }
                 }
                 if (zombie.bifrocatedFrame != 0 && (frame - i) == zombie.bifrocatedFrame)
                 {

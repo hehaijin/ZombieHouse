@@ -53,7 +53,10 @@ public class Floor extends Tile
   /**
    * getChar() only used by printHouse()
    */
-  public char getChar() { return '.'; }
+  public char getChar()
+  {
+    return '.';
+  }
   
   /**
    * getColor only used by 2d House Animation

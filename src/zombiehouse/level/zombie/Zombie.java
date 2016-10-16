@@ -34,7 +34,7 @@ public class Zombie
   /**
    * the number of Tiles a Zombie can traverse over 1 second
    */
-  private double zombie_Speed = 0.5;
+  private double zombie_Speed = 1;
   /**
    * the amount of time between Zombie heading updates
    */
@@ -310,8 +310,8 @@ public class Zombie
       double step = (double)1/40;
       if(this instanceof MasterZombie)
       {
-        moveX = (Math.cos(Math.toRadians(heading)) * (zombie_Speed + LevelVar.levelNum*0.125)) * step;
-        moveY = (Math.sin(Math.toRadians(heading)) * (zombie_Speed + LevelVar.levelNum*0.125)) * step;
+        moveX = (Math.cos(Math.toRadians(heading)) * (zombie_Speed * LevelVar.masterZombieSpeedModifier)) * step;
+        moveY = (Math.sin(Math.toRadians(heading)) * (zombie_Speed * LevelVar.masterZombieSpeedModifier)) * step;
       }
       else
       {
