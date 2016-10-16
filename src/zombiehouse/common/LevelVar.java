@@ -36,6 +36,8 @@ public class LevelVar
 
   public static ArrayList<PastSelf> pastSelfCollection;
 
+  public static ArrayList<Zombie> bifurcatedCollection;
+
   /**
    * Is the single instance of Random used by all of level generation
    * (It's seed is saved in level as it is not as public a variable)

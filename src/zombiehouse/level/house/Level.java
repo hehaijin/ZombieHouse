@@ -82,6 +82,7 @@ public class Level
     LevelVar.interactedWithZombieCollection = new ArrayList<>();
     LevelVar.pastSelfCollection = new ArrayList<>();
     LevelVar.pastZombieCollection = new ArrayList<>();
+    LevelVar.bifurcatedCollection = new ArrayList<>();
     playerLevelUp();
     rSeed = LevelVar.rand.nextLong();
     LevelVar.rand = new Random(rSeed);

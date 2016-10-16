@@ -103,6 +103,7 @@ public class MainApplication extends Application
   private ArrayList<Double> yPos = new ArrayList<>();
   private ArrayList<Double> cameraPos = new ArrayList<>();
   private ArrayList<Zombie> toAddToInteractedCollection = new ArrayList<>();
+  private ArrayList<Zombie> toAddToBifurcatedCollection = new ArrayList<>();
   boolean spawnPastSelf = false;
   private int deathFrame = 0;
 
@@ -507,7 +508,6 @@ public class MainApplication extends Application
           if (zombie.zombieID == LevelVar.zombieCollection.get(i).zombieID)
           {
             LevelVar.zombieCollection.remove(i);
-            //System.out.println("removed");
           }
         }
         if (!sceneRoot.getChildren().contains(zombie.zombie3D))
@@ -844,7 +844,7 @@ public class MainApplication extends Application
       if (time - lastTime > 1_000_000_000)
       {
         lastTime = time;
-        System.out.println(testframe - lasttestFrame);
+        //System.out.println(testframe - lasttestFrame);
         lasttestFrame = testframe;
       }
       testframe++;
@@ -884,12 +884,34 @@ public class MainApplication extends Application
           }
 
           int i = LevelVar.pastSelfCollection.get(pastSelfCSize - 1).deathFrame;
+          int rFrame = frame - i; //restarted frame, to restart everything from 0
+          int rFrameDivided = rFrame / 4; //this is so it only goes through a 4th of the frames
+          for (int j = 0; j <  LevelVar.bifurcatedCollection.size(); j++) {
+            Zombie zombie = LevelVar.bifurcatedCollection.get(j);
+            Zombie3D z = zombie.zombie3D;
+            if((rFrame >= zombie.getBifurcatedSpawnFrame()) && (rFrame < zombie.getDeathFrame()) && (rFrameDivided < zombie.getXPos().size())) {
+              if(!zombie.isAddedToScene)
+              {
+                sceneRoot.getChildren().add(z);
+                zombie.isAddedToScene = true;
+              }
+              zombie.setPositionX(zombie.getXPos().get(zombie.positionForBifurcated));
+              zombie.setPositionY(zombie.getYPos().get(zombie.positionForBifurcated));
+              z.setTranslateX(zombie.positionX * TILE_WIDTH_AND_HEIGHT);
+              z.setTranslateZ(zombie.positionY * TILE_WIDTH_AND_HEIGHT);
+              z.setRotate(zombie.getCameraPos().get(rFrameDivided));
+              zombie.positionForBifurcated++;
+              z.nextFrame();
+            }
+            else if(zombie.isAddedToScene) {
+              sceneRoot.getChildren().remove(z);
+              zombie.isAddedToScene = false;
+            }
+          }
           for (Zombie zombie : LevelVar.interactedWithZombieCollection)
           {
             Zombie3D z = zombie.zombie3D;
-            int rFrame = frame - i; //restarted frame, to restart everything from 0
-            int rFrameDivided = rFrame / 4; //this is so it only goe through to the 4th amount of frames
-            if ((rFrame < zombie.getDeathFrame()) && (rFrameDivided < zombie.getXPos().size()) && (rFrameDivided < zombie.getCameraPos().size()))
+            if ((rFrame < zombie.getDeathFrame()) && (rFrameDivided < zombie.getXPos().size()))
             {
               zombie.setPositionX(zombie.getXPos().get(rFrameDivided));
               zombie.setPositionY(zombie.getYPos().get(rFrameDivided));
@@ -901,33 +923,41 @@ public class MainApplication extends Application
               double cRotate = zombie.getCameraPos().get(rFrameDivided);
               double totalDistance = Math.abs(distanceX) + Math.abs(distanceY);
               z.nextFrame();
-              if ((totalDistance < 1 && InputContainer.hit) || (((int) Player.xPosition == (int) zombie.positionX) && ((int) Player.yPosition == (int) zombie.positionY)) && frame % 5 == 0)
+              if(rFrameDivided + 2 < zombie.getXPos().size())
               {
-                zombie.bifrocatedFrame = frame;
-                int numOfZ = LevelVar.zombieCollection.size();
-                if (zombie.type == 0)
+                int playerX = (int) Player.xPosition;
+                int playerY = (int) Player.yPosition;
+                double zombieNextX = zombie.getXPos().get(rFrameDivided + 1);
+                int zombieNextIntX = (int) zombieNextX;
+                double zombieNextY = zombie.getYPos().get(rFrameDivided + 1);
+                int zombieNextIntY = (int) zombieNextY;
+                if (((totalDistance < 1 && InputContainer.hit && frame % 5 == 0) || ((playerX == zombieNextIntX) && (playerY == zombieNextIntY))) && (frame >= zombie.bifrocatedFrame + 60))
                 {
-                  RandomWalkZombie newZom = new RandomWalkZombie(cRotate, zombie.positionX, zombie.positionY, zombie.curTile, numOfZ + 1);
-                  sceneRoot.getChildren().add(newZom.zombie3D);
-                  LevelVar.zombieCollection.add(newZom);
-                } else if (zombie.type == 1)
-                {
-                  LineWalkZombie newZom = new LineWalkZombie(cRotate, zombie.positionX, zombie.positionY, zombie.curTile, numOfZ + 1);
-                  sceneRoot.getChildren().add(newZom.zombie3D);
-                  LevelVar.zombieCollection.add(newZom);
-                } else
-                {
-                  MasterZombie newZom = new MasterZombie(cRotate, zombie.positionX, zombie.positionY, zombie.curTile, numOfZ + 1);
-                  sceneRoot.getChildren().add(newZom.zombie3D);
-                  LevelVar.zombieCollection.add(newZom);
+                  zombie.bifrocatedFrame = frame;
+                  int numOfZ = LevelVar.zombieCollection.size();
+                  if (zombie.type == 0)
+                  {
+                    RandomWalkZombie newZom = new RandomWalkZombie(cRotate, zombie.positionX, zombie.positionY, zombie.curTile, numOfZ + 1);
+                    newZom.setBifurcatedSpawnFrame(frame - i);
+                    newZom.bifrocatedFrame = frame;
+                    sceneRoot.getChildren().add(newZom.zombie3D);
+                    LevelVar.zombieCollection.add(newZom);
+                  } else if (zombie.type == 1)
+                  {
+                    LineWalkZombie newZom = new LineWalkZombie(cRotate, zombie.positionX, zombie.positionY, zombie.curTile, numOfZ + 1);
+                    newZom.setBifurcatedSpawnFrame(frame - i);
+                    newZom.bifrocatedFrame = frame;
+                    sceneRoot.getChildren().add(newZom.zombie3D);
+                    LevelVar.zombieCollection.add(newZom);
+                  } else
+                  {
+                    MasterZombie newZom = new MasterZombie(cRotate, zombie.positionX, zombie.positionY, zombie.curTile, numOfZ + 1);
+                    newZom.setBifurcatedSpawnFrame(frame - i);
+                    newZom.bifrocatedFrame = frame;
+                    sceneRoot.getChildren().add(newZom.zombie3D);
+                    LevelVar.zombieCollection.add(newZom);
+                  }
                 }
-              }
-              if (zombie.bifrocatedFrame != 0 && (frame - i) == zombie.bifrocatedFrame)
-              {
-                int numOfZ = LevelVar.zombieCollection.size();
-                LineWalkZombie newZom = new LineWalkZombie(cRotate, zombie.positionX, zombie.positionY, zombie.curTile, numOfZ + 1);
-                sceneRoot.getChildren().add(newZom.zombie3D);
-                LevelVar.zombieCollection.add(newZom);
               }
             } else
             {
@@ -986,34 +1016,46 @@ public class MainApplication extends Application
                 System.out.println("Restarting due to death!! ");
                 for (Zombie zom : LevelVar.zombieCollection)
                 {
-                  if (zom.interactedWithPS)
-                  {
-                    if (LevelVar.pastZombieCollection.size() > 0)
+                  if(zom.getBifurcatedSpawnFrame() != 0) {
+                    toAddToBifurcatedCollection.add(zom);
+                    if(zom.getDeathFrame() <= 0)
                     {
-                      for (Zombie z : LevelVar.pastZombieCollection)
-                      {
-                        if (z.zombieID == zom.zombieID)
-                        {
-                          z.getXPos().addAll(zom.getXPos());
-                          z.getYPos().addAll(zom.getYPos());
-                          z.getCameraPos().addAll(zom.getCameraPos());
-                          z.setDeathFrame(frame);
-                          toAddToInteractedCollection.add(z);
-                          break;
-                        }
-                      }
-                    } else
-                    {
-                      toAddToInteractedCollection.add(zom);
                       zom.setDeathFrame(frame);
                     }
                     positionsToRemove.add(positionForInner);
                   }
+                  else
+                  {
+                    if (zom.interactedWithPS)
+                    {
+                      if (LevelVar.pastZombieCollection.size() > 0)
+                      {
+                        for (Zombie z : LevelVar.pastZombieCollection)
+                        {
+                          if (z.zombieID == zom.zombieID)
+                          {
+                            z.getXPos().addAll(zom.getXPos());
+                            z.getYPos().addAll(zom.getYPos());
+                            z.getCameraPos().addAll(zom.getCameraPos());
+                            z.setDeathFrame(frame);
+                            toAddToInteractedCollection.add(z);
+                            break;
+                          }
+                        }
+                      } else
+                      {
+                        toAddToInteractedCollection.add(zom);
+                        zom.setDeathFrame(frame);
+                      }
+                      positionsToRemove.add(positionForInner);
+                    }
+                  }
                   positionForInner++;
                 }
-                for (Zombie z : toAddToInteractedCollection)
+                LevelVar.interactedWithZombieCollection.addAll(toAddToInteractedCollection);
+                if(!toAddToBifurcatedCollection.isEmpty())
                 {
-                  LevelVar.interactedWithZombieCollection.add(z);
+                  LevelVar.bifurcatedCollection.addAll(toAddToBifurcatedCollection);
                 }
                 for (PastSelf ps : LevelVar.pastSelfCollection)
                 {
@@ -1083,7 +1125,9 @@ public class MainApplication extends Application
               if ((LevelVar.house[round(desiredPositionX + WALL_COLLISION_OFFSET)][round(zombie.positionY)] instanceof Wall) ||
                       (LevelVar.house[round(desiredPositionX - WALL_COLLISION_OFFSET)][round(zombie.positionY)] instanceof Wall) ||
                       (LevelVar.house[round(zombie.positionX)][round(desiredPositionY + WALL_COLLISION_OFFSET)] instanceof Wall) ||
-                      (LevelVar.house[round(zombie.positionX)][round(desiredPositionY - WALL_COLLISION_OFFSET)] instanceof Wall))
+                      (LevelVar.house[round(zombie.positionX)][round(desiredPositionY - WALL_COLLISION_OFFSET)] instanceof Wall) ||
+                      (LevelVar.house[round(desiredPositionX + WALL_COLLISION_OFFSET)][round(desiredPositionY + WALL_COLLISION_OFFSET)] instanceof Wall) ||
+                      (LevelVar.house[round(desiredPositionX - WALL_COLLISION_OFFSET)][round(desiredPositionY - WALL_COLLISION_OFFSET)] instanceof Wall))
               {
                 zombie.makeDecision();
               } else
@@ -1197,14 +1241,14 @@ public class MainApplication extends Application
       // Rebuild level if requested. Done here to occur on graphics thread to avoid concurrent modification exceptions.
       if (shouldRebuildLevel)
       {
-        if(LevelVar.pastSelfCollection.size() < 1)
+        if(LevelVar.pastSelfCollection.size() <= 3)
         {
           System.out.println("here");
           for (int i = 0; i < sceneRoot.getChildren().size(); i++)
           {
             if (sceneRoot.getChildren().get(i) instanceof Box || sceneRoot.getChildren().get(i) instanceof Zombie3D)
             {
-              sceneRoot.getChildren().remove(sceneRoot.getChildren().get(i));
+              sceneRoot.getChildren().remove(i);
               i--;
             }
           }
