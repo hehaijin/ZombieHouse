@@ -412,7 +412,7 @@ public class MainApplication extends Application
       for (int z = 0; z < house[0].length; z++)
       {
         // Always have a floor and ceiling
-
+        //4*4 floor share a box
        if(x % 4 == 0 && z % 4 == 0)
         {
           Box floor = new Box(TILE_WIDTH_AND_HEIGHT * 4, 10, TILE_WIDTH_AND_HEIGHT * 4);
@@ -433,7 +433,7 @@ public class MainApplication extends Application
           sceneRoot.getChildren().add(floor);
 
         }
-
+       //4*4 ceiling share a box
         if (x % 4 == 0 && z % 4 == 0)
         {
         Box ceiling = new Box(TILE_WIDTH_AND_HEIGHT*4, 10, TILE_WIDTH_AND_HEIGHT*4);
