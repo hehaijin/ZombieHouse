@@ -1,5 +1,9 @@
 package zombiehouse.level.house;
 
+/**
+ *
+ */
+
 import javafx.scene.paint.Color;
 import zombiehouse.common.LevelVar;
 
