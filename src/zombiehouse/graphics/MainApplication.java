@@ -204,7 +204,7 @@ public class MainApplication extends Application
 
     sceneRoot.getChildren().add(pl);
     AmbientLight am=new AmbientLight();
-   // sceneRoot.getChildren().add(am);
+    sceneRoot.getChildren().add(am);
 
     // Create the camera, set it to view far enough for any reasonably-sized map
     camera = new PerspectiveCamera(true);
@@ -401,6 +401,8 @@ public class MainApplication extends Application
   {
     Tile[][] house = LevelVar.house;
     // Loop through all tiles
+
+
     for (int x = 0; x < house.length; x++)
     {
       for (int z = 0; z < house[0].length; z++)
@@ -429,12 +431,16 @@ public class MainApplication extends Application
         floor.setTranslateZ(z * TILE_WIDTH_AND_HEIGHT);
         sceneRoot.getChildren().add(floor);
 
-        Box ceiling = new Box(TILE_WIDTH_AND_HEIGHT, 10, TILE_WIDTH_AND_HEIGHT);
+        if(x%4==0 && z%4==0)
+        {
+        Box ceiling = new Box(TILE_WIDTH_AND_HEIGHT*4, 10, TILE_WIDTH_AND_HEIGHT*4);
         ceiling.setMaterial(ceilingMaterial);
         ceiling.setTranslateY(CEILING_Y_DISPLACEMENT);
-        ceiling.setTranslateX(x * TILE_WIDTH_AND_HEIGHT);
-        ceiling.setTranslateZ(z * TILE_WIDTH_AND_HEIGHT);
+        ceiling.setTranslateX(x * TILE_WIDTH_AND_HEIGHT+2);
+        ceiling.setTranslateZ(z * TILE_WIDTH_AND_HEIGHT+2);
         sceneRoot.getChildren().add(ceiling);
+        }
+
 
         // If wall, place a ground-to-ceiling wall box
         if (house[x][z] instanceof Wall && !(house[x][z] instanceof BookCase) &&!(house[x][z] instanceof Tapestry) )
