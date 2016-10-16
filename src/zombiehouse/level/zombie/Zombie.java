@@ -31,6 +31,8 @@ public class Zombie
    * 2:Master zombie
    */
   public int type;
+
+  public boolean isAddedToScene = false;
   /**
    * the number of Tiles a Zombie can traverse over 1 second
    */
@@ -58,6 +60,8 @@ public class Zombie
   public boolean diesToPastSelf = false;
 
   public int bifrocatedFrame = 0;
+
+  public int positionForBifurcated = 0;
   /**
    * this Zombie's ID number
    */
@@ -116,6 +120,8 @@ public class Zombie
   private int life;
 
   private int deathFrame;
+
+  private int bifurcatedZombieSpawnFrame = 0;
 
   private ArrayList<Double> xPos = new ArrayList<>();
   private ArrayList<Double> yPos = new ArrayList<>();
@@ -182,6 +188,10 @@ public class Zombie
   {
     return yPos;
   }
+
+  public int getBifurcatedSpawnFrame() { return bifurcatedZombieSpawnFrame; }
+
+  public void setBifurcatedSpawnFrame(int frame) { bifurcatedZombieSpawnFrame = frame; }
 
   /**
    * @return the Zombie class' zombie_Smell
