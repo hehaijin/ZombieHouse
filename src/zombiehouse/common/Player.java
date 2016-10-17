@@ -1,5 +1,7 @@
 package zombiehouse.common;
 
+import zombiehouse.graphics.Player3D;
+
 /**
  * Class to hold player positioning/stamina data.
  * 
@@ -15,6 +17,7 @@ public class Player
   public static double maxStamina = 5.0;
   public static double playerSpeed = 2.0;
   public static int life = 5;
+  public static Player3D player3D = new Player3D();
 
   public static char getChar() { return 'O'; }
   
