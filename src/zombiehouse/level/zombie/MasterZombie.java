@@ -36,6 +36,7 @@ public class MasterZombie extends Zombie
   public void makeDecision()
   {
     boolean canDetectPlayer = false;
+    super.setCollided(false);
     for (Zombie z : LevelVar.zombieCollection)
     {
       if (z.getSmell() && z.type != 2)
@@ -46,10 +47,20 @@ public class MasterZombie extends Zombie
     if (canDetectPlayer)
     {
       super.setSmell(true);
+      calcPath(house);
       super.move();
-    } else
+    }
+    else
     {
-      super.move();
+      if (super.getCollide())
+      {
+        double curHeading = super.getHeading();
+        super.setHeading(curHeading + 180);
+      }
+      else
+      {
+        super.move();
+      }
       this.zombie3D.setRotate(this.getHeading());
       this.zombie3D.nextFrame();
     }

@@ -978,7 +978,7 @@ public class MainApplication extends Application
           if (zombie.scentDetection(zombie.getZombieSmell(),LevelVar.house))
           {
             zombie.setSmell(true);
-            if (!zombie.interactedWithPS)
+            if (!zombie.interactedWithPS && zombie.type != 2)
             {
               zombie.interactedWithPS = true;
             }

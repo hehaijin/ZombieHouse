@@ -48,7 +48,7 @@ public class LineWalkZombie extends Zombie
       {
         super.move();
       }
-      this.zombie3D.setRotate(getHeading() + 180);
+      this.zombie3D.setRotate(getHeading());
       this.zombie3D.nextFrame();
     }
   }
