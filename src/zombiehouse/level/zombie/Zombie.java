@@ -44,7 +44,7 @@ public class Zombie
   /**
    * the number of Tiles away that a Zombie can smell
    */
-  private int zombie_Smell = 7;
+  private int zombie_Smell = 10;
 
   /**
    * whether or not a Zombie has scent of the Player
@@ -342,26 +342,21 @@ public class Zombie
         moveY = (Math.sin(Math.toRadians(heading)) * zombie_Speed) * step;
       }
       collide(moveX, moveY);
-      /*if (path.size() > 1)
+      if (path.size() > 1)
       {
         if (heading == 270)
         {
-          System.out.println("1");
           positionY -= 0.2;
         } else if (heading == 180)
         {
           positionX -= 0.2;
-          System.out.println("2");
         } else if (heading == 90)
         {
           positionY += 0.2;
-          System.out.println("3");
         } else if (heading == 0)
         {
           positionX += 0.2;
-          System.out.println("4");
         }
-        curTile = LevelVar.house[(int) positionX][(int) positionY];
       } else
       {
         if (positionX > 0 && positionX <= LevelVar.house[0].length && positionY > 0 && positionY <= LevelVar.house.length && !getCollide())
@@ -381,7 +376,7 @@ public class Zombie
             positionY += 0.0;
           }
         }
-      }*/
+      }
     }
   }
           /**
@@ -568,43 +563,30 @@ public class Zombie
   public void makeHeading()
   {
     Tile destTile = path.get(0);
-    curTile = LevelVar.house[(int) positionX][(int) positionY];
 
-    /*if (destTile.xCor == (int) positionX
+    if (destTile.xCor == (int) positionX
             && destTile.yCor == (int) positionY)
     {
       path.remove(0);
       destTile = path.get(0);
-    }*/
-    System.out.println("dest" + destTile.xCor + "," + destTile.yCor + " cur" + curTile.xCor + "," + curTile.yCor);
-    if (destTile.xCor == curTile.xCor
-            && destTile.yCor == curTile.yCor)
-    {
-      //System.out.println("removed");
-      path.remove(0);
-      destTile = path.get(0);
     }
 
-    if(destTile.xCor > curTile.xCor )
+    if(destTile.xCor > positionX )
     {
-      //setHeading(0.0);
-      positionX += 0.2;
+      setHeading(0.0);
     }
-    else if(destTile.xCor < curTile.xCor )
+    if(destTile.xCor < positionX )
     {
       setHeading(180.0);
-      positionX -= 0.2;
     }
 
-    if(destTile.yCor > curTile.yCor )
+    if(destTile.yCor > positionY )
     {
       setHeading(90.0);
-      positionY += 0.2;
     }
-    else if(destTile.yCor < curTile.yCor )
+    if(destTile.yCor < positionY )
     {
       setHeading(270.0);
-      positionY -= 0.2;
     }
   }
 

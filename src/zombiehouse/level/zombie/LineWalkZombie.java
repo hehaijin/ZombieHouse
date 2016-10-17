@@ -39,7 +39,6 @@ public class LineWalkZombie extends Zombie
       super.move();
     } else
     {
-      super.getPath().clear();
       if (super.getCollide())
       {
         double curHeading = super.getHeading();
