@@ -19,8 +19,8 @@ import zombiehouse.common.*;
 import zombiehouse.graphics.Zombie3D;
 
 /**
- *Zombie class that contains methods inherited by the sub-classes of Zombie
- *as well as all Zombie variables. 
+ * Zombie class that contains methods inherited by the sub-classes of Zombie
+ * as well as all Zombie variables.
  */
 public class Zombie
 {
@@ -80,7 +80,8 @@ public class Zombie
    * Player
    */
   private PriorityQueue<Tile> searchQueue = new PriorityQueue<>(1,
-          new Comparator<Tile>() {
+          new Comparator<Tile>()
+          {
 
             public int compare(Tile one, Tile two)
             {
@@ -151,19 +152,23 @@ public class Zombie
     }
   }
 
-  public int getLife() {
+  public int getLife()
+  {
     return life;
   }
 
-  public void setLife(int lifeLeft) {
+  public void setLife(int lifeLeft)
+  {
     life = lifeLeft;
   }
 
-  public int getDeathFrame() {
+  public int getDeathFrame()
+  {
     return deathFrame;
   }
 
-  public void setDeathFrame(int frameOfDeath) {
+  public void setDeathFrame(int frameOfDeath)
+  {
     deathFrame = frameOfDeath;
   }
 
@@ -177,9 +182,15 @@ public class Zombie
     yPos.add(yPosition);
   }
 
-  public void addCPos(double cPosition) { cameraPos.add(cPosition); }
+  public void addCPos(double cPosition)
+  {
+    cameraPos.add(cPosition);
+  }
 
-  public ArrayList<Double> getCameraPos() { return cameraPos; }
+  public ArrayList<Double> getCameraPos()
+  {
+    return cameraPos;
+  }
 
   public ArrayList<Double> getXPos()
   {
@@ -191,16 +202,30 @@ public class Zombie
     return yPos;
   }
 
-  public int getBifurcatedSpawnFrame() { return bifurcatedZombieSpawnFrame; }
+  public int getBifurcatedSpawnFrame()
+  {
+    return bifurcatedZombieSpawnFrame;
+  }
 
-  public void setBifurcatedSpawnFrame(int frame) { bifurcatedZombieSpawnFrame = frame; }
+  public void setBifurcatedSpawnFrame(int frame)
+  {
+    bifurcatedZombieSpawnFrame = frame;
+  }
 
-  public LinkedList<Tile> getPath() { return path; }
+  public LinkedList<Tile> getPath()
+  {
+    return path;
+  }
 
-  public long getLastTimeUpdated() { return lastTimeUpdated; }
+  public long getLastTimeUpdated()
+  {
+    return lastTimeUpdated;
+  }
 
-  public void setLastTimeUpdated(long time) { lastTimeUpdated = time; }
-
+  public void setLastTimeUpdated(long time)
+  {
+    lastTimeUpdated = time;
+  }
 
 
   /**
@@ -305,13 +330,12 @@ public class Zombie
    */
   private int round(double toRound)
   {
-    if (toRound - ((int)toRound) < 0.5)
+    if (toRound - ((int) toRound) < 0.5)
     {
-      return (int)toRound;
-    }
-    else
+      return (int) toRound;
+    } else
     {
-      return (int)toRound + 1;
+      return (int) toRound + 1;
     }
   }
 
@@ -323,12 +347,12 @@ public class Zombie
    */
   public void move()
   {
-    if (path.size() > 1)
+    if(!collided)
     {
-      makeHeading();
-    }
-    if (!collided)
-    {
+      if (path.size() > 1)
+      {
+        makeHeading();
+      }
       double moveX;
       double moveY;
       double step = (double) 1 / 40;
@@ -346,16 +370,16 @@ public class Zombie
       {
         if (heading == 270)
         {
-          positionY -= 0.2;
+          positionY -= 0.01;
         } else if (heading == 180)
         {
-          positionX -= 0.2;
+          positionX -= 0.01;
         } else if (heading == 90)
         {
-          positionY += 0.2;
+          positionY += 0.01;
         } else if (heading == 0)
         {
-          positionX += 0.2;
+          positionX += 0.01;
         }
       } else
       {
@@ -377,32 +401,38 @@ public class Zombie
           }
         }
       }
+    } else {
+      positionX -= ( 0.04);
+      positionY -=  (0.04);
     }
   }
-          /**
-           * Calculates whether the Zombie has collided with an object
-           * and sets the Zombie's collided value accordingly
-           * @return true if the Zombie has collided and false if the Zombie has not
-           */
+
+  /**
+   * Calculates whether the Zombie has collided with an object
+   * and sets the Zombie's collided value accordingly
+   *
+   * @return true if the Zombie has collided and false if the Zombie has not
+   */
   public void collide(double desiredX, double desiredY)
   {
     setCollided(false);
 
-    for(Zombie z : LevelVar.zombieCollection)
+    for (Zombie z : LevelVar.zombieCollection)
     {
-      if(z.positionX != this.positionX && z.positionY != this.positionY)
+      if (z.positionX != this.positionX && z.positionY != this.positionY)
       {
         double diffX = (z.positionX - this.positionX);
         double diffY = (z.positionY - this.positionY);
-        if((diffX*diffX) + (diffY*diffY) <= 4)
+        if ((diffX * diffX) + (diffY * diffY) <= 4)
         {
           setCollided(true);
         }
       }
     }
 
-    if(LevelVar.house[round(positionX + desiredX)][round(positionY)] instanceof  Wall ||
-            LevelVar.house[round(positionX)][round(positionY + desiredY)] instanceof  Wall)
+    if (LevelVar.house[round(positionX + desiredX)][round(positionY)] instanceof Wall ||
+            LevelVar.house[round(positionX)][round(positionY + desiredY)] instanceof Wall ||
+            LevelVar.house[round(positionX + desiredX)][round(positionY + desiredY)] instanceof Wall)
     {
       setCollided(true);
     }
@@ -410,8 +440,9 @@ public class Zombie
 
   /**
    * Tests to see if this Zombie can smell the player
+   *
    * @param searchDepth the Zombie's zombie_Smell
-   * @param house the 2d array of Tiles to search through
+   * @param house       the 2d array of Tiles to search through
    * @return true if the Zombie can smell the player, otherwise returns false
    */
   public boolean scentDetection(int searchDepth, Tile[][] house)
@@ -420,7 +451,7 @@ public class Zombie
     int numTillDepthIncrease = 0;
     boolean increaseDepth = false;
     ArrayList<Tile> visitedTiles = new ArrayList<>();
-    Tile destTile = LevelVar.house[(int)Player.xPosition][(int)Player.yPosition];
+    Tile destTile = LevelVar.house[(int) Player.xPosition][(int) Player.yPosition];
 
     this.bfsQueue.clear();
     this.bfsQueue.add(this.curTile);
@@ -430,36 +461,36 @@ public class Zombie
     while (!(this.bfsQueue.isEmpty()))
     {
       Tile currentTile = this.bfsQueue.poll();
-      if(increaseDepth)
+      if (increaseDepth)
       {
         numTillDepthIncrease += this.bfsQueue.size();
         increaseDepth = false;
       }
-      if(--numTillDepthIncrease == 0)
+      if (--numTillDepthIncrease == 0)
       {
         depth++;
         increaseDepth = true;
-        if(depth > searchDepth)
+        if (depth > searchDepth)
         {
-          for(Tile t : visitedTiles)
+          for (Tile t : visitedTiles)
           {
             t.setVisited(false);
           }
           return false;
         }
       }
-      if(currentTile == destTile)
+      if (currentTile == destTile)
       {
-        for(Tile t : visitedTiles)
+        for (Tile t : visitedTiles)
         {
           t.setVisited(false);
         }
         return true;
       }
-      if(currentTile.neighbors.size() == 0) currentTile.setNeighbors(house);
-      for(int i = 0; i < currentTile.neighbors.size(); i++)
+      if (currentTile.neighbors.size() == 0) currentTile.setNeighbors(house);
+      for (int i = 0; i < currentTile.neighbors.size(); i++)
       {
-        if(!(currentTile.neighbors.get(i).visited))
+        if (!(currentTile.neighbors.get(i).visited))
         {
           this.bfsQueue.add(currentTile.neighbors.get(i));
           currentTile.neighbors.get(i).setVisited(true);
@@ -467,7 +498,7 @@ public class Zombie
         }
       }
     }
-    for(Tile t : visitedTiles)
+    for (Tile t : visitedTiles)
     {
       t.setVisited(false);
     }
@@ -477,8 +508,8 @@ public class Zombie
 
   public void calcPath(Tile[][] house)
   {
-    Tile destTile = house[(int)Player.xPosition][(int)Player.yPosition];
-    curTile = house[(int)positionX][(int)positionY];
+    Tile destTile = house[(int) Player.xPosition][(int) Player.yPosition];
+    curTile = house[(int) positionX][(int) positionY];
 
     searchQueue.clear();
     path.clear();
@@ -491,11 +522,11 @@ public class Zombie
     came_from.put(curTile, null);
     cost_so_far.put(curTile, 0);
 
-    while(searchQueue.size() > 0)
+    while (searchQueue.size() > 0)
     {
       Tile currentTile = searchQueue.poll();
 
-      if(currentTile.xCor == destTile.xCor && currentTile.yCor == destTile.yCor)
+      if (currentTile.xCor == destTile.xCor && currentTile.yCor == destTile.yCor)
       {
         lastTile = currentTile;
         reconstructPath(came_from, destTile);
@@ -503,10 +534,10 @@ public class Zombie
       }
 
       List<Tile> neighbors = currentTile.getNeighbors();
-      for(Tile neighbor : neighbors)
+      for (Tile neighbor : neighbors)
       {
         int new_cost = cost_so_far.get(currentTile) + 1;
-        if(!cost_so_far.containsKey(neighbor) || new_cost < cost_so_far.get(neighbor))
+        if (!cost_so_far.containsKey(neighbor) || new_cost < cost_so_far.get(neighbor))
         {
           cost_so_far.put(neighbor, new_cost);
           int priority = new_cost + distance();
@@ -516,7 +547,7 @@ public class Zombie
         }
       }
     }
-    if(lastTile == null)
+    if (lastTile == null)
     {
       //System.out.println("error");
       path.clear();
@@ -528,14 +559,14 @@ public class Zombie
   {
     int xCor = curTile.xCor;
     int yCor = curTile.yCor;
-    int distance = ((int) Math.sqrt((xCor - ((int)Player.xPosition)) * (xCor - ((int)Player.xPosition)) + ((yCor - ((int)Player.yPosition)) * (yCor - ((int)Player.yPosition)))));
+    int distance = ((int) Math.sqrt((xCor - ((int) Player.xPosition)) * (xCor - ((int) Player.xPosition)) + ((yCor - ((int) Player.yPosition)) * (yCor - ((int) Player.yPosition)))));
     return distance;
   }
 
   private void reconstructPath(LinkedHashMap<Tile, Tile> came_from, Tile finish)
   {
     Tile currentTile = finish;
-    while(currentTile != null)
+    while (currentTile != null)
     {
       path.addFirst(currentTile);
       currentTile = came_from.get(currentTile);
@@ -567,7 +598,7 @@ public class Zombie
       path.remove(0);
       destTile = path.get(0);
     }*/
-    if(destTile instanceof Wall)
+    if (destTile instanceof Wall)
     {
       System.out.println("why do you suck");
     }
@@ -581,23 +612,21 @@ public class Zombie
       destTile = path.get(0);
     }
 
-    if(destTile.xCor > curTile.xCor )
+    if (destTile.xCor > curTile.xCor)
     {
       setHeading(0.0);
       positionX += 0.01;
-    }
-    else if(destTile.xCor < curTile.xCor )
+    } else if (destTile.xCor < curTile.xCor)
     {
       setHeading(180.0);
       positionX -= 0.01;
     }
 
-    if(destTile.yCor > curTile.yCor )
+    if (destTile.yCor > curTile.yCor)
     {
       setHeading(90.0);
       positionY += 0.01;
-    }
-    else if(destTile.yCor < curTile.yCor )
+    } else if (destTile.yCor < curTile.yCor)
     {
       setHeading(270.0);
       positionY -= 0.01;
@@ -609,5 +638,6 @@ public class Zombie
    * of Zombie
    */
   public void makeDecision()
-  {}
+  {
+  }
 }

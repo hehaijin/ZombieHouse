@@ -78,7 +78,7 @@ public class LevelVar
    * A debugging flag
    * When true, will spawn the MasterZombie regardless of spawnMonsters flag
    */
-  public static final boolean SPAWN_MASTER = true;
+  public static final boolean SPAWN_MASTER = false;
   
   /**
    * A 2d animation flag.

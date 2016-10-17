@@ -2,51 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="442e509c-61a4-4c06-afc7-5bb19b6b4dd1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/compare_4.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand1.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand10.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand11.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand12.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand13.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand14.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand15.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand16.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand17.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand18.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand19.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand2.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand20.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand21.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand22.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand23.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand24.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand25.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand26.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand27.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand28.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand29.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand3.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand30.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand31.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand32.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand33.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand34.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand35.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand36.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand37.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand38.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand39.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand4.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand40.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand5.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand6.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand7.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand8.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/res/knifeandHand9.fxml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/zombiehouse/graphics/Player3D.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/common/Player.java" afterPath="$PROJECT_DIR$/src/zombiehouse/common/Player.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/common/LevelVar.java" afterPath="$PROJECT_DIR$/src/zombiehouse/common/LevelVar.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java" afterPath="$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java" afterPath="$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java" />
     </list>
     <ignored path="ZombieHouse.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -67,24 +26,101 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MainApplication.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MainApplication.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="563">
-              <caret line="788" column="26" selection-start-line="788" selection-start-column="26" selection-end-line="788" selection-end-column="26" />
+            <state relative-caret-position="163">
+              <caret line="1145" column="104" selection-start-line="1145" selection-start-column="104" selection-end-line="1145" selection-end-column="104" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Player3D.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Zombie.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="461">
+              <caret line="405" column="21" selection-start-line="405" selection-start-column="21" selection-end-line="405" selection-end-column="21" />
+              <folding>
+                <element signature="e#4190#4191#0" expanded="true" />
+                <element signature="e#4224#4225#0" expanded="true" />
+                <element signature="e#4271#4272#0" expanded="true" />
+                <element signature="e#4297#4298#0" expanded="true" />
+                <element signature="e#4467#4468#0" expanded="true" />
+                <element signature="e#4510#4511#0" expanded="true" />
+                <element signature="e#4564#4565#0" expanded="true" />
+                <element signature="e#4608#4609#0" expanded="true" />
+                <element signature="e#4649#4650#0" expanded="true" />
+                <element signature="e#4670#4671#0" expanded="true" />
+                <element signature="e#4710#4711#0" expanded="true" />
+                <element signature="e#4742#4743#0" expanded="true" />
+                <element signature="e#4791#4792#0" expanded="true" />
+                <element signature="e#4823#4824#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LineWalkZombie.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/LineWalkZombie.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="155">
+              <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MasterZombie.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/MasterZombie.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="179">
+              <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LevelVar.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/zombiehouse/common/LevelVar.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="291">
+              <caret line="82" column="5" selection-start-line="82" selection-start-column="5" selection-end-line="82" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Zombie3D.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/zombiehouse/graphics/Zombie3D.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="179">
+              <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Player3D.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/zombiehouse/graphics/Player3D.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
+            <state relative-caret-position="495">
               <caret line="34" column="22" selection-start-line="34" selection-start-column="22" selection-end-line="34" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RandomWalkZombie.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/RandomWalkZombie.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-253">
+              <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -111,8 +147,8 @@
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
-        <option value="akuzmin96 &lt;akuzmin@unm.edu&gt;" />
         <option value="jdonckels &lt;jdonckels@unm.edu&gt;" />
+        <option value="akuzmin96 &lt;akuzmin@unm.edu&gt;" />
         <option value="Josh Donckels &lt;jdonckels@unm.edu&gt;" />
         <option value="a" />
       </list>
@@ -129,12 +165,10 @@
       <list>
         <option value="$PROJECT_DIR$/src/zombiehouse/graphics/RestartButton.java" />
         <option value="$PROJECT_DIR$/src/zombiehouse/level/house/Floor.java" />
-        <option value="$PROJECT_DIR$/src/zombiehouse/common/LevelVar.java" />
         <option value="$PROJECT_DIR$/src/zombiehouse/level/house/Level.java" />
         <option value="$PROJECT_DIR$/src/zombiehouse/level/zombie/MasterZombie.java" />
         <option value="$PROJECT_DIR$/src/zombiehouse/level/zombie/LineWalkZombie.java" />
         <option value="$PROJECT_DIR$/src/zombiehouse/level/zombie/RandomWalkZombie.java" />
-        <option value="$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java" />
         <option value="$PROJECT_DIR$/src/res/knifeandHand1.fxml" />
         <option value="$PROJECT_DIR$/src/res/knifeandHand2.fxml" />
         <option value="$PROJECT_DIR$/src/res/knifeandHand3.fxml" />
@@ -176,8 +210,10 @@
         <option value="$PROJECT_DIR$/src/res/knifeandHand39.fxml" />
         <option value="$PROJECT_DIR$/src/res/knifeandHand40.fxml" />
         <option value="$PROJECT_DIR$/src/zombiehouse/common/Player.java" />
-        <option value="$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java" />
         <option value="$PROJECT_DIR$/src/zombiehouse/graphics/Player3D.java" />
+        <option value="$PROJECT_DIR$/src/zombiehouse/common/LevelVar.java" />
+        <option value="$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java" />
+        <option value="$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java" />
       </list>
     </option>
   </component>
@@ -191,8 +227,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="width" value="1552" />
+    <option name="height" value="840" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -288,6 +324,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="level" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ZombieHouse" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ZombieHouse" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zombiehouse" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="level" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="zombie" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -950,11 +1012,18 @@
       <option name="project" value="LOCAL" />
       <updated>1476683270069</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="added hand animation (does not work 100% yet, it duplicated itself for some reason)">
+      <created>1476722576489</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1476722576489</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1552" height="840" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -964,12 +1033,12 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30539772" sideWeight="0.5045573" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15" sideWeight="0.49583334" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19602273" sideWeight="0.49583334" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.325" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1046875" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13085938" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30326086" sideWeight="0.49544272" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1022,7 +1091,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <MESSAGE value="Updating Past Self" />
     <MESSAGE value="Got A* to find proper path, just need movement" />
     <MESSAGE value="Added stamina bar and crosshair that turns red when you're in range to attack a zombie. A* works a bit better with zombie movement changes." />
     <MESSAGE value="updating past self to requirments" />
@@ -1047,7 +1115,8 @@
     <MESSAGE value="updating zombies decision" />
     <MESSAGE value="reupload of working on a star" />
     <MESSAGE value="deleted random folder" />
-    <option name="LAST_COMMIT_MESSAGE" value="deleted random folder" />
+    <MESSAGE value="added hand animation (does not work 100% yet, it duplicated itself for some reason)" />
+    <option name="LAST_COMMIT_MESSAGE" value="added hand animation (does not work 100% yet, it duplicated itself for some reason)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1060,35 +1129,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/RandomWalkZombie.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="691">
-          <caret line="52" column="32" selection-start-line="52" selection-start-column="32" selection-end-line="52" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/zombiehouse/AStar/Pathfinder.java" />
-    <entry file="file://$PROJECT_DIR$/../../../zombiehouse/level/zombie/Zombie.java" />
-    <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="571" column="44" selection-start-line="571" selection-start-column="44" selection-end-line="571" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/res/masterZombie0.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="26" column="27" selection-start-line="14" selection-start-column="0" selection-end-line="33" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/zombiehouse/graphics/PastSelf3D.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="629">
@@ -1102,16 +1142,6 @@
         <state relative-caret-position="-514">
           <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/zombiehouse/graphics/Zombie3D.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="145" column="38" selection-start-line="145" selection-start-column="38" selection-end-line="145" selection-end-column="38" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1563,21 +1593,86 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="563">
-          <caret line="788" column="26" selection-start-line="788" selection-start-column="26" selection-end-line="788" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/zombiehouse/graphics/Player3D.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
+        <state relative-caret-position="495">
           <caret line="34" column="22" selection-start-line="34" selection-start-column="22" selection-end-line="34" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zombiehouse/graphics/Zombie3D.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/RandomWalkZombie.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-253">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zombiehouse/common/LevelVar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="82" column="5" selection-start-line="82" selection-start-column="5" selection-end-line="82" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/MasterZombie.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/LineWalkZombie.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="461">
+          <caret line="405" column="21" selection-start-line="405" selection-start-column="21" selection-end-line="405" selection-end-column="21" />
+          <folding>
+            <element signature="e#4190#4191#0" expanded="true" />
+            <element signature="e#4224#4225#0" expanded="true" />
+            <element signature="e#4271#4272#0" expanded="true" />
+            <element signature="e#4297#4298#0" expanded="true" />
+            <element signature="e#4467#4468#0" expanded="true" />
+            <element signature="e#4510#4511#0" expanded="true" />
+            <element signature="e#4564#4565#0" expanded="true" />
+            <element signature="e#4608#4609#0" expanded="true" />
+            <element signature="e#4649#4650#0" expanded="true" />
+            <element signature="e#4670#4671#0" expanded="true" />
+            <element signature="e#4710#4711#0" expanded="true" />
+            <element signature="e#4742#4743#0" expanded="true" />
+            <element signature="e#4791#4792#0" expanded="true" />
+            <element signature="e#4823#4824#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="1145" column="104" selection-start-line="1145" selection-start-column="104" selection-end-line="1145" selection-end-column="104" />
+          <folding />
         </state>
       </provider>
     </entry>

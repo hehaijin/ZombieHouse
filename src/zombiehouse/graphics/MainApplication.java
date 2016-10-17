@@ -784,7 +784,6 @@ public class MainApplication extends Application
       // Calculate camera rotation
       cameraYRotation += PLAYER_TURN_SMOOTHING * InputContainer.remainingCameraPan;
 
-      double lastCameraYRotation = camera.getRotate();
       double xOffset = 200 * Math.sin(cameraYRotation / 180 * Math.PI);
       double yOffset = 200 * Math.cos(cameraYRotation / 180 * Math.PI);
       Player.player3D.setTranslateX(cameraXDisplacement + xOffset);
@@ -1144,7 +1143,7 @@ public class MainApplication extends Application
                       (LevelVar.house[round(zombie.positionX)][round(desiredPositionY - WALL_COLLISION_OFFSET)] instanceof Wall) ||
                       (LevelVar.house[round(desiredPositionX + WALL_COLLISION_OFFSET)][round(desiredPositionY + WALL_COLLISION_OFFSET)] instanceof Wall) ||
                       (LevelVar.house[round(desiredPositionX - WALL_COLLISION_OFFSET)][round(desiredPositionY - WALL_COLLISION_OFFSET)] instanceof Wall) ||
-                      (LevelVar.house[round(zombie.positionX)][round(zombie.positionY)] instanceof Wall) && zombie.type != 2)
+                      (LevelVar.house[round(zombie.positionX)][round(zombie.positionY)] instanceof Wall))
               {
                 zombie.makeDecision();
               } else
@@ -1278,7 +1277,7 @@ public class MainApplication extends Application
           System.out.println("here");
           for (int i = 0; i < sceneRoot.getChildren().size(); i++)
           {
-            if (sceneRoot.getChildren().get(i) instanceof Box || sceneRoot.getChildren().get(i) instanceof Zombie3D)
+            if (sceneRoot.getChildren().get(i) instanceof Box || sceneRoot.getChildren().get(i) instanceof Zombie3D || sceneRoot.getChildren().get(i) instanceof Player3D)
             {
               sceneRoot.getChildren().remove(i);
               i--;
