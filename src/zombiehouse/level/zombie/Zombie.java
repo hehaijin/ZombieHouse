@@ -323,12 +323,12 @@ public class Zombie
    */
   public void move()
   {
+    if (path.size() > 1)
+    {
+      makeHeading();
+    }
     if (!collided)
     {
-      if (path.size() > 1)
-      {
-        makeHeading();
-      }
       double moveX;
       double moveY;
       double step = (double) 1 / 40;
@@ -342,7 +342,7 @@ public class Zombie
         moveY = (Math.sin(Math.toRadians(heading)) * zombie_Speed) * step;
       }
       collide(moveX, moveY);
-      /*if (path.size() > 1)
+      if (path.size() > 1)
       {
         if (heading == 270)
         {
@@ -376,7 +376,7 @@ public class Zombie
             positionY += 0.0;
           }
         }
-      }*/
+      }
     }
   }
           /**
@@ -499,10 +499,6 @@ public class Zombie
       {
         lastTile = currentTile;
         reconstructPath(came_from, destTile);
-        if(path.size() > 1)
-        {
-          makeHeading();
-        }
         break;
       }
 
@@ -571,35 +567,40 @@ public class Zombie
       path.remove(0);
       destTile = path.get(0);
     }*/
-    System.out.println("dest" + destTile.xCor + "," + destTile.yCor + " cur" + curTile.xCor + "," + curTile.yCor);
+    if(destTile instanceof Wall)
+    {
+      System.out.println("why do you suck");
+    }
+    //System.out.println("dest" + destTile.xCor + "," + destTile.yCor + " cur" + curTile.xCor + "," + curTile.yCor);
     if (destTile.xCor == curTile.xCor
             && destTile.yCor == curTile.yCor)
     {
       //System.out.println("removed");
-      path.remove(0);
+      //path.remove(0);
+      path.removeFirst();
       destTile = path.get(0);
     }
 
     if(destTile.xCor > curTile.xCor )
     {
-      //setHeading(0.0);
-      positionX += 0.2;
+      setHeading(0.0);
+      positionX += 0.01;
     }
     else if(destTile.xCor < curTile.xCor )
     {
       setHeading(180.0);
-      positionX -= 0.2;
+      positionX -= 0.01;
     }
 
     if(destTile.yCor > curTile.yCor )
     {
       setHeading(90.0);
-      positionY += 0.2;
+      positionY += 0.01;
     }
     else if(destTile.yCor < curTile.yCor )
     {
       setHeading(270.0);
-      positionY -= 0.2;
+      positionY -= 0.01;
     }
   }
 
