@@ -71,7 +71,7 @@ public class MainApplication extends Application
   private static final double CEILING_Y_DISPLACEMENT = -600;
   private static final double WALL_HEIGHT = 600;
   private static final double TILE_WIDTH_AND_HEIGHT = 400;
-  private static final double WALL_COLLISION_OFFSET = 0.35;
+  private static final double WALL_COLLISION_OFFSET = 0.25;
 
   private static final int WINDOW_WIDTH = 800;
   private static final int WINDOW_HEIGHT = 600;
@@ -105,12 +105,10 @@ public class MainApplication extends Application
   private ArrayList<Zombie> toAddToInteractedCollection = new ArrayList<>();
   private ArrayList<Zombie> toAddToBifurcatedCollection = new ArrayList<>();
   private boolean spawnPastSelf = false;
-  private long lastTime = 0;
   private int deathFrame = 0;
 
   private GameLoop gameLoop = new GameLoop();
   private int zombieKillCount = 0;
-  private int levelCount = 0;
 
   FXMLLoader fxmlloader = new FXMLLoader();
 
@@ -493,7 +491,7 @@ public class MainApplication extends Application
           exit.setTranslateY(-WALL_HEIGHT / 2);
           exit.setTranslateX(x * TILE_WIDTH_AND_HEIGHT);
           exit.setTranslateZ(z * TILE_WIDTH_AND_HEIGHT);
-          sceneRoot.getChildren().add(exit);
+          //sceneRoot.getChildren().add(exit);
         }
       }
     }
@@ -1135,7 +1133,7 @@ public class MainApplication extends Application
             double desiredPositionX = zombie.positionX - (distanceX / totalDistance * LevelVar.zombieSpeed * percentOfSecond);
             double desiredPositionY = zombie.positionY - (distanceY / totalDistance * LevelVar.zombieSpeed * percentOfSecond);
 
-            if (totalDistance > 0.5)
+            if (totalDistance > 0.5 )
             {
               if ((LevelVar.house[round(desiredPositionX + WALL_COLLISION_OFFSET)][round(zombie.positionY)] instanceof Wall) ||
                       (LevelVar.house[round(desiredPositionX - WALL_COLLISION_OFFSET)][round(zombie.positionY)] instanceof Wall) ||
@@ -1143,8 +1141,12 @@ public class MainApplication extends Application
                       (LevelVar.house[round(zombie.positionX)][round(desiredPositionY - WALL_COLLISION_OFFSET)] instanceof Wall) ||
                       (LevelVar.house[round(desiredPositionX + WALL_COLLISION_OFFSET)][round(desiredPositionY + WALL_COLLISION_OFFSET)] instanceof Wall) ||
                       (LevelVar.house[round(desiredPositionX - WALL_COLLISION_OFFSET)][round(desiredPositionY - WALL_COLLISION_OFFSET)] instanceof Wall) ||
-                      (LevelVar.house[round(zombie.positionX)][round(zombie.positionY)] instanceof Wall))
+                      (LevelVar.house[round(zombie.positionX)][round(zombie.positionY)] instanceof Wall) || frame <= zombie.aStarFrame + 64)
               {
+                System.out.println(frame + " : " +zombie.aStarFrame);
+                if(zombie.aStarFrame + 72 <= frame) {
+                  zombie.aStarFrame = frame;
+                }
                 zombie.makeDecision();
               } else
               {

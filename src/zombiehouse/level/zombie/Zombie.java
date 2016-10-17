@@ -44,7 +44,9 @@ public class Zombie
   /**
    * the number of Tiles away that a Zombie can smell
    */
-  private int zombie_Smell = 7;
+  private int zombie_Smell = 14;
+
+  public int aStarFrame = -1;
 
   /**
    * whether or not a Zombie has scent of the Player
@@ -368,25 +370,25 @@ public class Zombie
       collide(moveX, moveY);
       if (path.size() > 1)
       {
+        System.out.println(zombieID + " : " + heading);
         if (heading == 270)
         {
-          positionY -= 0.01;
+          positionY -= 0.04;
         } else if (heading == 180)
         {
-          positionX -= 0.01;
+          positionX -= 0.04;
         } else if (heading == 90)
         {
-          positionY += 0.01;
+          positionY += 0.04;
         } else if (heading == 0)
         {
-          positionX += 0.01;
+          positionX += 0.04;
         }
       } else
       {
         if (positionX > 0 && positionX <= LevelVar.house[0].length && positionY > 0 && positionY <= LevelVar.house.length && !getCollide())
         {
-          if (positionX > 0 && positionX <= LevelVar.house[0].length && positionY > 0 && positionY <= LevelVar.house.length && !getCollide())
-          {
+
             positionX += moveX;
             positionY += moveY;
             curTile = LevelVar.house[(int) positionX][(int) positionY];
@@ -398,7 +400,6 @@ public class Zombie
           {
             positionX += 0.0;
             positionY += 0.0;
-          }
         }
       }
     } else {
@@ -430,9 +431,16 @@ public class Zombie
       }
     }
 
-    if (LevelVar.house[round(positionX + desiredX)][round(positionY)] instanceof Wall ||
-            LevelVar.house[round(positionX)][round(positionY + desiredY)] instanceof Wall ||
-            LevelVar.house[round(positionX + desiredX)][round(positionY + desiredY)] instanceof Wall)
+    double desiredPositionX = desiredX + positionX;
+    double desiredPositionY = desiredY + positionY;
+    double WALL_COLLISION_OFFSET = 0.25;
+    if (LevelVar.house[round(desiredPositionX + WALL_COLLISION_OFFSET)][round(positionY)] instanceof Wall ||
+            (LevelVar.house[round(desiredPositionX - WALL_COLLISION_OFFSET)][round(positionY)] instanceof Wall) ||
+            (LevelVar.house[round(positionX)][round(desiredPositionY + WALL_COLLISION_OFFSET)] instanceof Wall) ||
+            (LevelVar.house[round(positionX)][round(desiredPositionY - WALL_COLLISION_OFFSET)] instanceof Wall) ||
+            (LevelVar.house[round(desiredPositionX + WALL_COLLISION_OFFSET)][round(desiredPositionY + WALL_COLLISION_OFFSET)] instanceof Wall) ||
+            (LevelVar.house[round(desiredPositionX - WALL_COLLISION_OFFSET)][round(desiredPositionY - WALL_COLLISION_OFFSET)] instanceof Wall) ||
+            (LevelVar.house[round(positionX)][round(positionY)] instanceof Wall))
     {
       setCollided(true);
     }
@@ -592,22 +600,13 @@ public class Zombie
     Tile destTile = path.get(0);
     curTile = LevelVar.house[(int) positionX][(int) positionY];
 
-    /*if (destTile.xCor == (int) positionX
-            && destTile.yCor == (int) positionY)
-    {
-      path.remove(0);
-      destTile = path.get(0);
-    }*/
     if (destTile instanceof Wall)
     {
       System.out.println("why do you suck");
     }
-    //System.out.println("dest" + destTile.xCor + "," + destTile.yCor + " cur" + curTile.xCor + "," + curTile.yCor);
     if (destTile.xCor == curTile.xCor
             && destTile.yCor == curTile.yCor)
     {
-      //System.out.println("removed");
-      //path.remove(0);
       path.removeFirst();
       destTile = path.get(0);
     }
