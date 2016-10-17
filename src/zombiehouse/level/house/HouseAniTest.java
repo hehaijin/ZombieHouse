@@ -125,8 +125,8 @@ public class HouseAniTest extends Application
       }
     });
     
-    ZTimer zMoves = new ZTimer();
-    zMoves.zUpdateTimer.schedule(zMoves.myUpdate, Zombie.getDecisionRate(), Zombie.getDecisionRate());
+    //ZTimer zMoves = new ZTimer();
+    //zMoves.zUpdateTimer.schedule(zMoves.myUpdate, Zombie.getDecisionRate(), Zombie.getDecisionRate());
     
     AnimationTimer gameLoop = new MainGameLoop();
     gameLoop.start();

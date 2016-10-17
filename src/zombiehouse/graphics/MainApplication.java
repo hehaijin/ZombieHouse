@@ -1138,6 +1138,7 @@ public class MainApplication extends Application
 
             zombie3D.nextFrame();
 
+            //System.out.println("Player:" + Player.xPosition + "," + Player.yPosition + "   " + zombie.getHeading());
             double zombieVectorX = zombie.positionX - Player.xPosition;
             double zombieVectorY = zombie.positionY - Player.yPosition;
 

@@ -133,13 +133,6 @@ public class Zombie3D extends Group
 
   }
 
-  public void setType(String zombieType)
-  {
-    if (zombieType.equalsIgnoreCase("linewalk"))
-    {
-
-    }
-  }
 
   /**
    * Change the current animation frame to the next frame.
