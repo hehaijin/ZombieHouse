@@ -46,20 +46,10 @@ public class MasterZombie extends Zombie
     if (canDetectPlayer)
     {
       super.setSmell(true);
-      super.calcPath(house);
       super.move();
     } else
     {
-      super.getPath().clear();
-      if(getCollide())
-      {
-        double curHeading = super.getHeading();
-        super.setHeading(curHeading + 180);
-      }
-      else
-      {
-        super.move();
-      }
+      super.move();
       this.zombie3D.setRotate(this.getHeading());
       this.zombie3D.nextFrame();
     }

@@ -44,7 +44,7 @@ public class Zombie
   /**
    * the number of Tiles away that a Zombie can smell
    */
-  private int zombie_Smell = 10;
+  private int zombie_Smell = 2;
 
   /**
    * whether or not a Zombie has scent of the Player
@@ -342,6 +342,9 @@ public class Zombie
         moveY = (Math.sin(Math.toRadians(heading)) * zombie_Speed) * step;
       }
       collide(moveX, moveY);
+      if(type == 2) {
+        setCollided(false);
+      }
       if (path.size() > 1)
       {
         if (heading == 270)

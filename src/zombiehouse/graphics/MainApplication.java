@@ -1122,13 +1122,22 @@ public class MainApplication extends Application
                       (LevelVar.house[round(zombie.positionX)][round(desiredPositionY - WALL_COLLISION_OFFSET)] instanceof Wall) ||
                       (LevelVar.house[round(desiredPositionX + WALL_COLLISION_OFFSET)][round(desiredPositionY + WALL_COLLISION_OFFSET)] instanceof Wall) ||
                       (LevelVar.house[round(desiredPositionX - WALL_COLLISION_OFFSET)][round(desiredPositionY - WALL_COLLISION_OFFSET)] instanceof Wall) ||
-                      (LevelVar.house[round(zombie.positionX)][round(zombie.positionY)] instanceof Wall))
+                      (LevelVar.house[round(zombie.positionX)][round(zombie.positionY)] instanceof Wall) && zombie.type != 2)
               {
                 zombie.makeDecision();
               } else
               {
-                zombie.positionX = desiredPositionX;
-                zombie.positionY = desiredPositionY;
+                if(zombie.type == 2) {
+                  double desiredMasterPositionX = zombie.positionX - (distanceX / totalDistance * LevelVar.zombieSpeed * LevelVar.masterZombieSpeedModifier * percentOfSecond);
+                  double desiredMasterPositionY = zombie.positionY - (distanceY / totalDistance * LevelVar.zombieSpeed * LevelVar.masterZombieSpeedModifier * percentOfSecond);
+                  zombie.positionX = desiredMasterPositionX;
+                  zombie.positionY = desiredMasterPositionY;
+                }
+                else
+                {
+                  zombie.positionX = desiredPositionX;
+                  zombie.positionY = desiredPositionY;
+                }
               }
             } else
             {
