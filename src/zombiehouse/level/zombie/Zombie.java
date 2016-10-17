@@ -44,7 +44,7 @@ public class Zombie
   /**
    * the number of Tiles away that a Zombie can smell
    */
-  private int zombie_Smell = 14;
+  private int zombie_Smell = 10;
 
   /**
    * whether or not a Zombie has scent of the Player
@@ -123,6 +123,8 @@ public class Zombie
 
   private int bifurcatedZombieSpawnFrame = 0;
 
+  private long lastTimeUpdated = 0;
+
   private ArrayList<Double> xPos = new ArrayList<>();
   private ArrayList<Double> yPos = new ArrayList<>();
   private ArrayList<Double> cameraPos = new ArrayList<>();
@@ -192,6 +194,14 @@ public class Zombie
   public int getBifurcatedSpawnFrame() { return bifurcatedZombieSpawnFrame; }
 
   public void setBifurcatedSpawnFrame(int frame) { bifurcatedZombieSpawnFrame = frame; }
+
+  public LinkedList<Tile> getPath() { return path; }
+
+  public long getLastTimeUpdated() { return lastTimeUpdated; }
+
+  public void setLastTimeUpdated(long time) { lastTimeUpdated = time; }
+
+
 
   /**
    * @return the Zombie class' zombie_Smell
@@ -334,7 +344,6 @@ public class Zombie
       collide(moveX, moveY);
       if (path.size() > 1)
       {
-        //System.out.println(heading);
         if (heading == 270)
         {
           positionY -= 0.2;

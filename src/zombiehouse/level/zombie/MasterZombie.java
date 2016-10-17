@@ -45,27 +45,23 @@ public class MasterZombie extends Zombie
     }
     if (canDetectPlayer)
     {
-      this.setCollided(false);
       super.setSmell(true);
       super.calcPath(house);
       super.move();
     } else
     {
-      super.setSmell(false);
-      double curHeading = super.getHeading();
-      double boundA = (curHeading + 90) % 360;
-      double boundB = (curHeading - 90) % 360;
-      if (boundA < boundB)
+      super.getPath().clear();
+      if(getCollide())
       {
-        super.setHeading((180 + curHeading) % 360);
-        super.setCollided(false);
-      } else
+        double curHeading = super.getHeading();
+        super.setHeading(curHeading + 180);
+      }
+      else
       {
-        super.setHeading((180 + curHeading) % 360);
-        super.setCollided(false);
+        super.move();
       }
       this.zombie3D.setRotate(this.getHeading());
+      this.zombie3D.nextFrame();
     }
-    this.zombie3D.nextFrame();
   }
 }

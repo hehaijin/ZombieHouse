@@ -1169,11 +1169,9 @@ public class MainApplication extends Application
               DirectionalPlayer.playSound(AudioFiles.randomZombieSound(), angleBetweenVectors(playerDirectionVectorX, playerDirectionVectorY, zombieVectorX, zombieVectorY), distance);
             }
           }
-          else if(time - lastTime >= 2_000_000_000)
+          else if(time - zombie.getLastTimeUpdated() >= 2_000_000_000)
           {
-            System.out.println(frame - lastFrameForFps);
-            lastFrameForFps = frame;
-            lastTime = time;
+            zombie.setLastTimeUpdated(time);
             zombie.makeDecision();
             zombie.setSmell(false);
           }

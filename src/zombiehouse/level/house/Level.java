@@ -120,6 +120,7 @@ public class Level
     mazeTilesXPerZone = MIN_HOUSE_SIZE;
     mazeTilesYPerZone = MIN_HOUSE_SIZE;
     LevelVar.zombieSpeed *= 2;
+    LevelVar.spawnRate += 0.02;
   }
   
   /**

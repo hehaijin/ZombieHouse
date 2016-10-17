@@ -43,21 +43,15 @@ public class RandomWalkZombie extends Zombie
       super.move();
     } else
     {
-      super.setSmell(false);
-      if (super.getCollide())
+      super.getPath().clear();
+      double nextRand = rand.nextDouble();
+      super.setHeading(nextRand * 360);
+      if (!super.getCollide())
       {
-        double curHeading = super.getHeading();
-        super.setHeading((180 + curHeading) % 360);
-        super.setCollided(false);
-      } else
-      {
-        super.setHeading(rand.nextDouble() * 360);
-        super.setCollided(false);
+        super.move();
       }
-        this.zombie3D.setRotate(this.getHeading());
-      super.move();
+      this.zombie3D.setRotate(this.getHeading()+ 180);
+      this.zombie3D.nextFrame();
     }
-
-    this.zombie3D.nextFrame();
   }
 }

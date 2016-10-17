@@ -39,25 +39,18 @@ public class LineWalkZombie extends Zombie
       super.move();
     } else
     {
-      super.setSmell(false);
+      super.getPath().clear();
       if (super.getCollide())
       {
         double curHeading = super.getHeading();
-        double boundA = (curHeading + 90) % 360;
-        double boundB = (curHeading - 90) % 360;
-        if (boundA < boundB)
-        {
-          super.setHeading((180 + curHeading) % 360);
-          super.setCollided(false);
-        } else
-        {
-          super.setHeading((180 + curHeading) % 360);
-          super.setCollided(false);
-        }
+        super.setHeading(curHeading + 180);
       }
-      this.zombie3D.setRotate(getHeading());
-      super.move();
+      else
+      {
+        super.move();
+      }
+      this.zombie3D.setRotate(getHeading() + 180);
+      this.zombie3D.nextFrame();
     }
-    this.zombie3D.nextFrame();
   }
 }

@@ -58,6 +58,8 @@ public class LevelVar
   public static double spawnMax= 10;
 
   public static final double masterZombieSpeedModifier = 2;
+
+  public static double spawnRate = 0.03;
   
   /**
    * This is the (percent) chance to spawn a pillar at each 'opening'
