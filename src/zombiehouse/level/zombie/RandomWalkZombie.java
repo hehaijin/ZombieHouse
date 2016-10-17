@@ -37,10 +37,10 @@ public class RandomWalkZombie extends Zombie
   public void makeDecision()
   {
     Random rand = new Random();
-    if (super.scentDetection(super.getZombieSmell(), house) || this.getSmell())
+    if (this.getSmell())
     {
-      super.setSmell(true);
       super.calcPath(house);
+      super.move();
     } else
     {
       super.setSmell(false);
@@ -54,12 +54,10 @@ public class RandomWalkZombie extends Zombie
         super.setHeading(rand.nextDouble() * 360);
         super.setCollided(false);
       }
+        this.zombie3D.setRotate(this.getHeading());
+      super.move();
     }
-    if (!this.getSmell())
-    {
-      this.zombie3D.setRotate(this.getHeading());
-    }
-    super.move();
+
     this.zombie3D.nextFrame();
   }
 }

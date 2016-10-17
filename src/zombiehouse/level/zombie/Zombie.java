@@ -315,61 +315,70 @@ public class Zombie
   {
     if (!collided)
     {
+      if (path.size() > 1)
+      {
+        makeHeading();
+      }
       double moveX;
       double moveY;
-      double step = (double)1/40;
-      if(this instanceof MasterZombie)
+      double step = (double) 1 / 40;
+      if (this instanceof MasterZombie)
       {
         moveX = (Math.cos(Math.toRadians(heading)) * (zombie_Speed * LevelVar.masterZombieSpeedModifier)) * step;
         moveY = (Math.sin(Math.toRadians(heading)) * (zombie_Speed * LevelVar.masterZombieSpeedModifier)) * step;
-      }
-      else
+      } else
       {
         moveX = (Math.cos(Math.toRadians(heading)) * zombie_Speed) * step;
         moveY = (Math.sin(Math.toRadians(heading)) * zombie_Speed) * step;
       }
-      if(positionX > 0 && positionX <= LevelVar.house[0].length && positionY > 0 && positionY <= LevelVar.house.length && !collide())
+      collide(moveX, moveY);
+      if (path.size() > 1)
       {
-        positionX += moveX;
-        positionY += moveY;
-      }
-      else if(collide())
-      {
-        positionX -= (moveX + 0.07);
-        positionY -= (moveY + 0.07);
-      }
-      else
-      {
-        positionX += 0.0;
-        positionY += 0.0;
-      }
-      curTile = LevelVar.house[(int) positionX][(int) positionY];
-      setCollided(collide());
-      if(getCollide())
-      {
-        while (!(LevelVar.house[round(positionX)][round(positionY)] instanceof Tile))
+        //System.out.println(heading);
+        if (heading == 270)
         {
-          if (positionX < 5)
+          positionY -= 0.2;
+        } else if (heading == 180)
+        {
+          positionX -= 0.2;
+        } else if (heading == 90)
+        {
+          positionY += 0.2;
+        } else if (heading == 0)
+        {
+          positionX += 0.2;
+        }
+      } else
+      {
+        if (positionX > 0 && positionX <= LevelVar.house[0].length && positionY > 0 && positionY <= LevelVar.house.length && !getCollide())
+        {
+          if (positionX > 0 && positionX <= LevelVar.house[0].length && positionY > 0 && positionY <= LevelVar.house.length && !getCollide())
           {
-            positionX += 1;
-          }
-          else
+            positionX += moveX;
+            positionY += moveY;
+            curTile = LevelVar.house[(int) positionX][(int) positionY];
+          } else if (getCollide())
           {
-            positionX -= 1;
+            positionX -= (moveX + 0.04);
+            positionY -= (moveY + 0.04);
+          } else
+          {
+            positionX += 0.0;
+            positionY += 0.0;
           }
         }
-        setCollided(false);
       }
     }
   }
-
-  /**
-   * Calculates whether the Zombie has collided with an object
-   * and sets the Zombie's collided value accordingly
-   * @return true if the Zombie has collided and false if the Zombie has not
-   */
-  public boolean collide()
+          /**
+           * Calculates whether the Zombie has collided with an object
+           * and sets the Zombie's collided value accordingly
+           * @return true if the Zombie has collided and false if the Zombie has not
+           */
+  public void collide(double desiredX, double desiredY)
   {
+    setCollided(false);
+
     for(Zombie z : LevelVar.zombieCollection)
     {
       if(z.positionX != this.positionX && z.positionY != this.positionY)
@@ -378,74 +387,16 @@ public class Zombie
         double diffY = (z.positionY - this.positionY);
         if((diffX*diffX) + (diffY*diffY) <= 4)
         {
-          return true;
+          setCollided(true);
         }
       }
     }
-    for(int i = (int)this.positionY - 1; i < (int)this.positionY + 2; i++)
+
+    if(LevelVar.house[round(positionX + desiredX)][round(positionY)] instanceof  Wall ||
+            LevelVar.house[round(positionX)][round(positionY + desiredY)] instanceof  Wall)
     {
-      for(int j = (int)this.positionX - 1; j < (int)this.positionX + 2; j++)
-      {
-        if(i >= 0 && j >= 0 && i <= LevelVar.house[j].length && j <= LevelVar.house.length)
-        {
-          if(LevelVar.house[j][i] instanceof Wall || LevelVar.house[j][i] instanceof Exit)
-          {
-            double dist;
-            if((int)this.positionX > j)
-            {
-              if((int)this.positionY > i)
-              {
-                dist = Math.sqrt(((this.positionX - ((j*2)+1.8)) * ((this.positionX - ((j*2)+1.8)))) + ((this.positionY - ((i*2)+1.8))*(this.positionY - ((i*2)+1.8))));
-              }
-              else if((int)this.positionY == i)
-              {
-                dist = this.positionX - ((j*2)+1.8);
-              }
-              else
-              {
-                dist = Math.sqrt(((this.positionX - ((j*2)+1.8))*((this.positionX - ((j*2)+1.8)))) + ((this.positionY - ((i * 2) - 0.2))*((this.positionY - ((i * 2) - 0.2)))));
-              }
-            }
-            else if((int)this.positionX == j)
-            {
-              if((int)this.positionY > i )
-              {
-                dist = this.positionY - ((i * 2) + 1.8);
-              }
-              else if((int)this.positionY == i)
-              {
-                return true;
-              }
-              else
-              {
-                dist = ((i * 2) - 0.2) - this.positionY;
-              }
-            }
-            else
-            {
-              if((int)this.positionY > i)
-              {
-                dist = Math.sqrt(((this.positionX - ((j * 2) - 0.2))*((this.positionX - ((j * 2) - 0.2)))) + ((this.positionY - ((i * 2)+1.8))*((this.positionY - ((i * 2)+1.8)))));
-              }
-              else if((int)this.positionY == i)
-              {
-                dist = ((j * 2) - 0.2) - this.positionX;
-              }
-              else
-              {
-                dist = Math.sqrt(((this.positionX - ((j * 2) - 0.2))*((this.positionX - ((j * 2) - 0.2)))) + ((this.positionY - ((i * 2) - 0.2))*((this.positionY - ((i * 2) - 0.2)))));
-              }
-            }
-            if(dist <= 1.0)
-            {
-              return true;
-            }
-            return false;
-          }
-        }
-      }
+      setCollided(true);
     }
-    return false;
   }
 
   /**

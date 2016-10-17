@@ -71,7 +71,7 @@ public class MainApplication extends Application
   private static final double CEILING_Y_DISPLACEMENT = -600;
   private static final double WALL_HEIGHT = 600;
   private static final double TILE_WIDTH_AND_HEIGHT = 400;
-  private static final double WALL_COLLISION_OFFSET = 0.25;
+  private static final double WALL_COLLISION_OFFSET = 0.35;
 
   private static final int WINDOW_WIDTH = 800;
   private static final int WINDOW_HEIGHT = 600;
@@ -104,7 +104,8 @@ public class MainApplication extends Application
   private ArrayList<Double> cameraPos = new ArrayList<>();
   private ArrayList<Zombie> toAddToInteractedCollection = new ArrayList<>();
   private ArrayList<Zombie> toAddToBifurcatedCollection = new ArrayList<>();
-  boolean spawnPastSelf = false;
+  private boolean spawnPastSelf = false;
+  private long lastTime = 0;
   private int deathFrame = 0;
 
   private GameLoop gameLoop = new GameLoop();
@@ -528,11 +529,7 @@ public class MainApplication extends Application
       sceneRoot.getChildren().add(ps.pastSelf3D);
     }
 
-    System.out.println(LevelVar.zombieCollection.size());
-    // Create a zombie update timer
-    ZTimer zMoves = new ZTimer();
-    zMoves.zUpdateTimer.schedule(zMoves.myUpdate, Zombie.getDecisionRate(), Zombie.getDecisionRate());
-
+    //System.out.println(LevelVar.zombieCollection.size());
   }
 
   private void addEndScreen() {
@@ -742,7 +739,12 @@ public class MainApplication extends Application
       if ((LevelVar.house[round(desiredPlayerXPosition + WALL_COLLISION_OFFSET)][round(Player.yPosition)] instanceof Wall) ||
               (LevelVar.house[round(desiredPlayerXPosition - WALL_COLLISION_OFFSET)][round(Player.yPosition)] instanceof Wall) ||
               (LevelVar.house[round(Player.xPosition)][round(desiredPlayerYPosition + WALL_COLLISION_OFFSET)] instanceof Wall) ||
-              (LevelVar.house[round(Player.xPosition)][round(desiredPlayerYPosition - WALL_COLLISION_OFFSET)] instanceof Wall))
+              (LevelVar.house[round(Player.xPosition)][round(desiredPlayerYPosition - WALL_COLLISION_OFFSET)] instanceof Wall) ||
+              (LevelVar.house[round(desiredPlayerXPosition + WALL_COLLISION_OFFSET)][round(desiredPlayerYPosition + WALL_COLLISION_OFFSET)] instanceof Wall) ||
+              (LevelVar.house[round(desiredPlayerXPosition - WALL_COLLISION_OFFSET)][round(desiredPlayerYPosition - WALL_COLLISION_OFFSET)] instanceof Wall) ||
+              (LevelVar.house[round(desiredPlayerXPosition + WALL_COLLISION_OFFSET)][round(desiredPlayerYPosition - WALL_COLLISION_OFFSET)] instanceof Wall) ||
+              (LevelVar.house[round(desiredPlayerXPosition - WALL_COLLISION_OFFSET)][round(desiredPlayerYPosition + WALL_COLLISION_OFFSET)] instanceof Wall) ||
+              (LevelVar.house[round(Player.xPosition)][round(Player.yPosition)] instanceof Wall))
       {
         wallCollisionMove = false;
       }
@@ -831,23 +833,13 @@ public class MainApplication extends Application
       return Math.toDegrees(Math.atan2(x1 * y2 - x2 * y1, x1 * x2 + y1 * y2));
     }
 
-    long lastTime = 0;
-    int testframe = 0;
-    int lasttestFrame = 0;
-
+    int lastFrameForFps = 0;
     /**
      * Called for every frame of the game. Moves the player, nearby zombies, and determiens win/loss conditions.
      */
     @Override
     public void handle(long time)
     {
-      if (time - lastTime > 1_000_000_000)
-      {
-        lastTime = time;
-        //System.out.println(testframe - lasttestFrame);
-        lasttestFrame = testframe;
-      }
-      testframe++;
       int position = 0;
       int pastSelfCSize = LevelVar.pastSelfCollection.size();
       //System.out.println(frame);
@@ -983,8 +975,9 @@ public class MainApplication extends Application
           // Move and rotate the zombie. A* doesn't currently work, so this allows zombies to move towards player. Ugly.
           double distance = Math.sqrt(Math.abs(zombie.positionX - Player.xPosition) * Math.abs(zombie.positionX - Player.xPosition) +
                   Math.abs(zombie.positionY - Player.yPosition) * Math.abs(zombie.positionY - Player.yPosition));
-          if (zombie.getSmell())
+          if (zombie.scentDetection(zombie.getZombieSmell(),LevelVar.house))
           {
+            zombie.setSmell(true);
             if (!zombie.interactedWithPS)
             {
               zombie.interactedWithPS = true;
@@ -1116,7 +1109,8 @@ public class MainApplication extends Application
               }
             }
 
-
+            //System.out.println(zombie.zombieID + ": " + (zombie.positionX * TILE_WIDTH_AND_HEIGHT) + " - " + (zombie.positionY * TILE_WIDTH_AND_HEIGHT) + " VS." + zombie3D.getTranslateX() + " - " + zombie3D.getTranslateZ() );
+            //System.out.println(zombie.zombieID + " : " + zombie.getHeading());
             double desiredPositionX = zombie.positionX - (distanceX / totalDistance * LevelVar.zombieSpeed * percentOfSecond);
             double desiredPositionY = zombie.positionY - (distanceY / totalDistance * LevelVar.zombieSpeed * percentOfSecond);
 
@@ -1127,7 +1121,8 @@ public class MainApplication extends Application
                       (LevelVar.house[round(zombie.positionX)][round(desiredPositionY + WALL_COLLISION_OFFSET)] instanceof Wall) ||
                       (LevelVar.house[round(zombie.positionX)][round(desiredPositionY - WALL_COLLISION_OFFSET)] instanceof Wall) ||
                       (LevelVar.house[round(desiredPositionX + WALL_COLLISION_OFFSET)][round(desiredPositionY + WALL_COLLISION_OFFSET)] instanceof Wall) ||
-                      (LevelVar.house[round(desiredPositionX - WALL_COLLISION_OFFSET)][round(desiredPositionY - WALL_COLLISION_OFFSET)] instanceof Wall))
+                      (LevelVar.house[round(desiredPositionX - WALL_COLLISION_OFFSET)][round(desiredPositionY - WALL_COLLISION_OFFSET)] instanceof Wall) ||
+                      (LevelVar.house[round(zombie.positionX)][round(zombie.positionY)] instanceof Wall))
               {
                 zombie.makeDecision();
               } else
@@ -1173,6 +1168,14 @@ public class MainApplication extends Application
             {
               DirectionalPlayer.playSound(AudioFiles.randomZombieSound(), angleBetweenVectors(playerDirectionVectorX, playerDirectionVectorY, zombieVectorX, zombieVectorY), distance);
             }
+          }
+          else if(time - lastTime >= 2_000_000_000)
+          {
+            System.out.println(frame - lastFrameForFps);
+            lastFrameForFps = frame;
+            lastTime = time;
+            zombie.makeDecision();
+            zombie.setSmell(false);
           }
           zombie.addXPos(zombie.positionX);
           zombie.addYPos(zombie.positionY);

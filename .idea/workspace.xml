@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="442e509c-61a4-4c06-afc7-5bb19b6b4dd1" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/zombiehouse/level/zombie/ZTimer.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/common/LevelVar.java" afterPath="$PROJECT_DIR$/src/zombiehouse/common/LevelVar.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java" afterPath="$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/level/house/Level.java" afterPath="$PROJECT_DIR$/src/zombiehouse/level/house/Level.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/level/zombie/LineWalkZombie.java" afterPath="$PROJECT_DIR$/src/zombiehouse/level/zombie/LineWalkZombie.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/level/zombie/MasterZombie.java" afterPath="$PROJECT_DIR$/src/zombiehouse/level/zombie/MasterZombie.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/level/zombie/RandomWalkZombie.java" afterPath="$PROJECT_DIR$/src/zombiehouse/level/zombie/RandomWalkZombie.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java" afterPath="$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java" />
     </list>
     <ignored path="ZombieHouse.iws" />
@@ -27,16 +29,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MainApplication.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MainApplication.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="398">
-              <caret line="955" column="51" selection-start-line="955" selection-start-column="51" selection-end-line="955" selection-end-column="51" />
+            <state relative-caret-position="267">
+              <caret line="1174" column="36" selection-start-line="1174" selection-start-column="36" selection-end-line="1174" selection-end-column="36" />
               <folding>
-                <element signature="e#13525#13526#0" expanded="true" />
-                <element signature="e#13560#13561#0" expanded="true" />
-                <marker date="1476659898284" expanded="false" signature="46998:47007" ph=" { " />
-                <marker date="1476659898284" expanded="false" signature="47020:47024" ph=" }" />
+                <element signature="e#13562#13563#0" expanded="true" />
+                <element signature="e#13597#13598#0" expanded="true" />
+                <marker date="1476677094579" expanded="false" signature="48128:48137" ph=" { " />
+                <marker date="1476677094579" expanded="false" signature="48150:48154" ph=" }" />
               </folding>
             </state>
           </provider>
@@ -45,33 +47,19 @@
       <file leaf-file-name="LineWalkZombie.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/LineWalkZombie.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1139">
-              <caret line="68" column="6" selection-start-line="68" selection-start-column="6" selection-end-line="68" selection-end-column="6" />
+            <state relative-caret-position="489">
+              <caret line="37" column="37" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CloseButton.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/zombiehouse/graphics/CloseButton.java">
+      <file leaf-file-name="Zombie3D.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/zombiehouse/graphics/Zombie3D.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RestartButton.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/zombiehouse/graphics/RestartButton.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="38" column="18" selection-start-line="38" selection-start-column="18" selection-end-line="38" selection-end-column="18" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="282">
+              <caret line="128" column="26" selection-start-line="128" selection-start-column="26" selection-end-line="128" selection-end-column="26" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -79,18 +67,8 @@
       <file leaf-file-name="MasterZombie.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/MasterZombie.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="443">
-              <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Level.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/house/Level.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="84" column="54" selection-start-line="84" selection-start-column="54" selection-end-line="84" selection-end-column="54" />
+            <state relative-caret-position="646">
+              <caret line="65" column="7" selection-start-line="65" selection-start-column="7" selection-end-line="65" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -99,28 +77,18 @@
       <file leaf-file-name="RandomWalkZombie.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/RandomWalkZombie.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="765">
-              <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+            <state relative-caret-position="251">
+              <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Zombie.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Zombie.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="85" column="13" selection-start-line="85" selection-start-column="13" selection-end-line="85" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LevelVar.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/zombiehouse/common/LevelVar.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="38" column="55" selection-start-line="38" selection-start-column="55" selection-end-line="38" selection-end-column="55" />
+            <state relative-caret-position="-412">
+              <caret line="371" column="3" selection-start-line="371" selection-start-column="3" selection-end-line="371" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -190,12 +158,9 @@
         <option value="$PROJECT_DIR$/src/res/ZombieR39.fxml" />
         <option value="$PROJECT_DIR$/src/zombiehouse/graphics/Zombie3D.java" />
         <option value="$USER_HOME$/.IdeaIC2016.2/idea64.exe.vmoptions" />
-        <option value="$PROJECT_DIR$/src/zombiehouse/level/zombie/LineWalkZombie.java" />
-        <option value="$PROJECT_DIR$/src/zombiehouse/level/zombie/RandomWalkZombie.java" />
         <option value="$PROJECT_DIR$/src/zombiehouse/level/house/HouseAniTest.java" />
         <option value="$PROJECT_DIR$/../../../zombiehouse/graphics/MainApplication.java" />
         <option value="$PROJECT_DIR$/src/zombiehouse/level/house/Floor.java" />
-        <option value="$PROJECT_DIR$/src/zombiehouse/level/zombie/MasterZombie.java" />
         <option value="$PROJECT_DIR$/src/zombiehouse/common/CloseDialog.java" />
         <option value="$PROJECT_DIR$/src/zombiehouse/graphics/closeButton.java" />
         <option value="$PROJECT_DIR$/src/zombiehouse/graphics/restartButton.java" />
@@ -203,8 +168,11 @@
         <option value="$PROJECT_DIR$/src/zombiehouse/graphics/RestartButton.java" />
         <option value="$PROJECT_DIR$/src/zombiehouse/common/LevelVar.java" />
         <option value="$PROJECT_DIR$/src/zombiehouse/level/house/Level.java" />
-        <option value="$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java" />
+        <option value="$PROJECT_DIR$/src/zombiehouse/level/zombie/MasterZombie.java" />
         <option value="$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java" />
+        <option value="$PROJECT_DIR$/src/zombiehouse/level/zombie/LineWalkZombie.java" />
+        <option value="$PROJECT_DIR$/src/zombiehouse/level/zombie/RandomWalkZombie.java" />
+        <option value="$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java" />
       </list>
     </option>
   </component>
@@ -218,8 +186,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1552" />
-    <option name="height" value="840" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -905,12 +873,19 @@
       <option name="project" value="LOCAL" />
       <updated>1476651240225</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="updating bifurcation">
+      <created>1476660551919</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1476660551919</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1552" height="840" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -920,11 +895,12 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30539772" sideWeight="0.5045573" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32517985" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19744319" sideWeight="0.49583334" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15108696" sideWeight="0.49583334" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27799478" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.10520833" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30326086" sideWeight="0.49544272" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -935,8 +911,33 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30375427" sideWeight="0.49544272" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3252841" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30539772" sideWeight="0.5045573" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32517985" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15108696" sideWeight="0.49583334" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.07083333" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30326086" sideWeight="0.49544272" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -975,7 +976,8 @@
     <MESSAGE value="the merge deleted my bifurcation code, i readded it" />
     <MESSAGE value="adding tiles" />
     <MESSAGE value="fixed endDialog" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed endDialog" />
+    <MESSAGE value="updating bifurcation" />
+    <option name="LAST_COMMIT_MESSAGE" value="updating bifurcation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1252,22 +1254,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/zombiehouse/graphics/Zombie3D.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1728">
-          <caret line="147" column="21" selection-start-line="147" selection-start-column="21" selection-end-line="147" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/ZTimer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="27" column="31" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.IdeaIC2016.2/idea64.exe.vmoptions">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -1349,14 +1335,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/MasterZombie.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="443">
-          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/zombiehouse/common/CloseDialog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -1369,16 +1347,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/zombiehouse/graphics/RestartButton.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="38" column="18" selection-start-line="38" selection-start-column="18" selection-end-line="38" selection-end-column="18" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1401,40 +1369,74 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/zombiehouse/graphics/RestartButton.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="38" column="18" selection-start-line="38" selection-start-column="18" selection-end-line="38" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zombiehouse/graphics/Zombie3D.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="128" column="26" selection-start-line="128" selection-start-column="26" selection-end-line="128" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/ZTimer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="27" column="31" selection-start-line="27" selection-start-column="31" selection-end-line="27" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/MasterZombie.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="65" column="7" selection-start-line="65" selection-start-column="7" selection-end-line="65" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/RandomWalkZombie.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+        <state relative-caret-position="251">
+          <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-412">
+          <caret line="371" column="3" selection-start-line="371" selection-start-column="3" selection-end-line="371" selection-end-column="3" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/LineWalkZombie.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1139">
-          <caret line="68" column="6" selection-start-line="68" selection-start-column="6" selection-end-line="68" selection-end-column="6" />
+        <state relative-caret-position="489">
+          <caret line="37" column="37" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/zombiehouse/graphics/MainApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
-          <caret line="955" column="51" selection-start-line="955" selection-start-column="51" selection-end-line="955" selection-end-column="51" />
+        <state relative-caret-position="267">
+          <caret line="1174" column="36" selection-start-line="1174" selection-start-column="36" selection-end-line="1174" selection-end-column="36" />
           <folding>
-            <element signature="e#13525#13526#0" expanded="true" />
-            <element signature="e#13560#13561#0" expanded="true" />
-            <marker date="1476659898284" expanded="false" signature="46998:47007" ph=" { " />
-            <marker date="1476659898284" expanded="false" signature="47020:47024" ph=" }" />
+            <element signature="e#13562#13563#0" expanded="true" />
+            <element signature="e#13597#13598#0" expanded="true" />
+            <marker date="1476677094579" expanded="false" signature="48128:48137" ph=" { " />
+            <marker date="1476677094579" expanded="false" signature="48150:48154" ph=" }" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/zombiehouse/level/zombie/Zombie.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="85" column="13" selection-start-line="85" selection-start-column="13" selection-end-line="85" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
