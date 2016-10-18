@@ -146,7 +146,13 @@ public class Level
     {
       for (int j = 0; j < houseHeight; j++)
       {
-        print.append(LevelVar.house[j][i].getChar());
+        if(j == Player.xPosition && i == Player.yPosition) {
+          print.append(Player.getChar());
+        }
+        else
+        {
+          print.append(LevelVar.house[j][i].getChar());
+        }
       }
       print.append("\n");
     }

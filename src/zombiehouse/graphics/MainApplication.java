@@ -66,8 +66,8 @@ public class MainApplication extends Application
   private static final double WALL_HEIGHT = 600;
   private static final double TILE_WIDTH_AND_HEIGHT = 400;
   private static final double WALL_COLLISION_OFFSET = 0.25;
-  private static final int WINDOW_WIDTH = 1024;
-  private static final int WINDOW_HEIGHT = 768;
+  private static final int WINDOW_WIDTH = 1280;
+  private static final int WINDOW_HEIGHT = 960;
   private static final long ZOMBIE_DECISION_RATE = 2_000_000_000;
 
   private static PhongMaterial floorMaterial1 = new PhongMaterial();
@@ -1197,6 +1197,7 @@ public class MainApplication extends Application
               {
                 zombie.diesToPastSelf = true;
                 zombie.setDeathFrame(frame);
+                zombieKillCount++;
                 if (LevelVar.pastZombieCollection.size() > 0)
                 {
                   //Adds past positions if it had any interactions with a previous self.
