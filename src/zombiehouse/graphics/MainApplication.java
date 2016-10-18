@@ -770,6 +770,7 @@ public class MainApplication extends Application
         Player.yPosition -= desiredZDisplacement * (percentOfSecond * Player.playerSpeed);
       }
 
+      double lastCameraXDisplacement = cameraXDisplacement;
 
       // Calculate camera displacement
       cameraXDisplacement = Player.xPosition * TILE_WIDTH_AND_HEIGHT;
@@ -781,18 +782,20 @@ public class MainApplication extends Application
 
       // Calculate camera rotation
       cameraYRotation += PLAYER_TURN_SMOOTHING * InputContainer.remainingCameraPan;
-
-      double xOffset = 200 * Math.sin(cameraYRotation / 180 * Math.PI);
-      double yOffset = 200 * Math.cos(cameraYRotation / 180 * Math.PI);
-      Player.player3D.setTranslateX(cameraXDisplacement + xOffset);
-      Player.player3D.setTranslateZ(cameraZDisplacement + yOffset);
-      Player.player3D.setRotate(cameraYRotation - 180);
-      if (playerFrame % 4 == 0)
+        double xOffset = 165 * Math.sin(cameraYRotation / 180 * Math.PI);
+        double yOffset = 165 * Math.cos(cameraYRotation / 180 * Math.PI);
+        Player.player3D.setTranslateX(cameraXDisplacement + xOffset);
+        Player.player3D.setTranslateZ(cameraZDisplacement + yOffset);
+        Player.player3D.setRotate(cameraYRotation - 180);
+      if(lastCameraXDisplacement != cameraXDisplacement)
       {
-        Player.player3D.nextFrame();
-      } else if (isRunning)
-      {
-        Player.player3D.nextFrame();
+        if (playerFrame % 4 == 0)
+        {
+          Player.player3D.nextFrame();
+        } else if (isRunning)
+        {
+          Player.player3D.nextFrame();
+        }
       }
 
       // Displace camera
@@ -1143,7 +1146,7 @@ public class MainApplication extends Application
                       (LevelVar.house[round(desiredPositionX - WALL_COLLISION_OFFSET)][round(desiredPositionY - WALL_COLLISION_OFFSET)] instanceof Wall) ||
                       (LevelVar.house[round(zombie.positionX)][round(zombie.positionY)] instanceof Wall) || frame <= zombie.aStarFrame + 64)
               {
-                System.out.println(frame + " : " +zombie.aStarFrame);
+                //System.out.println(frame + " : " +zombie.aStarFrame);
                 if(zombie.aStarFrame + 72 <= frame) {
                   zombie.aStarFrame = frame;
                 }

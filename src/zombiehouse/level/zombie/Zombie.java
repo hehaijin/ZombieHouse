@@ -370,7 +370,7 @@ public class Zombie
       collide(moveX, moveY);
       if (path.size() > 1)
       {
-        System.out.println(zombieID + " : " + heading);
+        //System.out.println(zombieID + " : " + heading);
         if (heading == 270)
         {
           positionY -= 0.04;

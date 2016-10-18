@@ -10,7 +10,7 @@ import javafx.scene.transform.Rotate;
 public class Player3D extends Group
 {
   private static final int MAXIMUM_FRAME = 40;
-  private int currentFrame = 1;
+  public int currentFrame = 1;
 
   public Player3D()
   {
@@ -29,9 +29,9 @@ public class Player3D extends Group
         e.printStackTrace();
       }
     }
-    setScaleX(80);
-    setScaleY(80);
-    setScaleZ(80);
+    setScaleX(110);
+    setScaleY(110);
+    setScaleZ(110);
     setTranslateY(-200);
 
     setRotationAxis(Rotate.Y_AXIS);

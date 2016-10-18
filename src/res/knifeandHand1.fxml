@@ -11,8 +11,10 @@
 <?import javafx.scene.shape.MeshView?>
 <?import javafx.scene.shape.TriangleMesh?>
 
-<Group id="AddedRootGroup_1476697667305">
+<Group id="AddedRootGroup_1476746869766">
   <children>
+    <Group id="Plane.001_Root">
+      <children>
     <MeshView id="knife_None" cullFace="BACK" drawMode="FILL">
       <material>
         <PhongMaterial specularPower="94.117645">
@@ -78,3 +80,5 @@
     </MeshView>
   </children>
 </Group>
+        </children>
+        </Group>
