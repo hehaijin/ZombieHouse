@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import zombiehouse.common.LevelVar;
+import zombiehouse.common.Player;
 import zombiehouse.graphics.MainApplication.GameLoop;
 import zombiehouse.level.house.Level;
 
@@ -12,6 +13,7 @@ import zombiehouse.level.house.Level;
  * This is used in the eng game dialog to restart the game
  *
  * @author Joshua Donckels.
+ * failed attemp at restart button
  */
 public class RestartButton extends Button implements EventHandler<ActionEvent>
 {
@@ -40,9 +42,10 @@ public class RestartButton extends Button implements EventHandler<ActionEvent>
   public void handle(ActionEvent e)
   {
     dialog.close();
-    
+
+    Player.life = 5;
     LevelVar.levelNum = 0;
-    LevelVar.spawnMax = 10;
+    LevelVar.spawnMax = 7;
     LevelVar.zombieSpeed = 0.5;
     LevelVar.pillarSpawnChance = 0.2;
     level = new Level();

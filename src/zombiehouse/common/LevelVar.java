@@ -70,7 +70,7 @@ public class LevelVar
    * Second Level 20
    * so on.
    */
-  public static double spawnMax = 10;
+  public static double spawnMax = 7;
   
   /**
    * This is the modifier for the masterZombie speed, so it will always move x2 quicker than all

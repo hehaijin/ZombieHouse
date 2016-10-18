@@ -42,11 +42,6 @@ public class Zombie
   private double zombie_Speed = 1;
   
   /**
-   * the amount of time between Zombie heading updates
-   */
-  private static long zombie_Decision_Rate = 2000;
-  
-  /**
    * the number of Tiles away that a Zombie can smell
    */
   private int zombie_Smell = 14;
@@ -350,14 +345,6 @@ public class Zombie
   public int getZombieSmell()
   {
     return this.zombie_Smell;
-  }
-  
-  /**
-   * @return the Zombie class' zombie_Decision_Rate
-   */
-  public static long getDecisionRate()
-  {
-    return zombie_Decision_Rate;
   }
   
   /**

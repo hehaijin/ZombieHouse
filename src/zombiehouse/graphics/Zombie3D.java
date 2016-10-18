@@ -26,7 +26,7 @@ import java.util.Random;
 public class Zombie3D extends Group
 {
   
-  private static final int MAXIMUM_FRAME = 39;
+  private static final int MAXIMUM_FRAME = 30;
   private int currentFrame = 0;
   private static Random random = new Random();
   private PhongMaterial redMaterial = new PhongMaterial();
@@ -160,7 +160,7 @@ public class Zombie3D extends Group
   {
     if (life > 5 || life < 1)
     {
-      System.out.println("Wrong input for zombie life");
+      //System.out.println("Wrong input for zombie life"); for debugging
     }
     else
     {

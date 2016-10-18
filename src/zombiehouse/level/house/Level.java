@@ -72,7 +72,7 @@ public class Level
     nextZombie = 0;
     houseWidth = mazeTilesXPerZone * 2 * 4 + 1;
     houseHeight = mazeTilesXPerZone * 2 * 4 + 1;
-    LevelVar.spawnMax += 5;
+    LevelVar.spawnMax += 3;
     LevelVar.house = new Tile[houseWidth][houseHeight];
     LevelVar.zombieCollection = new ArrayList<>();
     LevelVar.interactedWithZombieCollection = new ArrayList<>();
@@ -122,7 +122,7 @@ public class Level
     mazeTilesXPerZone = MIN_HOUSE_SIZE;
     mazeTilesYPerZone = MIN_HOUSE_SIZE;
     LevelVar.zombieSpeed *= 2;
-    LevelVar.spawnRate += 0.02;
+    LevelVar.spawnRate += 0.01;
   }
   
   /**
