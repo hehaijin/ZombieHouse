@@ -19,12 +19,12 @@ import javafx.scene.transform.Rotate;
  */
 public class Attack3D extends Group
 {
-  private static final int MAXIMUM_FRAME = 30;
+  private static final int MAXIMUM_FRAME = 15;
   public int currentFrame = 1;
   
   public Attack3D()
   {
-    for (int i = 1; i <= 30; i++)
+    for (int i = 7; i <= 22; i++)
     {
       try
       {

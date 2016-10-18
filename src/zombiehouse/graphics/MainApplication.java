@@ -66,8 +66,8 @@ public class MainApplication extends Application
   private static final double WALL_HEIGHT = 600;
   private static final double TILE_WIDTH_AND_HEIGHT = 400;
   private static final double WALL_COLLISION_OFFSET = 0.25;
-  private static final int WINDOW_WIDTH = 800;
-  private static final int WINDOW_HEIGHT = 600;
+  private static final int WINDOW_WIDTH = 1024;
+  private static final int WINDOW_HEIGHT = 768;
   
   private static final PhongMaterial floorMaterial1 = new PhongMaterial();
   private static final PhongMaterial floorMaterial2 = new PhongMaterial();
@@ -331,11 +331,11 @@ public class MainApplication extends Application
     floorMaterial3.setSpecularColor(Color.WHITE.darker());
     floorMaterial3.setSpecularPower(128);
     floorMaterial3.setDiffuseMap(new Image(getClass().getResource("/res/floor1.png").toExternalForm()));
-    
+
     floorMaterial4.setDiffuseColor(Color.WHITE);
     floorMaterial4.setSpecularColor(Color.WHITE.darker());
     floorMaterial4.setSpecularPower(128);
-    floorMaterial4.setDiffuseMap(new Image(getClass().getResource("/res/wooden.png").toExternalForm()));
+    floorMaterial4.setDiffuseMap(new Image(getClass().getResource("/res/floor2.png").toExternalForm()));
     
     bookcaseMaterial.setDiffuseColor(new Color(0.45, 0.45, 0.45, 1.0));
     bookcaseMaterial.setSpecularColor(Color.BLACK);
@@ -684,12 +684,15 @@ public class MainApplication extends Application
               .playerSpeed));
       
       // Player reached the exit
-      if (LevelVar.house[(int) desiredPlayerXPosition][(int) desiredPlayerYPosition] instanceof Exit)
+      if(desiredPlayerXPosition > 0 && desiredPlayerYPosition > 0 && desiredPlayerXPosition < 33 && desiredPlayerYPosition < 33)
       {
-        System.out.println("next level...");
-        level.nextLevel();
-        stage.setTitle("Zombie House: Level " + (LevelVar.levelNum + 1));
-        rebuildLevel();
+        if (LevelVar.house[(int) desiredPlayerXPosition][(int) desiredPlayerYPosition] instanceof Exit)
+        {
+          System.out.println("next level...");
+          level.nextLevel();
+          stage.setTitle("Zombie House: Level " + (LevelVar.levelNum + 1));
+          rebuildLevel();
+        }
       }
       
       // "Unstick" player
