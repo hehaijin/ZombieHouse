@@ -46,7 +46,7 @@ public class Player3D extends Group
     setTranslateY(-200);
 
     setRotationAxis(Rotate.Y_AXIS);
-    
+
     getChildren().get(0).setVisible(true);
   }
 
