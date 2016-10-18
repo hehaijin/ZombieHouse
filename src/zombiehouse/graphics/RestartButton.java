@@ -9,13 +9,23 @@ import zombiehouse.level.house.Level;
 import zombiehouse.graphics.MainApplication.*;
 
 /**
- * Created by joshu on 10/16/2016.
+ * This is used in the eng game dialog to restart the game
+ * @author Joshua Donckels.
  */
 public class RestartButton extends Button implements EventHandler<ActionEvent>
 {
   Level level;
   Stage dialog;
   GameLoop gameLoop;
+
+  /**
+   * This button will restart the game by resetting everything, then starting game loop and closing
+   * the end game dialog.
+   *
+   * @param level the current level object
+   * @param dialog the end game dialog
+   * @param gameLoop the game loop being used.
+   */
   public RestartButton(Level level, Stage dialog, GameLoop gameLoop) {
     this.setOnAction(this);
     this.level = level;

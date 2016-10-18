@@ -11,13 +11,18 @@ import javafx.scene.shape.Box;
 import javafx.scene.transform.Rotate;
 
 /**
- * Zombie3D holds zombie animation frames that I animated in Blender.
- * Zombie model originally from http://www.blendswap.com/blends/view/4807.
- * Texturing and movement by me.
+ * I changed the models to be from the following:
+ *
+ * Master zombie from:
+ * http://opengameart.org/content/thin-zombie-awake-zombie-asset
+ * by dogchicken from Rosswet Mobile
+ *
+ * Other zombie model from
+ * tigerTowel on BlendSwap (For the random i just made the texture have a white shirt)
  *
  * Each Zombie3D is tied to a traditional Zombie object.
  *
- * @author Maxwell Sanchez
+ * @author Maxwell Sanchez (past person) & Joshua & Haijin
  *
  */
 public class Zombie3D extends Group
@@ -48,9 +53,8 @@ public class Zombie3D extends Group
   }
 
   /**
-   * Create a Zombie3D by loading in 8 random, contiguous frames,
-   * setting the mesh group's scale and Y translation, and preparing
-   * the model to rotate on the Y axis.
+   * Create a Zombie3D by loading in all of its corresponding frames depending on the type
+   * of zombie.
    */
   public Zombie3D(int type)
   {

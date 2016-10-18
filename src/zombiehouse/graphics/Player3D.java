@@ -5,7 +5,19 @@ import javafx.scene.Group;
 import javafx.scene.transform.Rotate;
 
 /**
- * Created by joshu on 10/17/2016.
+ * @author Joshua Donckels
+ *
+ * This class represents the players first person hands with a knife
+ *
+ * The models of the first person hands were found at
+ * https://sketchfab.com/models/547a45535f0c4fe787948f7a7a6a88db
+ * by DavidFischer
+ *
+ * The knife model is found at
+ * http://tf3dm.com/3d-model/combat-knife-17573.html
+ * by gamingstudio
+ *
+ * While the animations of this class were also done by me.
  */
 public class Player3D extends Group
 {
@@ -14,7 +26,6 @@ public class Player3D extends Group
 
   public Player3D()
   {
-    // Give each zombie 8 random, continuous frames to work with, so they aren't all alike
     for(int i = 1; i <= 40; i++)
     {
       try
@@ -35,8 +46,7 @@ public class Player3D extends Group
     setTranslateY(-200);
 
     setRotationAxis(Rotate.Y_AXIS);
-
-    // Make sure zombies are on different frames to avoid "synchronized" movement
+    
     getChildren().get(0).setVisible(true);
   }
 

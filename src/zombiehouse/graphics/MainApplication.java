@@ -240,37 +240,46 @@ public class MainApplication extends Application
       if (keycode == KeyCode.W)
       {
         InputContainer.forward = true;
-      } else if (keycode == KeyCode.S)
+      }
+      else if (keycode == KeyCode.S)
       {
         InputContainer.backward = true;
-      } else if (keycode == KeyCode.A)
+      }
+      else if (keycode == KeyCode.A)
       {
         InputContainer.left = true;
-      } else if (keycode == KeyCode.D)
+      }
+      else if (keycode == KeyCode.D)
       {
         InputContainer.right = true;
-      } else if (keycode == KeyCode.SPACE)
+      }
+      else if (keycode == KeyCode.SPACE)
       {
         InputContainer.hit = true;
-        if(!attackInAction)
+        if (!attackInAction)
         {
           AudioFiles.shout.setVolume(0.25);
           AudioFiles.shout.play();
         }
 
-      } else if (keycode == KeyCode.F1)
+      }
+      else if (keycode == KeyCode.F1)
       {
         stage.setFullScreen(true);
-      } else if (keycode == KeyCode.F2)
+      }
+      else if (keycode == KeyCode.F2)
       {
         stage.setFullScreen(false);
-      } else if (keycode == KeyCode.SHIFT)
+      }
+      else if (keycode == KeyCode.SHIFT)
       {
         InputContainer.run = true;
-      } else if (keycode == KeyCode.ESCAPE)
+      }
+      else if (keycode == KeyCode.ESCAPE)
       {
         System.exit(0);
-      } else if (keycode == KeyCode.F3) /* Cheat key to advance levels */
+      }
+      else if (keycode == KeyCode.F3) /* Cheat key to advance levels */
       {
         level.nextLevel();
         rebuildLevel();
@@ -283,19 +292,24 @@ public class MainApplication extends Application
       if (keycode == KeyCode.W)
       {
         InputContainer.forward = false;
-      } else if (keycode == KeyCode.S)
+      }
+      else if (keycode == KeyCode.S)
       {
         InputContainer.backward = false;
-      } else if (keycode == KeyCode.A)
+      }
+      else if (keycode == KeyCode.A)
       {
         InputContainer.left = false;
-      } else if (keycode == KeyCode.D)
+      }
+      else if (keycode == KeyCode.D)
       {
         InputContainer.right = false;
-      } else if (keycode == KeyCode.SPACE)
+      }
+      else if (keycode == KeyCode.SPACE)
       {
         InputContainer.hit = false;
-      } else if (keycode == KeyCode.SHIFT)
+      }
+      else if (keycode == KeyCode.SHIFT)
       {
         InputContainer.run = false;
       }
@@ -414,13 +428,16 @@ public class MainApplication extends Application
           if (house[x][z].zone == 0)
           {
             floor.setMaterial(floorMaterial1);
-          } else if (house[x][z].zone == 1)
+          }
+          else if (house[x][z].zone == 1)
           {
             floor.setMaterial(floorMaterial2);
-          } else if (house[x][z].zone == 2)
+          }
+          else if (house[x][z].zone == 2)
           {
             floor.setMaterial(floorMaterial3);
-          } else
+          }
+          else
           {
             floor.setMaterial(floorMaterial4);
           }
@@ -516,7 +533,7 @@ public class MainApplication extends Application
       Zombie zombie = LevelVar.zombieCollection.get(i);
       double distance = Math.sqrt(Math.abs(zombie.positionX - Player.xPosition) * Math.abs(zombie.positionX - Player.xPosition) +
               Math.abs(zombie.positionY - Player.yPosition) * Math.abs(zombie.positionY - Player.yPosition));
-      if(distance > 5 && round(zombie.positionX) > 0 && round(zombie.positionX) < 33 && round(zombie.positionY) > 0 && round(zombie.positionY) < 33)
+      if (distance > 5 && round(zombie.positionX) > 0 && round(zombie.positionX) < 33 && round(zombie.positionY) > 0 && round(zombie.positionY) < 33)
       {
         sceneRoot.getChildren().add(zombie.zombie3D);
       }
@@ -572,10 +589,9 @@ public class MainApplication extends Application
    * @author Maxwell Sanchez
    *         <p>
    *         GameLoop handles the primary game animation frame timing.
-   *
    * @author Joshua Donckels (updated by me)
-   *     added many things including past selfs, interacted with zombies, bifurcated zombies, and
-   *     attack animations.
+   *         added many things including past selfs, interacted with zombies, bifurcated zombies, and
+   *         attack animations.
    */
   class GameLoop extends AnimationTimer
   {
@@ -646,16 +662,20 @@ public class MainApplication extends Application
       if (Player.stamina >= 4.0)
       {
         staminaBar.setFill(Color.BLUE);
-      } else if (Player.stamina >= 3.0)
+      }
+      else if (Player.stamina >= 3.0)
       {
         staminaBar.setFill(Color.GREEN);
-      } else if (Player.stamina >= 2.0)
+      }
+      else if (Player.stamina >= 2.0)
       {
         staminaBar.setFill(Color.YELLOW);
-      } else if (Player.stamina >= 1.0)
+      }
+      else if (Player.stamina >= 1.0)
       {
         staminaBar.setFill(Color.ORANGE);
-      } else if (Player.stamina >= 0.0)
+      }
+      else if (Player.stamina >= 0.0)
       {
         staminaBar.setFill(Color.RED);
       }
@@ -674,7 +694,8 @@ public class MainApplication extends Application
             AudioFiles.userStep1.setVolume(isRunning ? 0.4 : 0.25);
             AudioFiles.userStep1.play();
             lastClip = 1;
-          } else if (lastClip == 1)
+          }
+          else if (lastClip == 1)
           {
             AudioFiles.userStep2.setVolume(isRunning ? 0.4 : 0.25);
             AudioFiles.userStep2.play();
@@ -705,7 +726,8 @@ public class MainApplication extends Application
         {
           Player.xPosition += 1;
           Player.xPosition += 1;
-        } else
+        }
+        else
         {
           Player.xPosition -= 1;
         }
@@ -767,15 +789,18 @@ public class MainApplication extends Application
       {
         Player.xPosition += desiredXDisplacement * (percentOfSecond * Player.playerSpeed);
         Player.yPosition += desiredZDisplacement * (percentOfSecond * Player.playerSpeed);
-      } else if (canMove && wallCollisionMove && masterZombieSense)
+      }
+      else if (canMove && wallCollisionMove && masterZombieSense)
       {
         Player.xPosition += (desiredXDisplacement * (percentOfSecond * Player.playerSpeed)) / 2;
         Player.yPosition += (desiredZDisplacement * (percentOfSecond * Player.playerSpeed)) / 2;
-      } else if (!wallCollisionMove)
+      }
+      else if (!wallCollisionMove)
       {
         Player.xPosition -= 0.0001;
         Player.yPosition -= 0.0001;
-      } else
+      }
+      else
       {
         Player.xPosition -= desiredXDisplacement * (percentOfSecond * Player.playerSpeed);
         Player.yPosition -= desiredZDisplacement * (percentOfSecond * Player.playerSpeed);
@@ -807,7 +832,8 @@ public class MainApplication extends Application
           if (playerFrame % 4 == 0)
           {
             Player.player3D.nextFrame();
-          } else if (isRunning)
+          }
+          else if (isRunning)
           {
             Player.player3D.nextFrame();
           }
@@ -840,7 +866,8 @@ public class MainApplication extends Application
       if (toRound - ((int) toRound) < 0.5)
       {
         return (int) toRound;
-      } else
+      }
+      else
       {
         return (int) toRound + 1;
       }
@@ -896,7 +923,8 @@ public class MainApplication extends Application
         Player.attack3D.setTranslateX(cameraXDisplacement + xOffset);
         Player.attack3D.setTranslateZ(cameraZDisplacement + yOffset);
         Player.attack3D.setRotate(cameraYRotation - 180);
-        if(Player.attack3D.currentFrame < 29) {
+        if (Player.attack3D.currentFrame < 29)
+        {
           Player.attack3D.nextFrame();
         }
         else
@@ -927,7 +955,8 @@ public class MainApplication extends Application
               ps3D.setTranslateX(ps.positionX * TILE_WIDTH_AND_HEIGHT);
               ps3D.setTranslateZ(ps.positionY * TILE_WIDTH_AND_HEIGHT);
               ps3D.setRotate(ps.getCameraPos().get(frame - ps.deathFrame) - 180);
-            } else
+            }
+            else
             {
               sceneRoot.getChildren().remove(ps3D);
             }
@@ -935,7 +964,8 @@ public class MainApplication extends Application
 
           int i = LevelVar.pastSelfCollection.get(pastSelfCSize - 1).deathFrame;
           int iMinusOne = 0;
-          if(LevelVar.pastSelfCollection.size() > 1) {
+          if (LevelVar.pastSelfCollection.size() > 1)
+          {
             iMinusOne = LevelVar.pastSelfCollection.get(pastSelfCSize - 2).deathFrame;
           }
           int rFrame = frame - i; //restarted frame, to restart everything from 0
@@ -961,7 +991,8 @@ public class MainApplication extends Application
               z.setRotate(zombie.getCameraPos().get(rFrameDivided));
               zombie.positionForBifurcated++;
               z.nextFrame();
-            } else if (zombie.isAddedToScene)
+            }
+            else if (zombie.isAddedToScene)
             {
               sceneRoot.getChildren().remove(z);
               zombie.isAddedToScene = false;
@@ -1011,7 +1042,8 @@ public class MainApplication extends Application
                     sceneRoot.getChildren().add(newZom.zombie3D);
                     LevelVar.zombieCollection.add(newZom);
                     newZom.makeDecision();
-                  } else if (zombie.type == 1)
+                  }
+                  else if (zombie.type == 1)
                   {
                     LineWalkZombie newZom = new LineWalkZombie(cRotate, zombie.positionX, zombie.positionY, zombie.curTile, numOfZ + 1);
                     newZom.setBifurcatedSpawnFrame(rFrame);
@@ -1019,7 +1051,8 @@ public class MainApplication extends Application
                     sceneRoot.getChildren().add(newZom.zombie3D);
                     LevelVar.zombieCollection.add(newZom);
                     newZom.makeDecision();
-                  } else
+                  }
+                  else
                   {
                     MasterZombie newZom = new MasterZombie(cRotate, zombie.positionX, zombie.positionY, zombie.curTile, numOfZ + 1);
                     newZom.setBifurcatedSpawnFrame(rFrame);
@@ -1030,13 +1063,15 @@ public class MainApplication extends Application
                   }
                 }
               }
-            } else
+            }
+            else
             {
               //Deals with the cases of when the zombie is not engaged with a past self anymore.
               if (zombie.diesToPastSelf)
               {
                 sceneRoot.getChildren().remove(z);
-              } else
+              }
+              else
               {
                 LevelVar.zombieCollection.add(zombie);
                 positionsInLoopToRemove.add(positionInLoop);
@@ -1072,12 +1107,14 @@ public class MainApplication extends Application
             // Player collided with zombie, player loses a health.
             if (totalDistance < 0.5 && frame % 5 == 0)
             {
+              //The frame % 5 == 0 is to represent a zombie can only attack every 20th frame b/c of the above frame % 4.
               if (Player.life > 1 && zombie.type != 2)
               {
                 Player.life--;
                 Image img = new Image(getClass().getResourceAsStream("/res/life" + Player.life + ".png"));
                 lifeView.setImage(img);
-              } else
+              }
+              else
               {
                 Player.life = 0;
                 Image img = new Image(getClass().getResourceAsStream("/res/life1.png"));
@@ -1088,8 +1125,11 @@ public class MainApplication extends Application
               {
                 int positionForInner = 0;
                 System.out.println("Restarting due to death!! ");
+
+                //This deals with adding the correct zombies to their correct collections.
                 for (Zombie zom : LevelVar.zombieCollection)
                 {
+                  //If the zombie bifurcated then it will add these to the bifurcatedZombieCollection.
                   if (zom.getBifurcatedSpawnFrame() != 0)
                   {
                     toAddToBifurcatedCollection.add(zom);
@@ -1098,12 +1138,15 @@ public class MainApplication extends Application
                       zom.setDeathFrame(frame);
                     }
                     positionsToRemove.add(positionForInner);
-                  } else
+                  }
+                  else
                   {
+                    //If this zombie was only engaged with a PS then it will add it to the interactedCollection.
                     if (zom.interactedWithPS)
                     {
                       if (LevelVar.pastZombieCollection.size() > 0)
                       {
+                        //Deals with adding its new positions onto its previous positions if it was engaged before.
                         for (Zombie z : LevelVar.pastZombieCollection)
                         {
                           if (z.zombieID == zom.zombieID)
@@ -1116,7 +1159,8 @@ public class MainApplication extends Application
                             break;
                           }
                         }
-                      } else
+                      }
+                      else
                       {
                         toAddToInteractedCollection.add(zom);
                         zom.setDeathFrame(frame);
@@ -1126,15 +1170,21 @@ public class MainApplication extends Application
                   }
                   positionForInner++;
                 }
+
+                //Deals with actually adding the zombie to its corresponding Colleciton.
                 LevelVar.interactedWithZombieCollection.addAll(toAddToInteractedCollection);
                 if (!toAddToBifurcatedCollection.isEmpty())
                 {
                   LevelVar.bifurcatedCollection.addAll(toAddToBifurcatedCollection);
                 }
+
+                //Removes all past self's from the scene, fixes a bug.
                 for (PastSelf ps : LevelVar.pastSelfCollection)
                 {
                   sceneRoot.getChildren().remove(ps.pastSelf3D);
                 }
+
+                //Resets the level
                 Player.life = 5;
                 lifeView.setImage(life5);
                 deathFrame = frame;
@@ -1144,31 +1194,37 @@ public class MainApplication extends Application
               }
             }
 
+            //This will change the color of the crosshairs based on the distance from the zombies.
             if (totalDistance < 1)
             {
               verticalCross.setFill(Color.YELLOW);
               horizontalCross.setFill(Color.YELLOW);
-            } else if (totalDistance < 0.5)
+            }
+            else if (totalDistance < 0.5)
             {
               verticalCross.setFill(Color.RED);
               horizontalCross.setFill(Color.RED);
-            } else
+            }
+            else
             {
               verticalCross.setFill(Color.GREEN);
               horizontalCross.setFill(Color.GREEN);
             }
 
+            //This deals with spacing out the attack animations and how a zombie can only be hit once per animation.
             if (totalDistance < 1 && attackInActionFrame + 12 >= frame && attackInActionFrame + 9 <= frame)
             {
               zombie.setLife(zombie.getLife() - 1);
               zombie.zombie3D.setLife(zombie.getLife() - 1);
-              //System.out.println("Life: " + zombie.getLife());
+
+              //Deals with if the Player killed a zombie and adds it to the interactedCollection
               if (zombie.getLife() == 1)
               {
                 zombie.diesToPastSelf = true;
                 zombie.setDeathFrame(frame);
                 if (LevelVar.pastZombieCollection.size() > 0)
                 {
+                  //Adds past positions if it had any interactions with a previous self.
                   for (Zombie z : LevelVar.pastZombieCollection)
                   {
                     if (z.zombieID == zombie.zombieID)
@@ -1181,7 +1237,8 @@ public class MainApplication extends Application
                       break;
                     }
                   }
-                } else
+                }
+                else
                 {
                   toAddToInteractedCollection.add(zombie);
                 }
@@ -1190,13 +1247,12 @@ public class MainApplication extends Application
               }
             }
 
-            //System.out.println(zombie.zombieID + ": " + (zombie.positionX * TILE_WIDTH_AND_HEIGHT) + " - " + (zombie.positionY * TILE_WIDTH_AND_HEIGHT) + " VS." + zombie3D.getTranslateX() + " - " + zombie3D.getTranslateZ() );
-            //System.out.println(zombie.zombieID + " : " + zombie.getHeading());
             double desiredPositionX = zombie.positionX - (distanceX / totalDistance * LevelVar.zombieSpeed * percentOfSecond);
             double desiredPositionY = zombie.positionY - (distanceY / totalDistance * LevelVar.zombieSpeed * percentOfSecond);
 
             if (totalDistance > 0.5)
             {
+              //This is what implements the A* algorithm, if the zombie is beside a wall and then makes it run for a second.
               if ((LevelVar.house[round(desiredPositionX + WALL_COLLISION_OFFSET)][round(zombie.positionY)] instanceof Wall) ||
                       (LevelVar.house[round(desiredPositionX - WALL_COLLISION_OFFSET)][round(zombie.positionY)] instanceof Wall) ||
                       (LevelVar.house[round(zombie.positionX)][round(desiredPositionY + WALL_COLLISION_OFFSET)] instanceof Wall) ||
@@ -1205,35 +1261,39 @@ public class MainApplication extends Application
                       (LevelVar.house[round(desiredPositionX - WALL_COLLISION_OFFSET)][round(desiredPositionY - WALL_COLLISION_OFFSET)] instanceof Wall) ||
                       (LevelVar.house[round(zombie.positionX)][round(zombie.positionY)] instanceof Wall) || frame <= zombie.aStarFrame + 64)
               {
-                //System.out.println(frame + " : " +zombie.aStarFrame);
                 if (zombie.aStarFrame + 72 <= frame)
                 {
                   zombie.aStarFrame = frame;
                 }
                 zombie.makeDecision();
-              } else
+              }
+              else
               {
+                //If the zombie is not near a wall than the zombie will just face the player and head towards him/her.
                 if (zombie.type == 2)
                 {
                   double desiredMasterPositionX = zombie.positionX - (distanceX / totalDistance * LevelVar.zombieSpeed * LevelVar.masterZombieSpeedModifier * percentOfSecond);
                   double desiredMasterPositionY = zombie.positionY - (distanceY / totalDistance * LevelVar.zombieSpeed * LevelVar.masterZombieSpeedModifier * percentOfSecond);
                   zombie.positionX = desiredMasterPositionX;
                   zombie.positionY = desiredMasterPositionY;
-                } else
+                }
+                else
                 {
                   zombie.positionX = desiredPositionX;
                   zombie.positionY = desiredPositionY;
                 }
               }
-            } else
+            }
+            else
             {
+              //This deals with the zombies colliding with the player, will bounce the zombie back a minimal dinstance.
               zombie.positionX -= 0.01;
               zombie.positionY -= 0.01;
             }
 
+            //Animates the zombie.
             zombie3D.nextFrame();
 
-            //System.out.println("Player:" + Player.xPosition + "," + Player.yPosition + "   " + zombie.getHeading());
             double zombieVectorX = zombie.positionX - Player.xPosition;
             double zombieVectorY = zombie.positionY - Player.yPosition;
 
@@ -1244,17 +1304,20 @@ public class MainApplication extends Application
               {
                 double angle = 180 + Math.toDegrees(Math.atan((zombie.positionX - Player.xPosition) / (zombie.positionY - Player.yPosition)));
                 zombie3D.setRotate(angle);
-              } else
+              }
+              else
               {
                 double angle = 360 + Math.toDegrees(Math.atan((zombie.positionX - Player.xPosition) / (zombie.positionY - Player.yPosition)));
                 zombie3D.setRotate(angle);
               }
-            } else if (distanceY < 0)
+            }
+            else if (distanceY < 0)
             {
               double angle = 180 + Math.toDegrees(Math.atan((zombie.positionX - Player.xPosition) / (zombie.positionY - Player.yPosition)));
               zombie3D.setRotate(angle);
 
-            } else
+            }
+            else
             {
               double angle = Math.toDegrees(Math.atan((zombie.positionX - Player.xPosition) / (zombie.positionY - Player.yPosition)));
               zombie3D.setRotate(angle);
@@ -1264,8 +1327,10 @@ public class MainApplication extends Application
             {
               DirectionalPlayer.playSound(AudioFiles.randomZombieSound(), angleBetweenVectors(playerDirectionVectorX, playerDirectionVectorY, zombieVectorX, zombieVectorY), distance);
             }
-          } else if (time - zombie.getLastTimeUpdated() >= 2_000_000_000)
+          }
+          else if (time - zombie.getLastTimeUpdated() >= 2_000_000_000)
           {
+            //Acts as a zTimer, if the zombie can not smell the player then it will move according to its zombie type.
             zombie.setLastTimeUpdated(time);
             zombie.makeDecision();
             zombie.setSmell(false);
@@ -1276,7 +1341,7 @@ public class MainApplication extends Application
           position++;
         }
 
-
+        //Removes zombies from interactedCollection.
         if (!positionsInLoopToRemove.isEmpty())
         {
           int removedInThisIteration = 0;
@@ -1292,6 +1357,7 @@ public class MainApplication extends Application
           positionsInLoopToRemove.clear();
         }
 
+        //Removes zombies from zombieCollection.
         if (!positionsToRemove.isEmpty())
         {
           int removedInThisIteration = 0;
@@ -1307,6 +1373,7 @@ public class MainApplication extends Application
           positionsToRemove.clear();
         }
 
+        //Will add a past self to the collection
         if (spawnPastSelf)
         {
           int size = LevelVar.pastSelfCollection.size();
@@ -1351,8 +1418,10 @@ public class MainApplication extends Application
           }
           setupLevel();
           shouldRebuildLevel = false;
-        } else
+        }
+        else
         {
+          //If the player dies after using all three of its past self's then the game will end and prompt the player.
           addEndScreen();
         }
       }

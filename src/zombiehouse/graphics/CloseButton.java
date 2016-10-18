@@ -6,12 +6,20 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
- * Created by joshu on 10/16/2016.
+ * @author Joshua Donckels.
+ * This button is used on the end game dialog, will close the game if pressed.
  */
 public class CloseButton extends Button implements EventHandler<ActionEvent>
 {
   Stage main;
   Stage dialog;
+
+  /**
+   * This button is used to close everything
+   *
+   * @param main the main
+   * @param dialog the end dialog's
+   */
   public CloseButton(Stage main, Stage dialog) {
     this.main = main;
     this.dialog = dialog;

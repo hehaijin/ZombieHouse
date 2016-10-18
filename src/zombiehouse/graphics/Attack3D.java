@@ -5,7 +5,17 @@ import javafx.scene.Group;
 import javafx.scene.transform.Rotate;
 
 /**
- * Created by joshu on 10/17/2016.
+ * @author Joshua Donckels.
+ * This is used to be the animations that represent the player attacking or stabbing a zombie.
+ * The models of the first person hands were found at
+ * https://sketchfab.com/models/547a45535f0c4fe787948f7a7a6a88db
+ * by DavidFischer
+ *
+ * The knife model is found at
+ * http://tf3dm.com/3d-model/combat-knife-17573.html
+ * by gamingstudio
+ *
+ * but all of the animations here were created by me
  */
 public class Attack3D extends Group
 {
@@ -14,7 +24,6 @@ public class Attack3D extends Group
 
   public Attack3D()
   {
-    // Give each zombie 8 random, continuous frames to work with, so they aren't all alike
     for(int i = 1; i <= 30; i++)
     {
       try

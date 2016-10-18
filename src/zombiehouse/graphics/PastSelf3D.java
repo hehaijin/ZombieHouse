@@ -7,29 +7,26 @@ import javafx.scene.Group;
 import javafx.scene.transform.Rotate;
 
 /**
- * Zombie3D holds zombie animation frames that I animated in Blender.
- * Zombie model originally from http://www.blendswap.com/blends/view/4807.
- * Texturing and movement by me.
+ * This past self model was found at
+ * http://forum.avora.org/viewtopic.php?f=33&t=16
+ * by Clint Bellanger
  *
- * Each Zombie3D is tied to a traditional Zombie object.
+ * Each PastSelf3D is tied to a pastSelf.
  *
- * @author Maxwell Sanchez
+ * @author Joshua Donckels
  *
  */
 public class PastSelf3D extends Group
 {
 
   /**
-   * Create a Zombie3D by loading in 8 random, contiguous frames,
-   * setting the mesh group's scale and Y translation, and preparing
-   * the model to rotate on the Y axis.
+   * Creates a pastSelf with no animations b/c it represent the ghost of your past self.
    */
   public PastSelf3D()
   {
-    // Give each zombie 8 random, continuous frames to work with, so they aren't all alike
     try
     {
-      // Load in zombie meshes
+      // Load in past self meshes
       FXMLLoader fxmlLoader = new FXMLLoader();
       fxmlLoader.setLocation(getClass().getResource("/res/pastSelfM.fxml"));
       Group pastSelfModel = fxmlLoader.load();
@@ -46,7 +43,6 @@ public class PastSelf3D extends Group
 
     setRotationAxis(Rotate.Y_AXIS);
 
-    // Make sure zombies are on different frames to avoid "synchronized" movement
     getChildren().get(0).setVisible(true);
   }
 }
