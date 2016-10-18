@@ -106,6 +106,8 @@ public class MainApplication extends Application
   private ArrayList<Zombie> toAddToBifurcatedCollection = new ArrayList<>();
   private boolean spawnPastSelf = false;
   private int deathFrame = 0;
+  private boolean attackInAction = false;
+  private int attackInActionFrame = 0;
 
   private GameLoop gameLoop = new GameLoop();
   private int zombieKillCount = 0;
@@ -782,19 +784,22 @@ public class MainApplication extends Application
 
       // Calculate camera rotation
       cameraYRotation += PLAYER_TURN_SMOOTHING * InputContainer.remainingCameraPan;
+      if (!attackInAction)
+      {
         double xOffset = 165 * Math.sin(cameraYRotation / 180 * Math.PI);
         double yOffset = 165 * Math.cos(cameraYRotation / 180 * Math.PI);
         Player.player3D.setTranslateX(cameraXDisplacement + xOffset);
         Player.player3D.setTranslateZ(cameraZDisplacement + yOffset);
         Player.player3D.setRotate(cameraYRotation - 180);
-      if(lastCameraXDisplacement != cameraXDisplacement)
-      {
-        if (playerFrame % 4 == 0)
+        if (lastCameraXDisplacement != cameraXDisplacement)
         {
-          Player.player3D.nextFrame();
-        } else if (isRunning)
-        {
-          Player.player3D.nextFrame();
+          if (playerFrame % 4 == 0)
+          {
+            Player.player3D.nextFrame();
+          } else if (isRunning)
+          {
+            Player.player3D.nextFrame();
+          }
         }
       }
 
@@ -804,14 +809,6 @@ public class MainApplication extends Application
 
       // Rotate the camera
       camera.setRotate(cameraYRotation);
-      
-
-      /*if(tt.getStatus()!= Animation.Status.RUNNING) {
-
-        knife.setTranslateX(cameraXDisplacement + 90 + 100 * Math.sin(cameraYRotation / 180 * 3.1415));
-        knife.setTranslateZ(cameraZDisplacement + 100 * Math.cos(cameraYRotation / 180 * 3.1415));
-        knife.setRotate(cameraYRotation);
-      }*/
 
       xPos.add(Player.xPosition);
       yPos.add(Player.yPosition);
@@ -870,6 +867,33 @@ public class MainApplication extends Application
 
       double playerDirectionVectorX = Math.toDegrees(Math.cos(cameraYRotation));
       double playerDirectionVectorY = Math.toDegrees(Math.sin(cameraYRotation));
+
+      if (!attackInAction && InputContainer.hit)
+      {
+        attackInAction = true;
+        sceneRoot.getChildren().remove(Player.player3D);
+        attackInActionFrame = frame;
+        sceneRoot.getChildren().add(Player.attack3D);
+        Player.attack3D.currentFrame = 1;
+      }
+
+      if (attackInAction)
+      {
+        double xOffset = 165 * Math.sin(cameraYRotation / 180 * Math.PI);
+        double yOffset = 165 * Math.cos(cameraYRotation / 180 * Math.PI);
+        Player.attack3D.setTranslateX(cameraXDisplacement + xOffset);
+        Player.attack3D.setTranslateZ(cameraZDisplacement + yOffset);
+        Player.attack3D.setRotate(cameraYRotation - 180);
+        if(Player.attack3D.currentFrame < 29) {
+          Player.attack3D.nextFrame();
+        }
+        else
+        {
+          attackInAction = false;
+          sceneRoot.getChildren().remove(Player.attack3D);
+          sceneRoot.getChildren().add(Player.player3D);
+        }
+      }
 
       // Animate zombies every four frames to reduce computational load
       if (frame % 4 == 0)
@@ -1010,7 +1034,7 @@ public class MainApplication extends Application
             double distanceY = (zombie.positionY - Player.yPosition);
             double totalDistance = Math.abs(distanceX) + Math.abs(distanceY);
 
-            // Player collided with zombie, restart level
+            // Player collided with zombie, player loses a health.
             if (totalDistance < 0.5 && frame % 5 == 0)
             {
               if (Player.life > 1 && zombie.type != 2)
@@ -1099,7 +1123,7 @@ public class MainApplication extends Application
               horizontalCross.setFill(Color.GREEN);
             }
 
-            if (totalDistance < 1 && frame % 5 == 0 && InputContainer.hit)
+            if (totalDistance < 1 && attackInActionFrame + 12 >= frame && attackInActionFrame + 9 <= frame)
             {
               zombie.setLife(zombie.getLife() - 1);
               zombie.zombie3D.setLife(zombie.getLife() - 1);
@@ -1136,7 +1160,7 @@ public class MainApplication extends Application
             double desiredPositionX = zombie.positionX - (distanceX / totalDistance * LevelVar.zombieSpeed * percentOfSecond);
             double desiredPositionY = zombie.positionY - (distanceY / totalDistance * LevelVar.zombieSpeed * percentOfSecond);
 
-            if (totalDistance > 0.5 )
+            if (totalDistance > 0.5)
             {
               if ((LevelVar.house[round(desiredPositionX + WALL_COLLISION_OFFSET)][round(zombie.positionY)] instanceof Wall) ||
                       (LevelVar.house[round(desiredPositionX - WALL_COLLISION_OFFSET)][round(zombie.positionY)] instanceof Wall) ||
@@ -1147,7 +1171,8 @@ public class MainApplication extends Application
                       (LevelVar.house[round(zombie.positionX)][round(zombie.positionY)] instanceof Wall) || frame <= zombie.aStarFrame + 64)
               {
                 //System.out.println(frame + " : " +zombie.aStarFrame);
-                if(zombie.aStarFrame + 72 <= frame) {
+                if (zombie.aStarFrame + 72 <= frame)
+                {
                   zombie.aStarFrame = frame;
                 }
                 zombie.makeDecision();
@@ -1282,7 +1307,8 @@ public class MainApplication extends Application
           System.out.println("here");
           for (int i = 0; i < sceneRoot.getChildren().size(); i++)
           {
-            if (sceneRoot.getChildren().get(i) instanceof Box || sceneRoot.getChildren().get(i) instanceof Zombie3D || sceneRoot.getChildren().get(i) instanceof Player3D)
+            if (sceneRoot.getChildren().get(i) instanceof Box || sceneRoot.getChildren().get(i) instanceof Zombie3D ||
+                    sceneRoot.getChildren().get(i) instanceof Player3D || sceneRoot.getChildren().get(i) instanceof Attack3D)
             {
               sceneRoot.getChildren().remove(i);
               i--;
