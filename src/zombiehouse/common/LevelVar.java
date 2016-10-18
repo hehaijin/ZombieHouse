@@ -119,7 +119,7 @@ public class LevelVar
    * A debugging flag
    * When true, a stream of text related to zombie handling will be printed to terminal
    */
-  public static final boolean ZOMBIE_DEBUG_TEXT = false;
+  public static final boolean ZOMBIE_DEBUG_TEXT = true;
   
   /**
    * Walking speed of zombies

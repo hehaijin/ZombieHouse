@@ -70,15 +70,15 @@ public class MainApplication extends Application
   private static final int WINDOW_HEIGHT = 768;
   private static final long ZOMBIE_DECISION_RATE = 2_000_000_000;
 
-  private static final PhongMaterial floorMaterial1 = new PhongMaterial();
-  private static final PhongMaterial floorMaterial2 = new PhongMaterial();
-  private static final PhongMaterial floorMaterial3 = new PhongMaterial();
-  private static final PhongMaterial floorMaterial4 = new PhongMaterial();
-  private static final PhongMaterial ceilingMaterial = new PhongMaterial();
-  private static final PhongMaterial bookcaseMaterial = new PhongMaterial();
-  private static final PhongMaterial wallMaterial = new PhongMaterial();
-  private static final PhongMaterial exitMaterial = new PhongMaterial();
-  private static final PhongMaterial tapestryMaterial[] = new PhongMaterial[4];
+  private static PhongMaterial floorMaterial1 = new PhongMaterial();
+  private static PhongMaterial floorMaterial2 = new PhongMaterial();
+  private static PhongMaterial floorMaterial3 = new PhongMaterial();
+  private static PhongMaterial floorMaterial4 = new PhongMaterial();
+  private static PhongMaterial ceilingMaterial = new PhongMaterial();
+  private static PhongMaterial bookcaseMaterial = new PhongMaterial();
+  private static PhongMaterial wallMaterial = new PhongMaterial();
+  private static PhongMaterial exitMaterial = new PhongMaterial();
+  private static PhongMaterial tapestryMaterial[] = new PhongMaterial[4];
 
   private Level level;
   private Stage stage;

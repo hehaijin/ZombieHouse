@@ -1,4 +1,8 @@
 # ZombieHouse
+
+Joshua Donckels, Anton Kuzmin, Haijin He
+(Adapted from Maxwell, Rob, and Stephen)
+
 3D "Zombie House" game for CS351 @ UNM
 
 Use WASD for movement, mouse for view swivel
@@ -7,7 +11,7 @@ F1 enables full-screen mode, F2 disables it
 
 Press Escape to exit the game
 
-The user has 5 life, while the zombies have 4.
+The user has 5 life, while the zombies have 5.
 
 If the player uses up all three past self's and dies, they will lose and be prompted for further action.
 
