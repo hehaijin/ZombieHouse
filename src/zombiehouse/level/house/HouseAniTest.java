@@ -12,11 +12,12 @@ import javafx.stage.Stage;
 import zombiehouse.common.InputContainer;
 import zombiehouse.common.LevelVar;
 import zombiehouse.common.Player;
-import zombiehouse.level.zombie.*;
+import zombiehouse.level.zombie.LineWalkZombie;
+import zombiehouse.level.zombie.RandomWalkZombie;
+import zombiehouse.level.zombie.Zombie;
 
 public class HouseAniTest extends Application
 {
-
   private Stage stage;
   private Canvas canvas;
   private int canvasWidth = 800;
@@ -42,91 +43,79 @@ public class HouseAniTest extends Application
     LevelVar.zombie3D = false;
     
     l.nextLevel();
-    if(!LevelVar.HOUSE_PRESENTATION)
+    if (!LevelVar.HOUSE_PRESENTATION)
     {
       l.fullGen();
     }
     sqrPix = canvasWidth / Level.houseWidth;
     
-    primaryStage.setTitle("SPOOKY DEAD MAN HOUSE - Level: " + (LevelVar.levelNum + 1) );
+    primaryStage.setTitle("SPOOKY DEAD MAN HOUSE - Level: " + (LevelVar.levelNum + 1));
     
-    BorderPane root = new BorderPane(); 
-    canvas = new Canvas(canvasWidth, canvasHeight); 
-    gfx = canvas.getGraphicsContext2D(); 
+    BorderPane root = new BorderPane();
+    canvas = new Canvas(canvasWidth, canvasHeight);
+    gfx = canvas.getGraphicsContext2D();
     root.setCenter(canvas);
     
     Scene scene = new Scene(root, Color.WHITE);
     primaryStage.setScene(scene);
     primaryStage.show();
-
     
     // borrowed
-    scene.setOnKeyPressed(event -> 
+    scene.setOnKeyPressed(event ->
     {
       KeyCode keycode = event.getCode();
       if (keycode == KeyCode.UP)
       {
         InputContainer.forward = true;
-      }
-      else if (keycode == KeyCode.DOWN)
+      } else if (keycode == KeyCode.DOWN)
       {
         InputContainer.backward = true;
-      }
-      else if (keycode == KeyCode.LEFT)
+      } else if (keycode == KeyCode.LEFT)
       {
         InputContainer.left = true;
-      }
-      else if (keycode == KeyCode.RIGHT)
+      } else if (keycode == KeyCode.RIGHT)
       {
         InputContainer.right = true;
-      }
-      else if (keycode == KeyCode.L)
+      } else if (keycode == KeyCode.L)
       {
         levelUp();
-      }
-      else if (keycode == KeyCode.ESCAPE)
+      } else if (keycode == KeyCode.ESCAPE)
       {
         System.exit(0);
-      }
-      else if (keycode == KeyCode.K)
+      } else if (keycode == KeyCode.K)
       {
-        if(LevelVar.HOUSE_PRESENTATION) { l.nextGenStep(); }
-      }
-      else if (keycode == KeyCode.J)
+        if (LevelVar.HOUSE_PRESENTATION)
+        {
+          l.nextGenStep();
+        }
+      } else if (keycode == KeyCode.J)
       {
-        LevelVar.WITH_SIGHT = ! LevelVar.WITH_SIGHT;
-      }
-      else if (keycode == KeyCode.O)
+        LevelVar.WITH_SIGHT = !LevelVar.WITH_SIGHT;
+      } else if (keycode == KeyCode.O)
       {
         l.fullGen();
 //        LevelVar.HOUSE_PRESENTATION = ! LevelVar.HOUSE_PRESENTATION;
 //        levelUp();
       }
     });
-
-    scene.setOnKeyReleased(event -> 
+    
+    scene.setOnKeyReleased(event ->
     {
       KeyCode keycode = event.getCode();
       if (keycode == KeyCode.UP)
       {
         InputContainer.forward = false;
-      }
-      else if (keycode == KeyCode.DOWN)
+      } else if (keycode == KeyCode.DOWN)
       {
         InputContainer.backward = false;
-      }
-      else if (keycode == KeyCode.LEFT)
+      } else if (keycode == KeyCode.LEFT)
       {
         InputContainer.left = false;
-      }
-      else if (keycode == KeyCode.RIGHT)
+      } else if (keycode == KeyCode.RIGHT)
       {
         InputContainer.right = false;
       }
     });
-    
-    //ZTimer zMoves = new ZTimer();
-    //zMoves.zUpdateTimer.schedule(zMoves.myUpdate, Zombie.getDecisionRate(), Zombie.getDecisionRate());
     
     AnimationTimer gameLoop = new MainGameLoop();
     gameLoop.start();
@@ -142,18 +131,17 @@ public class HouseAniTest extends Application
   
   public class MainGameLoop extends AnimationTimer
   {
-
     @Override
     public void handle(long now)
     {
       gfx.setFill(Color.BLACK);
       gfx.fillRect(0, 0, canvasWidth, canvasHeight);
       
-      for(int i = 0; i < Level.houseWidth; i++)
+      for (int i = 0; i < Level.houseWidth; i++)
       {
-        for(int j = 0; j < Level.houseHeight; j++)
+        for (int j = 0; j < Level.houseHeight; j++)
         {
-          gfx.setFill(LevelVar.house[i][j].getColor() );
+          gfx.setFill(LevelVar.house[i][j].getColor());
           gfx.fillRect(i * sqrPix, j * sqrPix, sqrPix, sqrPix);
         }
       }
@@ -161,18 +149,28 @@ public class HouseAniTest extends Application
       gfx.setFill(Color.BLUE);
       gfx.fillOval(Player.xPosition * sqrPix - sqrPix / 2, Player.yPosition * sqrPix - sqrPix / 2, sqrPix * 1, sqrPix * 1);
       
-      for(Zombie z : LevelVar.zombieCollection)
+      for (Zombie z : LevelVar.zombieCollection)
       {
         //z.makeDecision();
         //z.move();
-        if(z instanceof LineWalkZombie) { gfx.setFill(Color.DARKOLIVEGREEN); }
-        else if(z instanceof RandomWalkZombie) { gfx.setFill(Color.LIGHTGREEN); }
-        else { gfx.setFill(Color.VIOLET); }
+        if (z instanceof LineWalkZombie)
+        {
+          gfx.setFill(Color.DARKOLIVEGREEN);
+        } else if (z instanceof RandomWalkZombie)
+        {
+          gfx.setFill(Color.LIGHTGREEN);
+        } else
+        {
+          gfx.setFill(Color.VIOLET);
+        }
         gfx.fillOval(z.positionX * sqrPix - sqrPix / 2, z.positionY * sqrPix - sqrPix / 2, sqrPix * 1, sqrPix * 1);
       }
-
+      
       movePlayerIfRequested();
-      if(LevelVar.WITH_SIGHT) { l.checkSight(); }
+      if (LevelVar.WITH_SIGHT)
+      {
+        l.checkSight();
+      }
     }
   }
   
@@ -184,36 +182,34 @@ public class HouseAniTest extends Application
     desiredXDisplacement += (InputContainer.right) ? (1) : 0;
     
     double desiredYDisplacement = 0;
-    desiredYDisplacement -= (InputContainer.forward) ? (1) : 0; 
+    desiredYDisplacement -= (InputContainer.forward) ? (1) : 0;
     desiredYDisplacement += (InputContainer.backward) ? (1) : 0;
     
     double desiredPlayerXPosition = Player.xPosition + (desiredXDisplacement * PLAYER_MOVE_SPEED * Player.playerSpeed);
     double desiredPlayerYPosition = Player.yPosition + (desiredYDisplacement * PLAYER_MOVE_SPEED * Player.playerSpeed);
     
-    if (LevelVar.house[(int)desiredPlayerXPosition][(int)desiredPlayerYPosition] instanceof Floor) 
+    if (LevelVar.house[(int) desiredPlayerXPosition][(int) desiredPlayerYPosition] instanceof Floor)
     {
       Player.xPosition += desiredXDisplacement * PLAYER_MOVE_SPEED;
       Player.yPosition += desiredYDisplacement * PLAYER_MOVE_SPEED;
-    }
-    else if (LevelVar.house[(int)desiredPlayerXPosition][(int)Player.yPosition] instanceof Floor)
+    } else if (LevelVar.house[(int) desiredPlayerXPosition][(int) Player.yPosition] instanceof Floor)
     {
       Player.xPosition += desiredXDisplacement * PLAYER_MOVE_SPEED;
-    }
-    else if (LevelVar.house[(int)Player.xPosition][(int)desiredPlayerYPosition] instanceof Floor)
+    } else if (LevelVar.house[(int) Player.xPosition][(int) desiredPlayerYPosition] instanceof Floor)
     {
       Player.yPosition += desiredYDisplacement * PLAYER_MOVE_SPEED;
     }
-    for(Zombie z: LevelVar.zombieCollection)
+    for (Zombie z : LevelVar.zombieCollection)
     {
       double deltaX = Player.xPosition - z.positionX;
       double deltaY = Player.yPosition - z.positionY;
-      if( deltaX * deltaX + deltaY * deltaY < 1  )
+      if (deltaX * deltaX + deltaY * deltaY < 1)
       {
         //System.out.println("player dead");
         //l.restartLevel();
       }
     }
-    if (LevelVar.house[(int)desiredPlayerXPosition][(int)desiredPlayerYPosition] instanceof Exit)
+    if (LevelVar.house[(int) desiredPlayerXPosition][(int) desiredPlayerYPosition] instanceof Exit)
     {
       levelUp();
     }

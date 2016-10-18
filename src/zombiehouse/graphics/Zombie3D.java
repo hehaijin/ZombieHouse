@@ -1,7 +1,5 @@
 package zombiehouse.graphics;
 
-import java.util.Random;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.DepthTest;
 import javafx.scene.Group;
@@ -9,49 +7,47 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.transform.Rotate;
+import java.util.Random;
 
 /**
  * I changed the models to be from the following:
- *
+ * <p>
  * Master zombie from:
  * http://opengameart.org/content/thin-zombie-awake-zombie-asset
  * by dogchicken from Rosswet Mobile
- *
+ * <p>
  * Other zombie model from
  * tigerTowel on BlendSwap (For the random i just made the texture have a white shirt)
- *
+ * <p>
  * Each Zombie3D is tied to a traditional Zombie object.
  *
  * @author Maxwell Sanchez (past person) & Joshua & Haijin
- *
  */
 public class Zombie3D extends Group
 {
-
+  
   private static final int MAXIMUM_FRAME = 39;
   private int currentFrame = 0;
   private static Random random = new Random();
-
-
-  //
   private PhongMaterial redMaterial = new PhongMaterial();
   {
     redMaterial.setDiffuseColor(Color.DARKRED);
     redMaterial.setSpecularColor(Color.DARKRED);
   }
+  
   //the boxes are for zombie life display.
-  Box lifebox[]=new Box[5];
-
+  Box lifebox[] = new Box[5];
+  
   {
-    for(int i=0;i<5;i++)
+    for (int i = 0; i < 5; i++)
     {
-      lifebox[i]=new Box(i*0.2+0.2,0.1,0.1);
+      lifebox[i] = new Box(i * 0.2 + 0.2, 0.1, 0.1);
       lifebox[i].setMaterial(redMaterial);
       lifebox[i].setDepthTest(DepthTest.ENABLE);
       lifebox[i].setTranslateY(-2.2);
     }
   }
-
+  
   /**
    * Create a Zombie3D by loading in all of its corresponding frames depending on the type
    * of zombie.
@@ -62,9 +58,9 @@ public class Zombie3D extends Group
     getChildren().add(lifebox[4]);
     // Give each zombie 8 random, continuous frames to work with, so they aren't all alike
     //add one to avoid 0.
-    int randomStart = random.nextInt(MAXIMUM_FRAME)+1;
+    int randomStart = random.nextInt(MAXIMUM_FRAME) + 1;
     this.currentFrame = randomStart;
-    if(type == 2)
+    if (type == 2)
     {
       for (int i = 0; i <= MAXIMUM_FRAME; i++)
       {
@@ -76,7 +72,8 @@ public class Zombie3D extends Group
           Group zombieModel = fxmlLoader.load();
           zombieModel.setVisible(false);
           getChildren().add(zombieModel);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
           e.printStackTrace();
         }
@@ -85,7 +82,8 @@ public class Zombie3D extends Group
       setScaleY(60);
       setScaleZ(60);
       setTranslateY(-260);
-    } else if(type == 1)
+    }
+    else if (type == 1)
     {
       for (int i = 0; i <= MAXIMUM_FRAME; i++)
       {
@@ -97,7 +95,8 @@ public class Zombie3D extends Group
           Group zombieModel = fxmlLoader.load();
           zombieModel.setVisible(false);
           getChildren().add(zombieModel);
-        } catch (Exception e)
+        }
+        catch (Exception e)
         {
           e.printStackTrace();
         }
@@ -107,7 +106,8 @@ public class Zombie3D extends Group
       setScaleZ(220);
       setTranslateY(-260);
     }
-    else {
+    else
+    {
       for (int i = 0; i <= MAXIMUM_FRAME; i++)
       {
         try
@@ -128,16 +128,14 @@ public class Zombie3D extends Group
       setScaleZ(220);
       setTranslateY(-260);
     }
-
-
+    
     setRotationAxis(Rotate.Y_AXIS);
-
+    
     // Make sure zombies are on different frames to avoid "synchronized" movement
     getChildren().get(currentFrame).setVisible(true);
-
+    
   }
-
-
+  
   /**
    * Change the current animation frame to the next frame.
    */
@@ -151,21 +149,22 @@ public class Zombie3D extends Group
       currentFrame = 1;
     }
     getChildren().get(currentFrame).setVisible(true);
-
-
   }
-
+  
   /**
    * set the display of zombie life
-   * @param life  zombie life, from 1-5, int value.
+   *
+   * @param life zombie life, from 1-5, int value.
    */
   public void setLife(int life)
   {
-    if(life>5 || life <1)
-      System.out.println("wrong input for zombie life");
-    else getChildren().set(0,lifebox[life-1]);
-
-
+    if (life > 5 || life < 1)
+    {
+      System.out.println("Wrong input for zombie life");
+    }
+    else
+    {
+      getChildren().set(0, lifebox[life - 1]);
+    }
   }
-
 }

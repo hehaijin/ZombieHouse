@@ -5,11 +5,10 @@ import zombiehouse.graphics.Player3D;
 
 /**
  * Class to hold player positioning/stamina data.
- * 
- * @author Maxwell Sanchez
  *
+ * @author Maxwell Sanchez
  */
-public class Player 
+public class Player
 {
   public static double xPosition = 1.0;
   public static double yPosition = 1.0;
@@ -20,8 +19,14 @@ public class Player
   public static int life = 5;
   public static Player3D player3D = new Player3D();
   public static Attack3D attack3D = new Attack3D();
-
-  public static char getChar() { return 'O'; }
-  
   public static int playerSightRange = 7;
+  
+  /**
+   * Used to test the zombie house generation and player spawn point
+   * @return character used to represent the player
+   */
+  public static char getChar()
+  {
+    return 'O';
+  }
 }

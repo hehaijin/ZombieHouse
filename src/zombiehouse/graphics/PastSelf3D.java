@@ -1,7 +1,5 @@
 package zombiehouse.graphics;
 
-import java.util.Random;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.transform.Rotate;
@@ -10,15 +8,13 @@ import javafx.scene.transform.Rotate;
  * This past self model was found at
  * http://forum.avora.org/viewtopic.php?f=33&t=16
  * by Clint Bellanger
- *
+ * <p>
  * Each PastSelf3D is tied to a pastSelf.
  *
  * @author Joshua Donckels
- *
  */
 public class PastSelf3D extends Group
 {
-
   /**
    * Creates a pastSelf with no animations b/c it represent the ghost of your past self.
    */
@@ -40,9 +36,9 @@ public class PastSelf3D extends Group
     setScaleY(220);
     setScaleZ(220);
     setTranslateY(-260);
-
+    
     setRotationAxis(Rotate.Y_AXIS);
-
+    
     getChildren().get(0).setVisible(true);
   }
 }

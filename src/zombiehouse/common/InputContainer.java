@@ -3,13 +3,12 @@ package zombiehouse.common;
 /**
  * A class to hold information about user interaction.
  * Holds mouseX information for calculating distance mouse was moved.
- * 
- * @author Maxwell Sanchez
  *
+ * @author Maxwell Sanchez
  */
 public class InputContainer
 {
-    // Directional and speed information
+  // Directional and speed information
   public static boolean forward = false;
   public static boolean backward = false;
   public static boolean left = false;

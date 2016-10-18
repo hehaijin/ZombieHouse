@@ -1,17 +1,16 @@
 package zombiehouse.level.zombie;
 
 
-import zombiehouse.level.house.*;
+import zombiehouse.common.LevelVar;
+import zombiehouse.level.house.Tile;
 
 import java.util.Random;
-
-import static zombiehouse.common.LevelVar.house;
 
 /**
  * RandomWalkZombie class contains the behavior for a
  * RandomWalkZombie
  *
- * @author Stephen Sagartz
+ * @author Stephen Sagartz & Joshua Donckels
  * @since 2016-03-05
  */
 public class RandomWalkZombie extends Zombie
@@ -28,7 +27,7 @@ public class RandomWalkZombie extends Zombie
   {
     super(heading, positionX, positionY, curTile, id, 5, -1, 0);
   }
-
+  
   /**
    * Updates and sets this Zombie's heading every zombie_Decision_Rate milliseconds
    * and adjusts the behavior according to the ZombieHouse Project specifications.
@@ -37,11 +36,14 @@ public class RandomWalkZombie extends Zombie
   public void makeDecision()
   {
     Random rand = new Random();
+    //Use A* if it can smell you to find shortest distance
     if (this.getSmell())
     {
-      super.calcPath(house);
+      super.calcPath(LevelVar.house);
       super.move();
-    } else
+    }
+    //Walk in a random direction otherwise
+    else
     {
       double nextRand = rand.nextDouble();
       super.setHeading(nextRand * 360);

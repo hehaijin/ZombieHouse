@@ -12,22 +12,22 @@ import zombiehouse.level.zombie.*;
  *
  * ProGen (Procedural-Generation)
  * ProGen is a one-time use 'black box' tool for generating the floor plan of a level
- * 
+ *
  * It is expected to create new ProGen object each time the map needs to be built
  * (for either a 'next' build or a 'rebuild')
- * 
+ *
  *  ProGen will be seeded by a Random held in LevelVars
  *  And ProGen will pass all 'relevant' data to LevelVars for other classes to read
- *  
+ *
  *  package private:
  *  MazeTile[][] scaledHouse - is a 2d array of MazeTiles that holds the entirety of the level
- *  
+ *
  *  final vars:
  *  SCALER - is the width and height for turning a MazeTile into a set of Tiles
  *  NUM_ZONES - the total number of Zones that the level will be divided into
  *              NOTE: it was hoped that the zones could be more 'fluid' than they are
  *              but instead they are set to be the 4 quadrants of the map
- *  
+ *
  *  private:
  *  fullX, fullY - is the "full" width and height of the level
  *                 NOTE: actually is 1-less than, with an outside bounding wall
@@ -37,14 +37,13 @@ import zombiehouse.level.zombie.*;
  *                  components of generation and then it is sent to LevelVar
  *   zoneList - is the list of Zones in the level (indexed by ID)
  *   nextRoom - is assigned to a new Room then incremented (maintains unique IDs)
- *   allRoomList - is a list of all Rooms in the level 
+ *   allRoomList - is a list of all Rooms in the level
  */
 public class ProGen
 {
 
   private static final int SCALER = 4;
   private static final int NUM_ZONES = 4;
-  
   MazeTile[][] scaledHouse;
   private int fullX, fullY;
   private int scaledX, scaledY;
@@ -54,7 +53,6 @@ public class ProGen
   private ArrayList<Room> allRoomList;
   private int nextGenStep = 0;
   private double savePillarChance;
-//  private boolean skipAll = false;
   
   public ProGen()
   {
@@ -69,30 +67,21 @@ public class ProGen
     {
       zoneList[i] = new Zone(i, scaledX / 2, scaledY / 2);
     }
-    allRoomList = new ArrayList<Room>();
+    allRoomList = new ArrayList<>();
     nextRoom = 0;
     assignSquareZones();
-//    if(!LevelVar.HOUSE_PRESENTATION)
-//    {
-//      System.out.println("Setting new house...");
-//      shortCutGen();
-//      findNeighbors();
-//    }
-//    else
-//    {
-      savePillarChance = LevelVar.pillarSpawnChance;
-      LevelVar.WITH_SIGHT = false;
-      LevelVar.pillarSpawnChance = 0.0;
-      LevelVar.SPAWN_MONSTERS = false;
-      if(LevelVar.HOUSE_PRESENTATION)
-      {
-        LevelVar.house = mazeTileToTile();
-      }
-//    }
-      if(!LevelVar.HOUSE_PRESENTATION)
-      {
-        shortCutGen();
-      }
+    savePillarChance = LevelVar.pillarSpawnChance;
+    LevelVar.WITH_SIGHT = false;
+    LevelVar.pillarSpawnChance = 0.0;
+    LevelVar.SPAWN_MONSTERS = false;
+    if(LevelVar.HOUSE_PRESENTATION)
+    {
+      LevelVar.house = mazeTileToTile();
+    }
+    if(!LevelVar.HOUSE_PRESENTATION)
+    {
+      shortCutGen();
+    }
   }
   
   private void assignSquareZones()
@@ -131,10 +120,6 @@ public class ProGen
     }
     if(!LevelVar.HOUSE_PRESENTATION)
     {
-//      for(int i = 0; i < 4; i++)
-//      {
-//        zoneList[i].initializeSubHouse();
-//      }
       shortCutGen();
     }
   }
@@ -229,24 +214,6 @@ public class ProGen
   
   public void shortCutGen()
   {
-////    if(nextGenStep != 0) { return; }
-//    LevelVar.pillarSpawnChance = savePillarChance;
-//    LevelVar.SPAWN_MONSTERS = true;
-//    nextGenStep = 100;
-//    for(int i = 0; i < 4; i++)
-//    {
-//      zoneList[i].initializeSubHouse();
-//      startRoomCarve(i);
-//      fillWithRooms(i);
-//      fillWithCoordoors(i);
-//      hallPathsMin(i);
-//      ensureConnectedZone(i);
-//    }
-//    connectZones();
-//    LevelVar.house = mazeTileToTile();
-//    splitPlayerAndExit();
-    
-//    skipAll = true;
     for(int i = nextGenStep; i < 23; i++)
     {
       nextStep();
@@ -266,9 +233,9 @@ public class ProGen
           {
             if(x == 0 && y == 0 && LevelVar.rand.nextDouble() < LevelVar.pillarSpawnChance)
             {
-              if(Math.random()<LevelVar.bookcasechance)
+              if(Math.random()<LevelVar.bookcaseSpawnChance)
                 fullSizeHouse[i * SCALER + x][j * SCALER + y] = new BookCase(i * SCALER + x, j * SCALER + y, scaledHouse[i][j].zone);
-              else if(Math.random()< LevelVar.tapestrychance)
+              else if(Math.random()< LevelVar.tapestrySpawnChance)
                 fullSizeHouse[i * SCALER + x][j * SCALER + y] = new Tapestry(i * SCALER + x, j * SCALER + y, scaledHouse[i][j].zone);
               else
               fullSizeHouse[i * SCALER + x][j * SCALER + y] = new Wall(i * SCALER + x, j * SCALER + y, scaledHouse[i][j].zone);
@@ -281,9 +248,9 @@ public class ProGen
               }
               else
               {
-                if(Math.random()<LevelVar.bookcasechance)
+                if(Math.random()<LevelVar.bookcaseSpawnChance)
                   fullSizeHouse[i * SCALER + x][j * SCALER + y] = new BookCase(i * SCALER + x, j * SCALER + y, scaledHouse[i][j].zone);
-                else if(Math.random()< LevelVar.tapestrychance)
+                else if(Math.random()< LevelVar.tapestrySpawnChance)
                   fullSizeHouse[i * SCALER + x][j * SCALER + y] = new Tapestry(i * SCALER + x, j * SCALER + y, scaledHouse[i][j].zone);
                 else
                 fullSizeHouse[i * SCALER + x][j * SCALER + y] = new Wall(i * SCALER + x, j * SCALER + y, scaledHouse[i][j].zone );
@@ -298,9 +265,9 @@ public class ProGen
               }
               else
               {
-                if(Math.random()<LevelVar.bookcasechance)
+                if(Math.random()<LevelVar.bookcaseSpawnChance)
                   fullSizeHouse[i * SCALER + x][j * SCALER + y] = new BookCase(i * SCALER + x, j * SCALER + y, scaledHouse[i][j].zone);
-                else if(Math.random()< LevelVar.tapestrychance)
+                else if(Math.random()< LevelVar.tapestrySpawnChance)
                   fullSizeHouse[i * SCALER + x][j * SCALER + y] = new Tapestry(i * SCALER + x, j * SCALER + y, scaledHouse[i][j].zone);
                 else
                 fullSizeHouse[i * SCALER + x][j * SCALER + y] = new Wall(i * SCALER + x, j * SCALER + y, scaledHouse[i][j].zone );
@@ -337,7 +304,6 @@ public class ProGen
   
   private void startRoomCarve(int zone)
   {
-      
     int roomCarveAttempts = 50; // arbitrary upper-bound of attempting to place 'random' rooms
     for(int i = 0; i < roomCarveAttempts; i++)
     {
@@ -357,7 +323,7 @@ public class ProGen
   }
   
   private void fillWithRooms(int zone)
-  { 
+  {
     for(int i = 0; i < zoneList[zone].zoneX; i++)
     {
       for(int j = 0; j < zoneList[zone].zoneY; j++)
@@ -368,7 +334,6 @@ public class ProGen
           {
             if( attemptToPlace(i, j, x, y, zoneList[zone]) )
             {
-
               Room temp = new Room(nextRoom, x, y, i, j, zone);
               allRoomList.add(temp);
               zoneList[zone].rooms.add( temp );
@@ -392,7 +357,7 @@ public class ProGen
         {
           if(!zoneList[zone].subHouse[i][j].allWallsIntact()) { continue; }
           if( attemptToPlace(i, j, len, 1, zoneList[zone]) )
-          { 
+          {
             Room temp = new Room(nextRoom, len, 1, i, j, zone);
             allRoomList.add(temp);
             zoneList[zone].rooms.add( temp );
@@ -401,7 +366,7 @@ public class ProGen
             continue;
           }
           if( attemptToPlace(i, j, 1, len, zoneList[zone]) )
-          { 
+          {
             Room temp = new Room(nextRoom, 1, len, i, j, zone);
             allRoomList.add(temp);
             zoneList[zone].rooms.add( temp );
@@ -425,7 +390,10 @@ public class ProGen
       if( randomDir == Direction.NORTH ) //North seems to work most consistently
       {
         int randX = r.xOffSet + LevelVar.rand.nextInt(r.roomX);
-        if( zoneList[zone].notInZone(randX, r.yOffSet + randomDir.dY) ) { continue; }
+        if(zoneList[zone].notInZone(randX, r.yOffSet + randomDir.dY))
+        {
+          continue;
+        }
         zoneList[zone].subHouse[randX][r.yOffSet].makeExit(randomDir);
         zoneList[zone].subHouse[randX][r.yOffSet + randomDir.dY].makeExit(randomDir.getOppositeDir());
         if(LevelVar.LEVEL_DEBUG_TEXT)
@@ -433,13 +401,19 @@ public class ProGen
           System.out.println("Opened: " + randomDir + " exit in room " + r.roomNumber + " @ [" + randX + "," + r.yOffSet + "]");
         }
         needsExit = false;
-        if(r.alreadyNeighbors( zoneList[zone].subHouse[randX][r.yOffSet + randomDir.dY].room ) ) { continue; }
+        if(r.alreadyNeighbors(zoneList[zone].subHouse[randX][r.yOffSet + randomDir.dY].room))
+        {
+          continue;
+        }
         r.addNeighbor(allRoomList.get(zoneList[zone].subHouse[randX][r.yOffSet + randomDir.dY].room));
       }
       else if( randomDir == Direction.SOUTH )
       {
         int randX = r.xOffSet + LevelVar.rand.nextInt(r.roomX);
-        if( zoneList[zone].notInZone(randX, r.yOffSet + r.roomY - 1 + randomDir.dY) ) { continue; }
+        if( zoneList[zone].notInZone(randX, r.yOffSet + r.roomY - 1 + randomDir.dY) )
+        {
+          continue;
+        }
         zoneList[zone].subHouse[randX][r.yOffSet + r.roomY - 1].makeExit(randomDir);
         zoneList[zone].subHouse[randX][r.yOffSet + r.roomY - 1 + randomDir.dY].makeExit(randomDir.getOppositeDir());
         if(LevelVar.LEVEL_DEBUG_TEXT)
@@ -447,13 +421,19 @@ public class ProGen
           System.out.println("Opened: " + randomDir + " exit in room " + r.roomNumber + " @ [" + randX + "," + (r.yOffSet + r.roomY - 1) + "]");
         }
         needsExit = false;
-        if(r.alreadyNeighbors( zoneList[zone].subHouse[randX][r.yOffSet + r.roomY - 1 + randomDir.dY].room ) ) { continue; }
+        if(r.alreadyNeighbors( zoneList[zone].subHouse[randX][r.yOffSet + r.roomY - 1 + randomDir.dY].room ) )
+        {
+          continue;
+        }
         r.addNeighbor(allRoomList.get(zoneList[zone].subHouse[randX][r.yOffSet + r.roomY - 1 + randomDir.dY].room));
       }
       else if( randomDir == Direction.EAST )
       {
         int randY = r.yOffSet + LevelVar.rand.nextInt(r.roomY);
-        if( zoneList[zone].notInZone(r.xOffSet + r.roomX - 1 + randomDir.dX, randY) ) { continue; }
+        if( zoneList[zone].notInZone(r.xOffSet + r.roomX - 1 + randomDir.dX, randY) )
+        {
+          continue;
+        }
         zoneList[zone].subHouse[r.xOffSet + r.roomX - 1][randY].makeExit(randomDir);
         zoneList[zone].subHouse[r.xOffSet + r.roomX - 1 + randomDir.dX][randY].makeExit(randomDir.getOppositeDir());
         if(LevelVar.LEVEL_DEBUG_TEXT)
@@ -461,13 +441,19 @@ public class ProGen
           System.out.println("Opened: " + randomDir + " exit in room " + r.roomNumber + " @ [" + (r.xOffSet + r.roomX - 1) + "," + randY + "]");
         }
         needsExit = false;
-        if(r.alreadyNeighbors( zoneList[zone].subHouse[r.xOffSet + r.roomX - 1 + randomDir.dX][randY].room ) ) { continue; }
+        if(r.alreadyNeighbors( zoneList[zone].subHouse[r.xOffSet + r.roomX - 1 + randomDir.dX][randY].room ) )
+        {
+          continue;
+        }
         r.addNeighbor(allRoomList.get(zoneList[zone].subHouse[r.xOffSet + r.roomX - 1 + randomDir.dX][randY].room));
       }
       else if( randomDir == Direction.WEST )
       {
         int randY = r.yOffSet + LevelVar.rand.nextInt(r.roomY);
-        if( zoneList[zone].notInZone(r.xOffSet + randomDir.dX, randY) ) { continue; }
+        if( zoneList[zone].notInZone(r.xOffSet + randomDir.dX, randY) )
+        {
+          continue;
+        }
         zoneList[zone].subHouse[r.xOffSet][randY].makeExit(randomDir);
         zoneList[zone].subHouse[r.xOffSet + randomDir.dX][randY].makeExit(randomDir.getOppositeDir());
         if(LevelVar.LEVEL_DEBUG_TEXT)
@@ -475,7 +461,10 @@ public class ProGen
           System.out.println("Opened: " + randomDir + " exit in room " + r.roomNumber + " @ [" + (r.xOffSet) + "," + randY + "]");
         }
         needsExit = false;
-        if(r.alreadyNeighbors( zoneList[zone].subHouse[r.xOffSet + randomDir.dX][randY].room ) ) { continue; }
+        if(r.alreadyNeighbors( zoneList[zone].subHouse[r.xOffSet + randomDir.dX][randY].room ) )
+        {
+          continue;
+        }
         r.addNeighbor(allRoomList.get(zoneList[zone].subHouse[r.xOffSet + randomDir.dX][randY].room));
       }
     }
@@ -537,13 +526,13 @@ public class ProGen
         }
       }
       if(connectedSoFar == connectedRoomsTotal)
-      { 
+      {
         if(LevelVar.LEVEL_DEBUG_TEXT)
         {
           System.out.println("Zone " + zone + " all connected!");
         }
         return; // success
-      } 
+      }
       if( connectedRooms.size() > notConnectedRooms.size() )
       {
         int randVal = LevelVar.rand.nextInt(notConnectedRooms.size());
@@ -582,7 +571,7 @@ public class ProGen
       for(int j = 0; j < height; j++)
       {
         if( i != width - 1) { zone.subHouse[topX + i][topY + j].breakWall(Direction.EAST); }
-        if( i != 0 )        { zone.subHouse[topX + i][topY + j].breakWall(Direction.WEST); } 
+        if( i != 0 )        { zone.subHouse[topX + i][topY + j].breakWall(Direction.WEST); }
         if( j != height - 1){ zone.subHouse[topX + i][topY + j].breakWall(Direction.SOUTH); }
         if( j != 0 )        { zone.subHouse[topX + i][topY + j].breakWall(Direction.NORTH); }
       }
@@ -613,7 +602,7 @@ public class ProGen
   }
   
   private void connectZones()
-  { 
+  {
     int zonePairs = 0;
     while( zonePairs < 3 )
     {
@@ -765,7 +754,7 @@ public class ProGen
           exitNotPlaced = false;
         }
       }
-    }  
+    }
   }
   
   /**
@@ -773,10 +762,10 @@ public class ProGen
    *
    * MazeTile - a structure of ProGen (Attomic size)
    * MazeTile is the second lowest level structure of house generation
-   * When expanded these become 4x4 Tile sets (their make up decided by 
+   * When expanded these become 4x4 Tile sets (their make up decided by
    * the tripped flags)
    * Is the basic 'building block' for house - until player/zombie/exit placement
-   * 
+   *
    * private:
    * zone - is the Zone ID number that this MazeTile is part of
    * room - is the Room ID number that this MazeTile is part of
@@ -807,7 +796,7 @@ public class ProGen
     }
     
     private void setRoom(int val)
-    { 
+    {
       room = val;
       isRoom = allRoomList.get(val).isNormalRoom;
     }
@@ -849,7 +838,6 @@ public class ProGen
         break;
       }
     }
-    
     private boolean allWallsIntact()
     {
       if(northWall && eastWall && southWall && westWall) { return true; }
@@ -857,21 +845,20 @@ public class ProGen
     }
   }
   
-  
   /**
    * @author Rob
    *
    * Zone - a structure of ProGen (Middle size)
    * Used for subdividing the house into 4 quadrents with special specifications
    * Most importantly used as a container class, holding lots of helper values
-   * 
+   *
    * package private:
    * MazeTile[][] subhouse - is the 2d array that holds the MazeTiles of this zone
    *                         like LevelVar.house, but for a small section
-   * 
+   *
    * private:
    * zoneNum - [0,3] directly, and is the index of the zone in the zoneList
-   * zoneX, zoneY - the width and height of the zone (separate in case level 
+   * zoneX, zoneY - the width and height of the zone (separate in case level
    *                incase the code can become more generalized
    * neighboringZones - a simple list of either 1 or 2 zones connected by door
    * rooms - a full list of the Rooms contained in this zone
@@ -938,7 +925,7 @@ public class ProGen
    * Room - a structure of ProGen (Small size)
    * Used for subdividing a Zone into specified rooms/hallways
    * Most importantly used as a container class, holding lots of helper values
-   * 
+   *
    * private:
    * roomNumber - a unique (per generation) ID number for the room
    *              mostly used for test of equality

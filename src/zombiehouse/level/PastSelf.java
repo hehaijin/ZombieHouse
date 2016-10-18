@@ -1,60 +1,64 @@
-/**
- *Zombie class written for ZombieHouse CS351 project that contains
- *the pathfinding and behavior algorithms for the Zombie objects in 
- *the game.
- *@Author Stephen Sagartz
- *@version 1.0
- *@since 2016-03-05 
- */
-
 package zombiehouse.level;
 
 import zombiehouse.graphics.PastSelf3D;
-
 import java.util.ArrayList;
-import java.util.List;
 
 /**
- *Zombie class that contains methods inherited by the sub-classes of Zombie
- *as well as all Zombie variables. 
+ * Past Self class that stores information on the history of the player and
+ * replays it when the player dies
+ *
+ * @author Anton Kuzmin
  */
 public class PastSelf
 {
-
   /**
-   * the direction the Zombie will head in degrees
+   * the direction the past self will head in degrees
    */
   public double heading;
-
-  public int PastSelfID;
+  
   /**
-   * the Zombie's current X coordinate in the ZombieHouse
+   * ID for the past self since there can be multiple
+   */
+  public int PastSelfID;
+  
+  /**
+   * the past self's current X coordinate in the ZombieHouse
    */
   public double positionX;
+  
   /**
-   * the Zombie's current Y coordinate in the ZombieHouse
+   * the past self's current Y coordinate in the ZombieHouse
    */
   public double positionY;
-
-  public int pastSelfID;
-
-  private ArrayList<Double> xPos = new ArrayList<>();
-
-  private ArrayList<Double> yPos = new ArrayList<>();
-
-  private ArrayList<Double> cPos = new ArrayList<>();
-
+  
   /**
-   * The Zombie3D that represents this zombie in a 3D graphical world
+   * List that stores the x-coordinate history of the past self
+   */
+  private ArrayList<Double> xPos = new ArrayList<>();
+  
+  /**
+   * List that stores the y-coordinate history of the past self
+   */
+  private ArrayList<Double> yPos = new ArrayList<>();
+  
+  /**
+   * List that stores the camera position history of the past self
+   */
+  private ArrayList<Double> cPos = new ArrayList<>();
+  
+  /**
+   * The PastSelf3D that represents this past self in a 3D graphical world
    */
   public PastSelf3D pastSelf3D;
-
-  public Integer deathFrame;
-
+  
   /**
-   * Constructs a Zombie object with the specified heading, X coordinate position,
-   * Y coordinate position, and the Tile it is in, preferably as given by its
-   * X and Y coordinates
+   * frame at which the player died
+   */
+  public Integer deathFrame;
+  
+  /**
+   * Constructs a past self object with the specified heading, X coordinate position,
+   * Y coordinate position, and ID
    */
   public PastSelf(double heading, double positionX, double positionY, Integer deathFrame, Integer psID) {
     this.heading = heading;
@@ -64,23 +68,56 @@ public class PastSelf
     this.PastSelfID = psID;
     pastSelf3D = new PastSelf3D();
   }
-
+  
+  /**
+   * Sets the x-position list
+   */
   public void setXPos(ArrayList<Double> xPositions)
   {
     xPos.addAll(xPositions);
   }
-
-  public void setYPos(ArrayList<Double> yPositions) { yPos.addAll(yPositions); }
-
-  public void setCPos(ArrayList<Double> cPositions) { cPos.addAll(cPositions); }
-
-  public ArrayList<Double> getCameraPos() { return cPos; }
-
+  
+  /**
+   * Sets the y-position list
+   */
+  public void setYPos(ArrayList<Double> yPositions)
+  {
+    yPos.addAll(yPositions);
+  }
+  
+  /**
+   * Sets the camera position list
+   */
+  public void setCPos(ArrayList<Double> cPositions)
+  {
+    cPos.addAll(cPositions);
+  }
+  
+  /**
+   * Returns the camera position list
+   *
+   * @return list
+   */
+  public ArrayList<Double> getCameraPos()
+  {
+    return cPos;
+  }
+  
+  /**
+   * Returns the x-position list
+   *
+   * @return list
+   */
   public ArrayList<Double> getXPos()
   {
     return xPos;
   }
-
+  
+  /**
+   * Returns the y-position list
+   *
+   * @return list
+   */
   public ArrayList<Double> getYPos()
   {
     return yPos;

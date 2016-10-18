@@ -1,16 +1,14 @@
 package zombiehouse.level.zombie;
 
 
-import zombiehouse.level.house.*;
-import zombiehouse.common.*;
-
-import static zombiehouse.common.LevelVar.house;
+import zombiehouse.common.LevelVar;
+import zombiehouse.level.house.Tile;
 
 /**
  * MasterZombie class contains the behavior for a
  * MasterZombie
  *
- * @author Stephen Sagartz
+ * @author Stephen Sagartz & Joshua Donckels
  * @since 2016-03-05
  */
 public class MasterZombie extends Zombie
@@ -27,10 +25,10 @@ public class MasterZombie extends Zombie
   {
     super(heading, positionX, positionY, curTile, id, 5, 0, 2);
   }
-
+  
   /**
-   * Updates and sets this Zombie's heading every zombie_Decision_Rate milliseconds
-   * and adjusts the behavior according to the ZombieHouse Project specifications.
+   * Master Zombie finds the shortest path to the player and walks through walls if any
+   * zombie can smell the player.
    */
   @Override
   public void makeDecision()
@@ -47,7 +45,7 @@ public class MasterZombie extends Zombie
     if (canDetectPlayer)
     {
       super.setSmell(true);
-      calcPath(house);
+      calcPath(LevelVar.house);
       super.move();
     }
     else

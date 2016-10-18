@@ -1,57 +1,51 @@
 package zombiehouse.level.house;
 
-import java.util.ArrayList;
-import java.util.Random;
-
-import zombiehouse.level.PastSelf;
-import zombiehouse.level.zombie.*;
 import zombiehouse.common.LevelVar;
 import zombiehouse.common.Player;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  * @author Rob
- *
- * Level is the master class for house generation
- * A single instance of Level should be created in the application and used for generation
- * 
- * Variables that are needed by multiple classes are kept in LevelVar
- * 
- * private final var:
- * MIN_HOUSE_SIZE - is the minimum number of MazeTiles per zone
- *                  NOTE: at 5, you are guaranteed to meet the Room number specification
- * 
- * package private vars:
- * mazeTiles_PerZone - is the current number of MazeTiles per zone (gets larger for each level)
- * houseWidth, houseHeight - is the true width and height of the house (including the outside wall)
- * nextZombie - is the ID number to assign the next Zombie
- * 
- * private vars:
- * firstGen - a boolean flag denoting if this is the very first level
- * rSeed - stores the random seed that was used to generate the last level - used if player dies
- * pG is the current ProGen - isn't currently used beyond its constructor and set-up (but could be)
+ *         <p>
+ *         Level is the master class for house generation
+ *         A single instance of Level should be created in the application and used for generation
+ *         <p>
+ *         Variables that are needed by multiple classes are kept in LevelVar
+ *         <p>
+ *         private final var:
+ *         MIN_HOUSE_SIZE - is the minimum number of MazeTiles per zone
+ *         NOTE: at 5, you are guaranteed to meet the Room number specification
+ *         <p>
+ *         package private vars:
+ *         mazeTiles_PerZone - is the current number of MazeTiles per zone (gets larger for each level)
+ *         houseWidth, houseHeight - is the true width and height of the house (including the outside wall)
+ *         nextZombie - is the ID number to assign the next Zombie
+ *         <p>
+ *         private vars:
+ *         firstGen - a boolean flag denoting if this is the very first level
+ *         rSeed - stores the random seed that was used to generate the last level - used if player dies
+ *         pG is the current ProGen - isn't currently used beyond its constructor and set-up (but could be)
  */
 public class Level
 {
   private static final int MIN_HOUSE_SIZE = 4;
   
-  static int mazeTilesXPerZone = MIN_HOUSE_SIZE ; // getting bigger house each level
-  static int mazeTilesYPerZone = MIN_HOUSE_SIZE ; // also only assumes 4 quartered zones
-  
+  static int mazeTilesXPerZone = MIN_HOUSE_SIZE; // getting bigger house each level
+  static int mazeTilesYPerZone = MIN_HOUSE_SIZE; // also only assumes 4 quartered zones
   static int houseWidth = mazeTilesXPerZone * 2 * 4 + 1;
   static int houseHeight = mazeTilesXPerZone * 2 * 4 + 1;
   static int nextZombie = 0;
-  
   private static boolean firstGen;
-  
   private static long rSeed;
-  
   private static ProGen pG;
   
   /**
    * Level constructor
-   * 
+   * <p>
    * Does very little - initializes the Random obj that all generation will use
-   *                    and sets firstGen flag = true
+   * and sets firstGen flag = true
    */
   public Level()
   {
@@ -67,9 +61,11 @@ public class Level
    */
   public void nextLevel()
   {
-    if(firstGen) { firstGen = false; }
-    else 
-    { 
+    if (firstGen)
+    {
+      firstGen = false;
+    } else
+    {
       upDificulty();
       playerLevelUp();
     }
@@ -87,7 +83,10 @@ public class Level
     rSeed = LevelVar.rand.nextLong();
     LevelVar.rand = new Random(rSeed);
     pG = new ProGen();
-    if(LevelVar.LEVEL_DEBUG_TEXT) { printHouse(); }
+    if (LevelVar.LEVEL_DEBUG_TEXT)
+    {
+      printHouse();
+    }
   }
   
   /**
@@ -102,7 +101,10 @@ public class Level
     LevelVar.zombieCollection = new ArrayList<>();
     LevelVar.rand.setSeed(rSeed);
     pG = new ProGen();
-    if(LevelVar.LEVEL_DEBUG_TEXT) { printHouse(); }
+    if (LevelVar.LEVEL_DEBUG_TEXT)
+    {
+      printHouse();
+    }
   }
   
   /**
@@ -110,8 +112,8 @@ public class Level
    * (pillars can only spawn in preset areas, and are an obsical to movement and sight)
    * and the house gets a bit bigger between levels
    * levelNum also allows for bigger room sizes:
-   *    - starts at (2-3) x (2-3)
-   *    - the max increases every other level
+   * - starts at (2-3) x (2-3)
+   * - the max increases every other level
    */
   private void upDificulty()
   {
@@ -140,11 +142,11 @@ public class Level
   private void printHouse()
   {
     StringBuilder print = new StringBuilder();
-    for( int i = 0; i < houseWidth; i++ )
+    for (int i = 0; i < houseWidth; i++)
     {
-      for( int j = 0; j < houseHeight; j++)
+      for (int j = 0; j < houseHeight; j++)
       {
-        print.append( LevelVar.house[j][i].getChar());
+        print.append(LevelVar.house[j][i].getChar());
       }
       print.append("\n");
     }
@@ -157,9 +159,9 @@ public class Level
    */
   public void checkSight()
   {
-    for(int i = 0; i < houseWidth; i++)
+    for (int i = 0; i < houseWidth; i++)
     {
-      for(int j = 0; j < houseHeight; j++)
+      for (int j = 0; j < houseHeight; j++)
       {
         LevelVar.house[i][j].isSeen();
       }

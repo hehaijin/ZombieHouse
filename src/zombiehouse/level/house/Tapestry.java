@@ -1,46 +1,31 @@
 package zombiehouse.level.house;
 
-/**
- * Created by Haijin on 10/13/2016.
- *a class for tapestry.
- */
-
-
 import javafx.scene.paint.Color;
-import zombiehouse.common.LevelVar;
 
+/**
+ * A class for tapestry.
+ *
+ * @author Haijin He
+ */
 public class Tapestry extends Wall
 {
-
-  /**
-   * constructor
-   * @param xCor
-   * @param yCor
-   * @param zone
-   */
   public Tapestry(int xCor, int yCor, int zone)
   {
     super(xCor, yCor, zone);
   }
-
+  
   /**
    * For printHouse method in Level class
-   * @return
+   *
+   * @return character to represent tapestry
    */
   public char getChar()
   {
     return '^';
   }
-
-
-
+  
   public Color getColor()
   {
     return null;
   }
-
-
-
-
 }
-

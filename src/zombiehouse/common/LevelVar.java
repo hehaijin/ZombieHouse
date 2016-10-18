@@ -2,17 +2,17 @@ package zombiehouse.common;
 
 import zombiehouse.level.PastSelf;
 import zombiehouse.level.house.Tile;
+import zombiehouse.level.zombie.Zombie;
 import java.util.ArrayList;
 import java.util.Random;
-import zombiehouse.level.zombie.Zombie;
 
 /**
  * @author Rob
- *
- * Container class - no methods
- * 
- * Values here are meant to be accessed by a variety of elements
- * and the bottom flags are for changing game play / terminal prints
+ *         <p>
+ *         Container class - no methods
+ *         <p>
+ *         Values here are meant to be accessed by a variety of elements
+ *         and the bottom flags are for changing game play / terminal prints
  */
 public class LevelVar
 {
@@ -29,29 +29,29 @@ public class LevelVar
    * initialized by Level and filled by ProGen
    */
   public static ArrayList<Zombie> zombieCollection;
-
+  
   /**
    * Contains a list of zombies that were engages to past past self's, and this
    * helps with updating the most recent engaged zombies positions to follow.
    */
   public static ArrayList<Zombie> pastZombieCollection;
-
+  
   /**
    * List of all the zombies that were engaged with one or more past self's.
    */
   public static ArrayList<Zombie> interactedWithZombieCollection;
-
+  
   /**
    * List that contains all the pastSelf's that have been added. At most this will
    * contain three past self's.
    */
   public static ArrayList<PastSelf> pastSelfCollection;
-
+  
   /**
-   *List to hold the zombies that were spawned through bifurcation.
+   * List to hold the zombies that were spawned through bifurcation.
    */
   public static ArrayList<Zombie> bifurcatedCollection;
-
+  
   /**
    * Is the single instance of Random used by all of level generation
    * (It's seed is saved in level as it is not as public a variable)
@@ -63,21 +63,21 @@ public class LevelVar
    * is used in level generation to increase dificulty
    */
   public static int levelNum = 0;
-
+  
   /**
    * This is the spawnMax for zombies for the currentLevel, will go up by 5.
    * First level 15
    * Second Level 20
    * so on.
    */
-  public static double spawnMax= 10;
-
+  public static double spawnMax = 10;
+  
   /**
    * This is the modifier for the masterZombie speed, so it will always move x2 quicker than all
    * the other zombies.
    */
   public static final double masterZombieSpeedModifier = 2;
-
+  
   /**
    * This is the percent chance that a tile will spawn a zombie, this goes up every level by 0.02.
    * The spawn amount is still limited by spawnMax
@@ -86,7 +86,7 @@ public class LevelVar
   
   /**
    * This is the (percent) chance to spawn a pillar at each 'opening'
-   * (Not a hugely 'public' scope variable, but was trying to contain all 
+   * (Not a hugely 'public' scope variable, but was trying to contain all
    * level progression elements in LevelVar)
    */
   public static double pillarSpawnChance = 0.2;
@@ -126,11 +126,23 @@ public class LevelVar
    */
   public static double zombieSpeed = 0.5;
   
+  /**
+   * Show the 3-D model
+   */
   public static boolean zombie3D;
   
+  /**
+   * Show the house
+   */
   public static boolean HOUSE_PRESENTATION = false;
-
-  public static double bookcasechance=0.10; //controls the chance of bookcase spawn relative to wall.
-
-  public static double tapestrychance=0.20; // the chance of tapestry spawn relative to wall.
+  
+  /**
+   * Controls the chance of bookcase spawn relative to wall.
+   */
+  public static double bookcaseSpawnChance = 0.10;
+  
+  /**
+   * Controls the chance of tapestry spawn relative to wall.
+   */
+  public static double tapestrySpawnChance = 0.20;
 }

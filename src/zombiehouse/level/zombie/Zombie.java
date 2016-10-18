@@ -1,22 +1,21 @@
+package zombiehouse.level.zombie;
+
+import zombiehouse.common.LevelVar;
+import zombiehouse.common.Player;
+import zombiehouse.graphics.Zombie3D;
+import zombiehouse.level.house.Tile;
+import zombiehouse.level.house.Wall;
+import java.util.*;
+
 /**
  * Zombie class written for ZombieHouse CS351 project that contains
- * the pathfinding and behavior algorithms for the Zombie objects in
+ * the A* path finding and behavior algorithms for the Zombie objects in
  * the game.
  *
- * @Author Stephen Sagartz
+ * @Author Stephen Sagartz & Anton Kuzmin
  * @version 1.0
  * @since 2016-03-05
  */
-
-package zombiehouse.level.zombie;
-
-import java.awt.*;
-import java.util.*;
-import java.util.List;
-
-import zombiehouse.level.house.*;
-import zombiehouse.common.*;
-import zombiehouse.graphics.Zombie3D;
 
 /**
  * Zombie class that contains methods inherited by the sub-classes of Zombie
@@ -31,52 +30,77 @@ public class Zombie
    * 2:Master zombie
    */
   public int type;
-
+  
+  /**
+   * if zombie is added to the scene
+   */
   public boolean isAddedToScene = false;
+  
   /**
    * the number of Tiles a Zombie can traverse over 1 second
    */
   private double zombie_Speed = 1;
+  
   /**
    * the amount of time between Zombie heading updates
    */
   private static long zombie_Decision_Rate = 2000;
+  
   /**
    * the number of Tiles away that a Zombie can smell
    */
   private int zombie_Smell = 14;
-
+  
+  /**
+   * Frame at which A* starts working
+   */
   public int aStarFrame = -1;
-
+  
   /**
    * whether or not a Zombie has scent of the Player
    */
   private boolean canSmell = false;
+  
   /**
    * whether or not a Zombie has collided with an Object
    */
   private boolean collided = false;
-
+  
+  /**
+   * whether or not this zombie interacted with the past self
+   */
   public boolean interactedWithPS = false;
-
+  
+  /**
+   * whether or not this zombie dies to the past self
+   */
   public boolean diesToPastSelf = false;
-
-  public int bifrocatedFrame = 0;
-
+  
+  /**
+   * frame at which the zombie bifurcated
+   */
+  public int bifurcatedFrame = 0;
+  
+  /**
+   * the position at which the zombie bifurcated
+   */
   public int positionForBifurcated = 0;
+  
   /**
    * this Zombie's ID number
    */
   public int zombieID;
+  
   /**
    * array of Tiles that lead to the Player
    */
   private LinkedList<Tile> path = new LinkedList<>();
-
+  
   /**
    * a queue to hold Tiles that search for the Player for scent detection
    */
   private Queue<Tile> bfsQueue = new LinkedList<>();
+  
   /**
    * a priority queue that holds Tiles examined while finding Zombie's path to
    * Player
@@ -84,7 +108,7 @@ public class Zombie
   private PriorityQueue<Tile> searchQueue = new PriorityQueue<>(1,
           new Comparator<Tile>()
           {
-
+            
             public int compare(Tile one, Tile two)
             {
               if (one.cost > two.cost)
@@ -102,36 +126,62 @@ public class Zombie
    * the direction the Zombie will head in degrees
    */
   private double heading;
+  
   /**
    * the Zombie's current X coordinate in the ZombieHouse
    */
   public double positionX;
+  
   /**
    * the Zombie's current Y coordinate in the ZombieHouse
    */
   public double positionY;
+  
   /**
    * the Tile the Zombie is currently in inside the ZombieHouse
    */
   public Tile curTile;
-
+  
   /**
    * The Zombie3D that represents this zombie in a 3D graphical world
    */
   public Zombie3D zombie3D;
-
+  
+  /**
+   * health points of the zombie
+   */
   private int life;
-
+  
+  /**
+   * frame at which the zombie died
+   */
   private int deathFrame;
-
+  
+  /**
+   * frame at which the zombie spawns when bifurcated
+   */
   private int bifurcatedZombieSpawnFrame = 0;
-
+  
+  /**
+   * last time the zombie was updated
+   */
   private long lastTimeUpdated = 0;
-
+  
+  /**
+   * history of x-positions of the zombie that is used for the past self
+   */
   private ArrayList<Double> xPos = new ArrayList<>();
+  
+  /**
+   * history of y-positions of the zombie that is used for the past self
+   */
   private ArrayList<Double> yPos = new ArrayList<>();
+  
+  /**
+   * history of camera positions of the zombie that is used for the past self
+   */
   private ArrayList<Double> cameraPos = new ArrayList<>();
-
+  
   /**
    * Constructs a Zombie object with the specified heading, X coordinate position,
    * Y coordinate position, and the Tile it is in, preferably as given by its
@@ -153,83 +203,147 @@ public class Zombie
       zombie3D = new Zombie3D(type);
     }
   }
-
+  
+  /**
+   * Get health points of zombie
+   *
+   * @return health points
+   */
   public int getLife()
   {
     return life;
   }
-
+  
+  /**
+   * Set the health points of the zombie
+   *
+   * @param lifeLeft health points
+   */
   public void setLife(int lifeLeft)
   {
     life = lifeLeft;
   }
-
+  
+  /**
+   * Get the frame at which zombie died
+   *
+   * @return frame
+   */
   public int getDeathFrame()
   {
     return deathFrame;
   }
-
+  
+  /**
+   * Set the frame at which zombie died
+   *
+   * @param frameOfDeath frame of death
+   */
   public void setDeathFrame(int frameOfDeath)
   {
     deathFrame = frameOfDeath;
   }
-
+  
+  /**
+   * Add x position to the history of the zombie when past self spawns
+   *
+   * @param xPosition
+   */
   public void addXPos(double xPosition)
   {
     xPos.add(xPosition);
   }
-
+  
+  /**
+   * Add y position to the history of the zombie when past self spawns
+   *
+   * @param yPosition
+   */
   public void addYPos(double yPosition)
   {
     yPos.add(yPosition);
   }
-
+  
+  /**
+   * Add camera position to the history of the zombie when past self spawns
+   *
+   * @param cPosition
+   */
   public void addCPos(double cPosition)
   {
     cameraPos.add(cPosition);
   }
-
+  
+  /**
+   * Get the camera position from the zombie's history
+   *
+   * @return camera angle
+   */
   public ArrayList<Double> getCameraPos()
   {
     return cameraPos;
   }
-
+  
+  /**
+   * Get the x position from the zombie's history
+   *
+   * @return x position
+   */
   public ArrayList<Double> getXPos()
   {
     return xPos;
   }
-
+  
+  /**
+   * Get the y position from the zombie's history
+   *
+   * @return y position
+   */
   public ArrayList<Double> getYPos()
   {
     return yPos;
   }
-
+  
+  /**
+   * Get the frame at which the zombie bifurcated
+   *
+   * @return frame
+   */
   public int getBifurcatedSpawnFrame()
   {
     return bifurcatedZombieSpawnFrame;
   }
-
+  
+  /**
+   * Set the frame at which the zombie bifurcated
+   *
+   * @param frame bifurcation frame
+   */
   public void setBifurcatedSpawnFrame(int frame)
   {
     bifurcatedZombieSpawnFrame = frame;
   }
-
-  public LinkedList<Tile> getPath()
-  {
-    return path;
-  }
-
+  
+  /**
+   * Get the last time updated
+   *
+   * @return time updated
+   */
   public long getLastTimeUpdated()
   {
     return lastTimeUpdated;
   }
-
+  
+  /**
+   * Set the last time updated
+   *
+   * @param time time updated
+   */
   public void setLastTimeUpdated(long time)
   {
     lastTimeUpdated = time;
   }
-
-
+  
   /**
    * @return the Zombie class' zombie_Smell
    */
@@ -237,7 +351,7 @@ public class Zombie
   {
     return this.zombie_Smell;
   }
-
+  
   /**
    * @return the Zombie class' zombie_Decision_Rate
    */
@@ -245,16 +359,15 @@ public class Zombie
   {
     return zombie_Decision_Rate;
   }
-
+  
   /**
    * Sets this Zombie object's collided value to value
    */
   public void setCollided(boolean value)
   {
-    //System.out.println("Set Collided to " + value);
     this.collided = value;
   }
-
+  
   /**
    * @return this Zombie's collided value
    */
@@ -262,7 +375,7 @@ public class Zombie
   {
     return this.collided;
   }
-
+  
   /**
    * Sets this Zombie's canSmell value to value
    */
@@ -270,7 +383,7 @@ public class Zombie
   {
     this.canSmell = value;
   }
-
+  
   /**
    * @return this Zombie's canSmell value
    */
@@ -278,23 +391,7 @@ public class Zombie
   {
     return this.canSmell;
   }
-
-  /**
-   * @return this Zombie's curTile parameter
-   */
-  public Tile getPosition()
-  {
-    return curTile;
-  }
-
-  /**
-   * Sets the Zombie's Tile parameter to tile
-   */
-  public void setPosition(Tile tile)
-  {
-    this.curTile = tile;
-  }
-
+  
   /**
    * @return this Zombie's heading parameter
    */
@@ -302,7 +399,7 @@ public class Zombie
   {
     return this.heading;
   }
-
+  
   /**
    * Sets this Zombie's heading parameter to heading
    */
@@ -310,7 +407,7 @@ public class Zombie
   {
     this.heading = heading;
   }
-
+  
   /**
    * Sets this Zombie's X coordinate to posX
    */
@@ -318,7 +415,7 @@ public class Zombie
   {
     this.positionX = posX;
   }
-
+  
   /**
    * Sets this Zombie's Y coordinate to posY
    */
@@ -326,7 +423,7 @@ public class Zombie
   {
     this.positionY = posY;
   }
-
+  
   /**
    * round method borrowed from Max's MainApplication class
    */
@@ -335,12 +432,13 @@ public class Zombie
     if (toRound - ((int) toRound) < 0.5)
     {
       return (int) toRound;
-    } else
+    }
+    else
     {
       return (int) toRound + 1;
     }
   }
-
+  
   /**
    * Sets the X and Y coordinates of this Zombie to the position
    * altered by a factor of zombie_Speed and by the heading of the Zombie
@@ -349,8 +447,9 @@ public class Zombie
    */
   public void move()
   {
-    if(!collided)
+    if (!collided)
     {
+      //Use A* path to player
       if (path.size() > 1)
       {
         makeHeading();
@@ -362,7 +461,8 @@ public class Zombie
       {
         moveX = (Math.cos(Math.toRadians(heading)) * (zombie_Speed * LevelVar.masterZombieSpeedModifier)) * step;
         moveY = (Math.sin(Math.toRadians(heading)) * (zombie_Speed * LevelVar.masterZombieSpeedModifier)) * step;
-      } else
+      }
+      else
       {
         moveX = (Math.cos(Math.toRadians(heading)) * zombie_Speed) * step;
         moveY = (Math.sin(Math.toRadians(heading)) * zombie_Speed) * step;
@@ -370,54 +470,63 @@ public class Zombie
       collide(moveX, moveY);
       if (path.size() > 1)
       {
-        //System.out.println(zombieID + " : " + heading);
         if (heading == 270)
         {
           positionY -= 0.045;
-        } else if (heading == 180)
+        }
+        else if (heading == 180)
         {
           positionX -= 0.045;
-        } else if (heading == 90)
+        }
+        else if (heading == 90)
         {
           positionY += 0.045;
-        } else if (heading == 0)
+        }
+        else if (heading == 0)
         {
           positionX += 0.045;
         }
-      } else
+      }
+      else
       {
-        if (positionX > 0 && positionX <= LevelVar.house[0].length && positionY > 0 && positionY <= LevelVar.house.length && !getCollide())
+        if (positionX > 0 && positionX <= LevelVar.house[0].length && positionY > 0 &&
+                positionY <= LevelVar.house.length && !getCollide())
         {
-
-            positionX += moveX;
-            positionY += moveY;
-            curTile = LevelVar.house[(int) positionX][(int) positionY];
-          } else if (getCollide())
-          {
-            positionX -= (moveX + 0.035);
-            positionY -= (moveY + 0.035);
-          } else
-          {
-            positionX += 0.0;
-            positionY += 0.0;
+          positionX += moveX;
+          positionY += moveY;
+          curTile = LevelVar.house[(int) positionX][(int) positionY];
+        }
+        //Avoid wall and zombie collision
+        else if (getCollide())
+        {
+          positionX -= (moveX + 0.035);
+          positionY -= (moveY + 0.035);
+        }
+        //Avoid wall and zombie collision
+        else
+        {
+          positionX += 0.0;
+          positionY += 0.0;
         }
       }
-    } else {
+    }
+    //Avoid wall and zombie collision
+    else
+    {
       positionX -= 0.035;
-      positionY -=  0.035;
+      positionY -= 0.035;
     }
   }
-
+  
   /**
    * Calculates whether the Zombie has collided with an object
    * and sets the Zombie's collided value accordingly
-   *
-   * @return true if the Zombie has collided and false if the Zombie has not
    */
   public void collide(double desiredX, double desiredY)
   {
     setCollided(false);
-
+    
+    //Zombie collision
     for (Zombie z : LevelVar.zombieCollection)
     {
       if (z.positionX != this.positionX && z.positionY != this.positionY)
@@ -430,7 +539,8 @@ public class Zombie
         }
       }
     }
-
+  
+    //Wall collision
     double desiredPositionX = desiredX + positionX;
     double desiredPositionY = desiredY + positionY;
     double WALL_COLLISION_OFFSET = 0.25;
@@ -438,14 +548,16 @@ public class Zombie
             (LevelVar.house[round(desiredPositionX - WALL_COLLISION_OFFSET)][round(positionY)] instanceof Wall) ||
             (LevelVar.house[round(positionX)][round(desiredPositionY + WALL_COLLISION_OFFSET)] instanceof Wall) ||
             (LevelVar.house[round(positionX)][round(desiredPositionY - WALL_COLLISION_OFFSET)] instanceof Wall) ||
-            (LevelVar.house[round(desiredPositionX + WALL_COLLISION_OFFSET)][round(desiredPositionY + WALL_COLLISION_OFFSET)] instanceof Wall) ||
-            (LevelVar.house[round(desiredPositionX - WALL_COLLISION_OFFSET)][round(desiredPositionY - WALL_COLLISION_OFFSET)] instanceof Wall) ||
+            (LevelVar.house[round(desiredPositionX + WALL_COLLISION_OFFSET)][round(desiredPositionY +
+                    WALL_COLLISION_OFFSET)] instanceof Wall) ||
+            (LevelVar.house[round(desiredPositionX - WALL_COLLISION_OFFSET)][round(desiredPositionY -
+                    WALL_COLLISION_OFFSET)] instanceof Wall) ||
             (LevelVar.house[round(positionX)][round(positionY)] instanceof Wall))
     {
       setCollided(true);
     }
   }
-
+  
   /**
    * Tests to see if this Zombie can smell the player
    *
@@ -460,7 +572,7 @@ public class Zombie
     boolean increaseDepth = false;
     ArrayList<Tile> visitedTiles = new ArrayList<>();
     Tile destTile = LevelVar.house[(int) Player.xPosition][(int) Player.yPosition];
-
+    
     this.bfsQueue.clear();
     this.bfsQueue.add(this.curTile);
     numTillDepthIncrease++;
@@ -512,16 +624,21 @@ public class Zombie
     }
     return false;
   }
-
-
+  
+  /**
+   * A* path calculations adopted from:
+   * http://www.redblobgames.com/pathfinding/a-star/introduction.html
+   *
+   * @param house
+   */
   public void calcPath(Tile[][] house)
   {
     Tile destTile = house[(int) Player.xPosition][(int) Player.yPosition];
     curTile = house[(int) positionX][(int) positionY];
-
+    
     searchQueue.clear();
     path.clear();
-
+    
     Tile lastTile = null;
     curTile.setCost(0);
     searchQueue.add(curTile);
@@ -529,18 +646,18 @@ public class Zombie
     LinkedHashMap<Tile, Integer> cost_so_far = new LinkedHashMap<>();
     came_from.put(curTile, null);
     cost_so_far.put(curTile, 0);
-
+    
     while (searchQueue.size() > 0)
     {
       Tile currentTile = searchQueue.poll();
-
+      
       if (currentTile.xCor == destTile.xCor && currentTile.yCor == destTile.yCor)
       {
         lastTile = currentTile;
         reconstructPath(came_from, destTile);
         break;
       }
-
+      
       List<Tile> neighbors = currentTile.getNeighbors();
       for (Tile neighbor : neighbors)
       {
@@ -561,15 +678,27 @@ public class Zombie
       return;
     }
   }
-
+  
+  /**
+   * Heuristic for A*
+   *
+   * @return distance
+   */
   private int distance()
   {
     int xCor = curTile.xCor;
     int yCor = curTile.yCor;
-    int distance = ((int) Math.sqrt((xCor - ((int) Player.xPosition)) * (xCor - ((int) Player.xPosition)) + ((yCor - ((int) Player.yPosition)) * (yCor - ((int) Player.yPosition)))));
+    int distance = ((int) Math.sqrt((xCor - ((int) Player.xPosition)) * (xCor - ((int) Player.xPosition)) + ((yCor -
+            ((int) Player.yPosition)) * (yCor - ((int) Player.yPosition)))));
     return distance;
   }
-
+  
+  /**
+   * Reconstruct the path from A* and store it in path
+   *
+   * @param came_from hash map of the path
+   * @param finish    end tile which is the player's tile
+   */
   private void reconstructPath(LinkedHashMap<Tile, Tile> came_from, Tile finish)
   {
     Tile currentTile = finish;
@@ -579,7 +708,10 @@ public class Zombie
       currentTile = came_from.get(currentTile);
     }
   }
-
+  
+  /**
+   * Used to test if the path was being calculated correctly
+   */
   public void printPath()
   {
     for (Tile t : path)
@@ -589,7 +721,7 @@ public class Zombie
     System.out.println();
     System.out.println("Player:" + Player.xPosition + "," + Player.yPosition);
   }
-
+  
   /**
    * Used to tell the Zombie where to go once using the A* path obtained
    * from calcPath()
@@ -598,35 +730,37 @@ public class Zombie
   {
     Tile destTile = path.get(0);
     curTile = LevelVar.house[(int) positionX][(int) positionY];
-
+    
     if (destTile.xCor == curTile.xCor
             && destTile.yCor == curTile.yCor)
     {
       path.removeFirst();
       destTile = path.get(0);
     }
-
+    
     if (destTile.xCor > curTile.xCor)
     {
       setHeading(0.0);
       positionX += 0.01;
-    } else if (destTile.xCor < curTile.xCor)
+    }
+    else if (destTile.xCor < curTile.xCor)
     {
       setHeading(180.0);
       positionX -= 0.01;
     }
-
+    
     if (destTile.yCor > curTile.yCor)
     {
       setHeading(90.0);
       positionY += 0.01;
-    } else if (destTile.yCor < curTile.yCor)
+    }
+    else if (destTile.yCor < curTile.yCor)
     {
       setHeading(270.0);
       positionY -= 0.01;
     }
   }
-
+  
   /**
    * An abstract method inherited and implements by all sub-classes
    * of Zombie
