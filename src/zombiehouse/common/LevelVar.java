@@ -30,12 +30,26 @@ public class LevelVar
    */
   public static ArrayList<Zombie> zombieCollection;
 
+  /**
+   * Contains a list of zombies that were engages to past past self's, and this
+   * helps with updating the most recent engaged zombies positions to follow.
+   */
   public static ArrayList<Zombie> pastZombieCollection;
 
+  /**
+   * List of all the zombies that were engaged with one or more past self's.
+   */
   public static ArrayList<Zombie> interactedWithZombieCollection;
 
+  /**
+   * List that contains all the pastSelf's that have been added. At most this will
+   * contain three past self's.
+   */
   public static ArrayList<PastSelf> pastSelfCollection;
 
+  /**
+   *List to hold the zombies that were spawned through bifurcation.
+   */
   public static ArrayList<Zombie> bifurcatedCollection;
 
   /**
@@ -51,14 +65,23 @@ public class LevelVar
   public static int levelNum = 0;
 
   /**
-   * This is the incremental Zombie spawn modifier
-   * Note: at final level (levelNum = 4) there will be a 2% chance to spawn
-   *       which is the 2x the chance of the first level (and makes for a challenging density)
+   * This is the spawnMax for zombies for the currentLevel, will go up by 5.
+   * First level 15
+   * Second Level 20
+   * so on.
    */
   public static double spawnMax= 10;
 
+  /**
+   * This is the modifier for the masterZombie speed, so it will always move x2 quicker than all
+   * the other zombies.
+   */
   public static final double masterZombieSpeedModifier = 2;
 
+  /**
+   * This is the percent chance that a tile will spawn a zombie, this goes up every level by 0.02.
+   * The spawn amount is still limited by spawnMax
+   */
   public static double spawnRate = 0.03;
   
   /**
@@ -78,7 +101,7 @@ public class LevelVar
    * A debugging flag
    * When true, will spawn the MasterZombie regardless of spawnMonsters flag
    */
-  public static final boolean SPAWN_MASTER = false;
+  public static final boolean SPAWN_MASTER = true;
   
   /**
    * A 2d animation flag.

@@ -373,16 +373,16 @@ public class Zombie
         //System.out.println(zombieID + " : " + heading);
         if (heading == 270)
         {
-          positionY -= 0.04;
+          positionY -= 0.045;
         } else if (heading == 180)
         {
-          positionX -= 0.04;
+          positionX -= 0.045;
         } else if (heading == 90)
         {
-          positionY += 0.04;
+          positionY += 0.045;
         } else if (heading == 0)
         {
-          positionX += 0.04;
+          positionX += 0.045;
         }
       } else
       {
@@ -394,8 +394,8 @@ public class Zombie
             curTile = LevelVar.house[(int) positionX][(int) positionY];
           } else if (getCollide())
           {
-            positionX -= (moveX + 0.04);
-            positionY -= (moveY + 0.04);
+            positionX -= (moveX + 0.035);
+            positionY -= (moveY + 0.035);
           } else
           {
             positionX += 0.0;
@@ -403,8 +403,8 @@ public class Zombie
         }
       }
     } else {
-      positionX -= ( 0.04);
-      positionY -=  (0.04);
+      positionX -= 0.035;
+      positionY -=  0.035;
     }
   }
 
@@ -557,7 +557,6 @@ public class Zombie
     }
     if (lastTile == null)
     {
-      //System.out.println("error");
       path.clear();
       return;
     }
@@ -600,10 +599,6 @@ public class Zombie
     Tile destTile = path.get(0);
     curTile = LevelVar.house[(int) positionX][(int) positionY];
 
-    if (destTile instanceof Wall)
-    {
-      System.out.println("why do you suck");
-    }
     if (destTile.xCor == curTile.xCor
             && destTile.yCor == curTile.yCor)
     {

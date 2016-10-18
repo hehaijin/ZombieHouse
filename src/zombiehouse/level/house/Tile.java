@@ -42,10 +42,10 @@ public class Tile
   
   public void setNeighbors(Tile[][] house)
   {
-    if(xCor+1 < house.length && house[xCor+1][yCor] instanceof Floor)     neighbors.add(house[xCor+1][yCor]);
-    if(yCor+1 < house[0].length && house[xCor][yCor+1] instanceof Floor)  neighbors.add(house[xCor][yCor+1]);
-    if(yCor-1 >= 0 && house[xCor][yCor-1] instanceof Floor)               neighbors.add(house[xCor][yCor-1]);
-    if(xCor-1 >= 0 && house[xCor-1][yCor] instanceof Floor)               neighbors.add(house[xCor-1][yCor]);
+    if(xCor+1 < house.length && house[xCor+1][yCor] instanceof Floor && !(house[xCor+1][yCor] instanceof Wall))     neighbors.add(house[xCor+1][yCor]);
+    if(yCor+1 < house[0].length && house[xCor][yCor+1] instanceof Floor && !(house[xCor][yCor+1] instanceof Wall))  neighbors.add(house[xCor][yCor+1]);
+    if(yCor-1 >= 0 && house[xCor][yCor-1] instanceof Floor && !(house[xCor][yCor-1] instanceof Wall))               neighbors.add(house[xCor][yCor-1]);
+    if(xCor-1 >= 0 && house[xCor-1][yCor] instanceof Floor && !(house[xCor-1][yCor] instanceof Wall))               neighbors.add(house[xCor-1][yCor]);
   }
   
   public void addNeighbor(Tile nextTile) { neighbors.add(nextTile); }
